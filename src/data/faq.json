@@ -1,0 +1,17 @@
+[
+  { 
+    "id": 1,
+    "title": "What technologies do you use?", 
+    "content": "I specialize in React, TypeScript, and modern CSS frameworks. My backend stack typically includes Node.js and PostgreSQL." 
+  },
+  { 
+    "id": 2,
+    "title": "Are you available for freelance work?", 
+    "content": "Yes, I am currently accepting new projects and collaborations. Feel free to reach out via the contact form." 
+  },
+  {
+    "id": 3,
+    "title": "How do you handle project management?",
+    "content": "I use Agile methodologies, maintaining transparency through regular updates and clear communication channels."
+  }
+]

@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  /* Supabase Inspired Palette (Orange Edition) */
+  --color-accent-orange: #ff4532;
+  --color-accent-orange-hover: #ff6300;
+  
+  --color-bg-light: #ffffff;
+  --color-bg-dark: #09090b; /* Softer Zinc-950 black */
+  --color-bg-dark-soft: #18181b; /* Zinc-900 */
+  
+  --color-border-light: #e5e7eb;
+  --color-border-dark: #27272a; /* Zinc-800 */
+  
+  --color-text-light-primary: #111827;
+  --color-text-light-secondary: #6b7280;
+  --color-text-dark-primary: #fafafa; /* Zinc-50 */
+  --color-text-dark-secondary: #a1a1aa; /* Zinc-400 */
+
+  --shadow-soft: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-premium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  
+  --radius-supabase: 6px;
+  
+  /* Dual Sidebar Layout */
+  --sidebar-narrow-width: 64px;
+  --sidebar-wide-width: 240px;
+  --sidebar-total-width: calc(var(--sidebar-narrow-width) + var(--sidebar-wide-width));
+  --topbar-height: 64px;
+
+  --animate-fade-in: fade-in 0.6s ease-out forwards;
+  --animate-slide-up: slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes puff {
+    0% { opacity: 1; transform: translate(0, 0) scale(1); }
+    100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); }
+  }
+
+  @keyframes loading-bar {
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(0); }
+    100% { transform: translateX(100%); }
+  }
+}
+
+:root {
+  font-family: 'Poppins', "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  border-color: var(--color-border-light);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--color-bg-light);
+  color: var(--color-text-light-primary);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  overflow: hidden; /* Prevent double scrollbars on body */
+}
+
+html.dark body {
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-dark-primary);
+}
+
+html.dark * {
+  border-color: var(--color-border-dark);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Hide scrollbars completely but keep functionality */
+::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+/* Firefox */
+* {
+  scrollbar-width: none;
+}
+
+/* Ensure scrolling is still enabled on containers */
+.overflow-y-auto {
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.animate-puff {
+  animation: puff 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
