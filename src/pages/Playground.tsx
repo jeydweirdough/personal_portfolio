@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react'
 import { Button } from '../components/ui/Button'
-import { Card } from '../components/ui/Card'
-import { Input, Textarea } from '../components/ui/Input'
 import { Badge } from '../components/ui/Badge'
 
 interface KeyValue {

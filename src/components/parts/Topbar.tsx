@@ -1,10 +1,8 @@
 interface TopbarProps {
-  isDark: boolean
-  toggleTheme: () => void
   activePage: string
 }
 
-function Topbar({ isDark, toggleTheme, activePage }: TopbarProps) {
+function Topbar({ activePage }: TopbarProps) {
   const pageTitle = activePage.charAt(0).toUpperCase() + activePage.slice(1)
   
   return (
