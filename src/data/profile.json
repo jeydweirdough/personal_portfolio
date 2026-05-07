@@ -11,10 +11,12 @@
   "education": "Cavite State University – Bacoor Campus | 4th Year (2022 – Present)",
   "degree": "Bachelor of Science in Computer Science",
   "skills": [
-    { "name": "React & TypeScript", "level": 92 },
-    { "name": "Backend (FastAPI, Django)", "level": 88 },
-    { "name": "Database (MySQL, Firebase)", "level": 85 },
-    { "name": "IT Support & Networking", "level": 94 }
+    { "name": "Frontend"},
+    { "name": "Backend"},
+    { "name": "Database"},
+    { "name": "IT Support & Networking"},
+    { "name": "AI Management"},
+    { "name": "WordPress and Inventory Management"}
   ],
   "experience": [
     {

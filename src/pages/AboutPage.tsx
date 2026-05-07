@@ -2,7 +2,6 @@ import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
 import { Badge } from '../components/ui/Badge'
 import { Accordion } from '../components/ui/Accordion'
-import { ProgressBar } from '../components/ui/ProgressBar'
 import faqData from '../data/faq.json'
 import profile from '../data/profile.json'
 
@@ -39,14 +38,6 @@ function AboutPage() {
             <p className="text-lg text-text-light-secondary dark:text-text-dark-secondary leading-relaxed max-w-2xl mb-8">
               {profile.bio}
             </p>
-            <div className="flex flex-wrap gap-4">
-               <a href={profile.resume} target="_blank" rel="noopener noreferrer">
-                 <Button variant="primary" icon={<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>}>
-                   Download CV
-                 </Button>
-               </a>
-               <Button variant="outline">{profile.phone}</Button>
-            </div>
           </div>
         </div>
 
@@ -95,16 +86,51 @@ function AboutPage() {
           <div className="space-y-12">
             <div>
               <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-accent-orange mb-8">Technical Stack</h3>
-              <div className="space-y-6">
-                {profile.skills.map(skill => (
-                  <div key={skill.name}>
-                    <div className="flex justify-between mb-2">
-                      <span className="text-xs font-bold text-text-light-primary dark:text-text-dark-primary">{skill.name}</span>
-                      <span className="text-[10px] font-black text-accent-orange">{skill.level}%</span>
+              <div className="space-y-8">
+                {profile.skills.map(skill => {
+                  const getLogos = (name: string) => {
+                    const n = name.toLowerCase();
+                    const logos: string[] = [];
+                    if (n.includes('frontend')) logos.push('react', 'typescript', 'html5', 'css3', 'tailwind-css');
+                    if (n.includes('backend')) logos.push('nodedotjs', 'express', 'typescript', 'fastapi', 'django');
+                    if (n.includes('database')) logos.push('supabase', 'firebase', 'mongodb', 'mysql');
+                    if (n.includes('it support')) logos.push('windows', 'microsoft-office', 'chrome');
+                    if (n.includes('ai management')) logos.push('openai-chatgpt', 'google-gemini', 'claude', 'ai-studio-google', 'ollama');
+                    if (n.includes('wordpress')) logos.push('wordpress', 'zoho');
+                    return logos;
+                  };
+
+                  const logos = getLogos(skill.name);
+
+                  return (
+                    <div key={skill.name} className="space-y-3">
+                      <div className="flex justify-between items-center">
+                        <span className="text-[10px] font-bold text-text-light-primary dark:text-text-dark-primary uppercase tracking-widest">{skill.name}</span>
+                      </div>
+                      <div className="flex flex-wrap gap-3">
+                        {logos.map(logo => (
+                          <div key={logo} className="group relative">
+                            <div className="h-10 w-10 p-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-border-light dark:border-border-dark flex items-center justify-center transition-all hover:scale-110 hover:border-accent-orange hover:shadow-lg hover:shadow-accent-orange/10">
+                              <img
+                                src={`https://thesvg.org/icons/${logo}/${
+                                  ['mysql', 'ollama'].includes(logo) ? 'light' : 'default'
+                                }.svg`}
+                                alt={logo}
+                                className="w-full h-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+                                onError={(e) => {
+                                  ;(e.currentTarget as HTMLImageElement).src = `https://cdn.svgl.app/library/${logo}.svg`
+                                }}
+                              />
+                            </div>
+                            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 px-1.5 py-0.5 bg-bg-dark text-white text-[8px] font-bold rounded opacity-0 group-hover:opacity-100 transition-all transform translate-y-1 group-hover:translate-y-0 whitespace-nowrap pointer-events-none capitalize tracking-tighter">
+                              {logo}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                    <ProgressBar progress={skill.level} size="xs" />
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
