@@ -1,7 +1,11 @@
-import profile from '../../data/profile.json'
+interface FooterProps {
+  profile: any
+}
 
-function Footer() {
+function Footer({ profile }: FooterProps) {
   const year = new Date().getFullYear()
+
+  if (!profile) return null
 
   return (
     <footer className="px-6 py-12 sm:px-10 lg:px-16 border-t border-border-light dark:border-border-dark bg-white dark:bg-bg-dark transition-colors duration-300">

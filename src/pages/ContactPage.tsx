@@ -1,8 +1,9 @@
 import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
 import { Input, Textarea } from '../components/ui/Input'
-import socialsData from '../data/socials.json'
-import profile from '../data/profile.json'
+import { useSanityData } from '../hooks/useSanity'
+import { useEffect } from 'react'
+import { Skeleton } from '../components/ui/Skeleton'
 
 interface SocialItemProps {
   name: string
@@ -41,8 +42,46 @@ function SocialItem({ name, url, icon }: SocialItemProps) {
   )
 }
 
-function ContactPage() {
+interface ContactPageProps {
+  onLoading?: (isLoading: boolean) => void
+}
+
+function ContactPage({ onLoading }: ContactPageProps) {
+  const { data: profile, loading: profileLoading } = useSanityData<any>(`*[_type == "profile"][0]`)
+  const { data: socials, loading: socialsLoading } = useSanityData<any[]>(`*[_type == "social"]`)
+
+  const isLoading = profileLoading || socialsLoading
+
+  useEffect(() => {
+    onLoading?.(isLoading)
+  }, [isLoading, onLoading])
+
+  if (isLoading) {
+    return (
+      <div className="p-8 md:p-12 space-y-12">
+        <div className="max-w-4xl mx-auto space-y-12">
+          <Skeleton className="h-10 w-64 mx-auto" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="space-y-6">
+              <Skeleton className="h-64 w-full rounded-2xl" />
+            </div>
+            <div className="space-y-8">
+               <Skeleton className="h-8 w-32" />
+               <div className="flex gap-4">
+                 <Skeleton className="h-12 w-12 rounded-xl" />
+                 <Skeleton className="h-12 w-12 rounded-xl" />
+                 <Skeleton className="h-12 w-12 rounded-xl" />
+               </div>
+               <Skeleton className="h-32 w-full rounded-2xl" />
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   const handleSend = () => {
+    if (!profile) return
     const subject = encodeURIComponent(`Project Inquiry - Portfolio`)
     const body = encodeURIComponent(`Hello ${profile.name},\n\nI'm interested in discussing a project with you.\n\n[Your message here]\n\nBest regards,`)
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${profile.email}&su=${subject}&body=${body}`
@@ -55,6 +94,8 @@ function ContactPage() {
     Viber: <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.7 16.68c0-.72-.11-1.39-.32-2.02-.21-.63-.53-1.22-.96-1.75-.43-.53-.96-1.01-1.61-1.42-.65-.41-1.42-.73-2.31-.96-.89-.23-1.89-.35-2.99-.35h-.95v6.5h.95c1.1 0 2.1-.12 2.99-.35.89-.23 1.66-.55 2.31-.96.65-.41 1.18-.89 1.61-1.42.43-.53.75-1.12.96-1.75.21-.63.32-1.3.32-2.02zM24 12c0 6.627-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0s12 5.373 12 12zm-4.3 4.68c0-1.26-.26-2.45-.78-3.57-.52-1.12-1.24-2.11-2.16-2.97-.92-.86-2-1.54-3.24-2.04-1.24-.5-2.61-.75-4.11-.75h-2.16v13.31h2.16c1.5 0 2.87-.25 4.11-.75 1.24-.5 2.32-1.18 3.24-2.04.92-.86 1.64-1.85 2.16-2.97.52-1.12.78-2.31.78-3.57z"/></svg>,
     WhatsApp: <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.928 3.178 0 5.767-2.587 5.768-5.766 0-3.187-2.59-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793 0-.853.448-1.273.607-1.446.159-.174.346-.217.462-.217l.332.006c.118.005.23.009.33.221.124.285.426 1.039.463 1.113.036.075.061.161.012.26-.046.099-.068.162-.137.245-.069.082-.146.182-.208.245-.071.074-.147.155-.063.301.084.146.374.618.801 1.003.548.496 1.012.651 1.155.73.144.079.23.065.314-.019.084-.083.362-.423.459-.569.096-.146.192-.124.324-.075.132.049.833.393.978.465.145.072.242.108.278.168.036.061.036.35-.108.755zm-3.423 9.584c-5.451 0-9.885-4.436-9.885-9.887 0-5.451 4.434-9.885 9.885-9.885s9.886 4.434 9.886 9.885c0 5.451-4.435 9.887-9.886 9.887z"/></svg>
   };
+
+  // Centralized loading is handled in App.tsx
 
   return (
     <div className="min-h-screen bg-white dark:bg-bg-dark transition-colors duration-300">
@@ -88,9 +129,9 @@ function ContactPage() {
               </button>
 
               <div className="flex justify-center gap-4">
-                {socialsData.map((social) => (
+                {socials?.map((social) => (
                   <SocialItem 
-                    key={social.id}
+                    key={social._id}
                     {...social}
                     icon={socialIcons[social.name]}
                   />
@@ -135,3 +176,4 @@ function ContactPage() {
 }
 
 export default ContactPage
+

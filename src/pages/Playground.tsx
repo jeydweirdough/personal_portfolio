@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Button } from '../components/ui/Button'
 import { Badge } from '../components/ui/Badge'
+import { PageLoader } from '../components/ui/PageLoader'
 
 interface KeyValue {
   key: string
@@ -19,7 +20,11 @@ interface RequestResponse {
   raw?: string
 }
 
-export default function Playground() {
+interface PlaygroundProps {
+  onLoading?: (isLoading: boolean) => void
+}
+
+export default function Playground({ onLoading }: PlaygroundProps) {
   // Persistence Key
   const STORAGE_KEY = 'playground-state'
 
@@ -509,12 +514,7 @@ export default function Playground() {
               </div>
             )}
 
-            {isLoading && (
-              <div className="h-full flex flex-col items-center justify-center">
-                 <div className="h-8 w-8 border-4 border-accent-orange border-t-transparent rounded-full animate-spin mb-4"></div>
-                 <p className="text-xs font-bold text-accent-orange animate-pulse uppercase tracking-widest">Awaiting Response...</p>
-              </div>
-            )}
+            {/* Centralized loading is handled in App.tsx */}
 
             {response && !isLoading && (
               <div className="h-full flex flex-col">

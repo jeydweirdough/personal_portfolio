@@ -1,5 +1,5 @@
 import { Button } from '../ui/Button'
-import profile from '../../data/profile.json'
+import { urlFor } from '../../lib/sanity'
 
 interface NavItem {
   id: string
@@ -59,9 +59,10 @@ interface SidebarProps {
   isDark: boolean
   toggleTheme: () => void
   activeSection: string
+  profile: any
 }
 
-function Sidebar({ activePage, setActivePage, isExpanded, toggleExpanded, isDark, toggleTheme, activeSection }: SidebarProps) {
+function Sidebar({ activePage, setActivePage, isExpanded, toggleExpanded, isDark, toggleTheme, activeSection, profile }: SidebarProps) {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (element) {
@@ -164,26 +165,28 @@ function Sidebar({ activePage, setActivePage, isExpanded, toggleExpanded, isDark
              <div className="mx-2 p-4 rounded-lg bg-emerald-500/5 border border-emerald-500/10 mt-auto">
                 <div className="flex items-center gap-2 text-emerald-500 mb-2">
                    <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                   <span className="text-[10px] font-bold uppercase tracking-wider">{profile.status}</span>
+                   <span className="text-[10px] font-bold uppercase tracking-wider">{profile?.status}</span>
                 </div>
                 <p className="text-[10px] text-text-light-secondary leading-normal mb-3">Available for high-precision design & development. Review my experience below.</p>
-                <a href={profile.resume} download>
-                  <Button size="xs" variant="secondary" className="w-full border-emerald-500/20 text-emerald-500 text-[10px]" icon={<svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>}>
-                    <span className="text-[10px]">Download CV</span>
-                  </Button>
-                </a>
+                {profile?.resume && (
+                  <a href={profile.resume.asset?._ref} download>
+                    <Button size="xs" variant="secondary" className="w-full border-emerald-500/20 text-emerald-500 text-[10px]" icon={<svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>}>
+                      <span className="text-[10px]">Download CV</span>
+                    </Button>
+                  </a>
+                )}
              </div>
           </div>
 
           {/* STRETCHED FOOTER: Profile Popup Fixed */}
           <div className="p-4 border-t border-border-light dark:border-border-dark flex items-center gap-3 shrink-0 bg-slate-50 dark:bg-bg-dark-soft relative group/profile">
              <div className="h-10 w-10 rounded-full border-2 border-white dark:border-border-dark overflow-hidden shadow-sm cursor-pointer hover:border-accent-orange transition-all shrink-0">
-                <img src={profile.avatar} alt={profile.name} className="w-full h-full object-cover" />
+                {profile?.avatar && <img src={urlFor(profile.avatar).url()} alt={profile?.name} className="w-full h-full object-cover" />}
              </div>
              
              <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-1">
-                  <p className="text-xs font-bold text-text-light-primary dark:text-text-dark-primary truncate">{profile.name}</p>
+                   <p className="text-xs font-bold text-text-light-primary dark:text-text-dark-primary truncate">{profile?.name}</p>
                   <button 
                     onClick={(e) => {
                       e.stopPropagation();
@@ -202,7 +205,7 @@ function Sidebar({ activePage, setActivePage, isExpanded, toggleExpanded, isDark
                     )}
                   </button>
                 </div>
-                <p className="text-[10px] text-text-light-secondary dark:text-text-dark-secondary truncate leading-none uppercase tracking-tighter">{profile.title}</p>
+                <p className="text-[10px] text-text-light-secondary dark:text-text-dark-secondary truncate leading-none uppercase tracking-tighter">{profile?.title}</p>
              </div>
 
              {/* SIDE CONVERSATION POPUP: Forced z-index and overflow escape */}
@@ -210,19 +213,19 @@ function Sidebar({ activePage, setActivePage, isExpanded, toggleExpanded, isDark
                <div className="bg-white dark:bg-bg-dark-soft border border-border-light dark:border-border-dark rounded-2xl p-6 w-72 relative">
                   <div className="flex flex-col items-center text-center">
                      <div className="h-28 w-28 rounded-full border-4 border-white dark:border-bg-dark shadow-xl overflow-hidden mb-4">
-                        <img src={profile.avatar} alt={profile.name} className="w-full h-full object-cover" />
+                        {profile?.avatar && <img src={urlFor(profile.avatar).url()} alt={profile?.name} className="w-full h-full object-cover" />}
                      </div>
-                     <h4 className="text-base font-bold text-text-light-primary dark:text-text-dark-primary">{profile.name}</h4>
-                     <p className="text-[11px] text-accent-orange font-bold uppercase tracking-widest mb-4">{profile.title}</p>
+                     <h4 className="text-base font-bold text-text-light-primary dark:text-text-dark-primary">{profile?.name}</h4>
+                     <p className="text-[11px] text-accent-orange font-bold uppercase tracking-widest mb-4">{profile?.title}</p>
                      
                      <div className="w-full space-y-3 pt-4 border-t border-border-light dark:border-border-dark">
                         <div className="flex items-center justify-between text-xs">
                            <span className="text-text-light-secondary">Location</span>
-                           <span className="font-semibold text-text-light-primary dark:text-text-dark-primary">{profile.location}</span>
+                           <span className="font-semibold text-text-light-primary dark:text-text-dark-primary">{profile?.location}</span>
                         </div>
                         <div className="flex items-center justify-between text-xs">
                            <span className="text-text-light-secondary">Status</span>
-                           <span className="text-emerald-500 font-bold">{profile.status}</span>
+                           <span className="text-emerald-500 font-bold">{profile?.status}</span>
                         </div>
                      </div>
                   </div>

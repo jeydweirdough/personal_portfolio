@@ -1,14 +1,18 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
 import { Badge } from '../components/ui/Badge'
 import { Input, Textarea } from '../components/ui/Input'
-import projects from '../data/projects.json'
 import { ProgressBar } from '../components/ui/ProgressBar'
+import { useSanityData } from '../hooks/useSanity'
+import { EmptyState } from '../components/ui/EmptyState'
+import { Skeleton } from '../components/ui/Skeleton'
+import { client } from '../lib/sanity'
 
 interface ProjectDetailsProps {
-  projectId: number
+  projectId: string
   onBack: () => void
+  onLoading?: (isLoading: boolean) => void
 }
 
 const StarRating = ({ rating, size = "sm" }: { rating: number, size?: "xs" | "sm" | "md" }) => {
@@ -48,37 +52,111 @@ const MagicalPuff = ({ x, y, onComplete }: { x: number, y: number, onComplete: (
   )
 }
 
-function ProjectDetails({ projectId, onBack }: ProjectDetailsProps) {
+function ProjectDetails({ projectId, onBack, onLoading }: ProjectDetailsProps) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const [userRating, setUserRating] = useState(0)
   const [hoverRating, setHoverRating] = useState(0)
+  const [userName, setUserName] = useState('')
+  const [userComment, setUserComment] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [puffs, setPuffs] = useState<{ id: number, x: number, y: number }[]>([])
   
-  const project = useMemo(() => projects.find(p => p.id === projectId) || projects[0], [projectId])
+  const { data: project, loading } = useSanityData<any>(`*[_type == "project" && _id == $id][0]`, { id: projectId })
+
+  useEffect(() => {
+    onLoading?.(loading)
+  }, [loading, onLoading])
+
+  if (loading) {
+    return (
+      <div className="p-8 md:p-12 space-y-12">
+        <Skeleton className="h-8 w-24 mb-8" />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <Skeleton className="aspect-video w-full rounded-2xl" />
+          <div className="space-y-6">
+            <Skeleton className="h-10 w-3/4" />
+            <Skeleton className="h-4 w-1/2" />
+            <div className="space-y-3 pt-6">
+               <Skeleton className="h-4 w-full" />
+               <Skeleton className="h-4 w-full" />
+               <Skeleton className="h-4 w-2/3" />
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   const handleStarClick = (s: number, e: React.MouseEvent) => {
     setUserRating(s)
     const newPuff = { id: Date.now(), x: e.clientX, y: e.clientY }
     setPuffs(prev => [...prev, newPuff])
+    setTimeout(() => removePuff(newPuff.id), 1000)
+  }
+
+  const handleSubmitReview = async () => {
+    if (!userName || !userComment || userRating === 0) {
+      alert('Please fill in all fields and select a rating.')
+      return
+    }
+
+    setIsSubmitting(true)
+    try {
+      const newReview = {
+        _key: Math.random().toString(36).substring(2, 11), // Unique ID for Sanity array
+        user: userName,
+        rating: userRating,
+        comment: userComment,
+        date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+      }
+
+      await client
+        .patch(projectId)
+        .setIfMissing({ reviews: [] })
+        .append('reviews', [newReview])
+        .commit()
+
+      alert('Review submitted successfully!')
+      // Reset form
+      setUserName('')
+      setUserComment('')
+      setUserRating(0)
+      
+      // Refresh page data
+      window.location.reload()
+    } catch (err) {
+      console.error('Submission failed:', err)
+      alert('Failed to submit review. Check your Sanity Write Token.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const removePuff = (id: number) => {
     setPuffs(prev => prev.filter(p => p.id !== id))
   }
 
+  // Centralized loading is handled in App.tsx
+
+  if (!project) {
+    return (
+      <EmptyState 
+        title="Project Offline" 
+        message={`The data stream for project ${projectId} could not be established.`}
+        action={{ label: "Return to Projects", onClick: onBack }}
+      />
+    )
+  }
+
   // Statistics
   const reviews = project.reviews || []
-  const averageRating = useMemo(() => {
-    if (reviews.length === 0) return 0
-    return (reviews.reduce((acc, curr) => acc + curr.rating, 0) / reviews.length).toFixed(1)
-  }, [reviews])
+  const averageRating = reviews.length === 0 ? 0 : (reviews.reduce((acc: number, curr: any) => acc + curr.rating, 0) / reviews.length).toFixed(1)
 
-  const latestHighestReview = useMemo(() => {
-    if (reviews.length === 0) return null
-    const maxRating = Math.max(...reviews.map(r => r.rating))
-    const highestReviews = reviews.filter(r => r.rating === maxRating)
-    return highestReviews.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0]
-  }, [reviews])
+  const latestHighestReview = reviews.length === 0 ? null : (() => {
+    const maxRating = Math.max(...reviews.map((r: any) => r.rating))
+    const highestReviews = reviews.filter((r: any) => r.rating === maxRating)
+    return highestReviews.sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime())[0]
+  })()
 
   return (
     <div className="px-6 py-12 sm:px-10 lg:px-12 animate-fade-in relative">
@@ -114,7 +192,7 @@ function ProjectDetails({ projectId, onBack }: ProjectDetailsProps) {
             <div className="flex items-center gap-3 mb-4">
               <Badge variant="accent">{project.tag}</Badge>
               <span className="text-sm text-text-light-secondary">{project.region}</span>
-              {averageRating !== 0 && (
+              {Number(averageRating) !== 0 && (
                 <div className="flex items-center gap-2 ml-auto">
                   <StarRating rating={Number(averageRating)} size="xs" />
                   <span className="text-xs font-bold">{averageRating}</span>
@@ -167,7 +245,7 @@ function ProjectDetails({ projectId, onBack }: ProjectDetailsProps) {
                  </div>
                  <div className="flex items-center gap-3 mb-4">
                     <div className="h-8 w-8 rounded-full bg-accent-orange flex items-center justify-center text-white text-[10px] font-bold">
-                       {latestHighestReview.user.split(' ').map(n => n[0]).join('')}
+                       {latestHighestReview.user?.split(' ').map((n: string) => n[0]).join('')}
                     </div>
                     <div>
                        <p className="text-xs font-bold text-text-light-primary dark:text-text-dark-primary">{latestHighestReview.user}</p>
@@ -179,43 +257,57 @@ function ProjectDetails({ projectId, onBack }: ProjectDetailsProps) {
               </div>
             )}
 
-            {/* Photo Documentation */}
-            <div className="mb-12">
-               <h3 className="text-xl font-bold mb-6">Photo Documentation</h3>
-               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  {project.documentation?.map((doc, i) => (
-                    <div key={i} className="group relative aspect-video rounded-xl overflow-hidden border border-border-light dark:border-border-dark cursor-zoom-in hover:border-accent-orange/50 transition-all" onClick={() => setSelectedImage(doc.url)}>
-                       <img src={doc.url} alt={doc.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-3">
-                          <p className="text-[10px] font-bold text-white uppercase tracking-wider">{doc.title}</p>
-                       </div>
-                    </div>
-                  ))}
-               </div>
-            </div>
+             <div className="mb-12">
+                <h3 className="text-xl font-bold mb-6">Photo Documentation</h3>
+                {project.documentation && project.documentation.length > 0 ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {project.documentation.map((doc: any, i: number) => (
+                      <div key={i} className="group relative aspect-video rounded-xl overflow-hidden border border-border-light dark:border-border-dark cursor-zoom-in hover:border-accent-orange/50 transition-all" onClick={() => setSelectedImage(doc.url)}>
+                        <img src={doc.url} alt={doc.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-3">
+                            <p className="text-[10px] font-bold text-white uppercase tracking-wider">{doc.title}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <EmptyState 
+                    title="No Photos Available" 
+                    message="Documentation assets for this project are currently in cold storage."
+                    icon={<svg className="w-10 h-10 text-text-light-secondary opacity-20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" strokeWidth={1.5}/></svg>}
+                  />
+                )}
+             </div>
 
-            {/* Reviews List */}
-            <div className="mb-12">
-               <div className="flex items-center justify-between mb-8">
-                  <h3 className="text-xl font-bold">User Reviews</h3>
-                  <span className="text-xs text-text-light-secondary">{reviews.length} total reviews</span>
-               </div>
-               
-               <div className="space-y-6">
-                  {reviews.map((rev, i) => (
-                    <div key={i} className="pb-6 border-b border-border-light dark:border-border-dark last:border-0">
-                       <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center gap-3">
-                             <p className="text-sm font-bold">{rev.user}</p>
-                             <StarRating rating={rev.rating} size="xs" />
+             <div className="mb-12">
+                <div className="flex items-center justify-between mb-8">
+                   <h3 className="text-xl font-bold">User Reviews</h3>
+                   <span className="text-xs text-text-light-secondary">{reviews.length} total reviews</span>
+                </div>
+                
+                {reviews.length > 0 ? (
+                  <div className="space-y-6">
+                    {reviews.map((rev: any, i: number) => (
+                      <div key={i} className="pb-6 border-b border-border-light dark:border-border-dark last:border-0">
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-3">
+                                <p className="text-sm font-bold">{rev.user}</p>
+                                <StarRating rating={rev.rating} size="xs" />
+                            </div>
+                            <span className="text-[10px] text-text-light-secondary">{rev.date}</span>
                           </div>
-                          <span className="text-[10px] text-text-light-secondary">{rev.date}</span>
-                       </div>
-                       <p className="text-sm text-text-light-secondary leading-relaxed">{rev.comment}</p>
-                    </div>
-                  ))}
-               </div>
-            </div>
+                          <p className="text-sm text-text-light-secondary leading-relaxed">{rev.comment}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <EmptyState 
+                    title="No Peer Reviews" 
+                    message="This project has not yet been peer-reviewed. System verification pending."
+                    icon={<svg className="w-10 h-10 text-accent-orange/30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" strokeWidth={1.5}/></svg>}
+                  />
+                )}
+             </div>
 
             {/* Add Review Form */}
             <Card className="p-8">
@@ -240,11 +332,29 @@ function ProjectDetails({ projectId, onBack }: ProjectDetailsProps) {
                      {userRating > 0 && <span className="text-sm font-bold text-accent-orange">{userRating} / 5</span>}
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                     <Input label="Full Name" placeholder="Jane Doe" />
+                     <Input 
+                        label="Full Name" 
+                        placeholder="Jane Doe" 
+                        value={userName}
+                        onChange={(e) => setUserName(e.target.value)}
+                     />
                      <Input label="Email Address" placeholder="jane@example.com" />
                   </div>
-                  <Textarea label="Your Comment" placeholder="What do you think about this project?" rows={4} />
-                  <Button variant="primary" className="w-full sm:w-auto">Submit Review</Button>
+                  <Textarea 
+                    label="Your Comment" 
+                    placeholder="What do you think about this project?" 
+                    rows={4} 
+                    value={userComment}
+                    onChange={(e) => setUserComment(e.target.value)}
+                  />
+                  <Button 
+                    variant="primary" 
+                    className="w-full sm:w-auto"
+                    onClick={handleSubmitReview}
+                    isLoading={isSubmitting}
+                  >
+                    Submit Review
+                  </Button>
                </div>
             </Card>
           </div>
@@ -280,3 +390,4 @@ function ProjectDetails({ projectId, onBack }: ProjectDetailsProps) {
 }
 
 export default ProjectDetails
+
