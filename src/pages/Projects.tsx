@@ -1,5 +1,3 @@
-import { useState } from 'react'
-import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
 import { Badge } from '../components/ui/Badge'
 import { useSanityData } from '../hooks/useSanity'
@@ -13,7 +11,6 @@ interface ProjectsProps {
 }
 
 function Projects({ onProjectClick, onLoading }: ProjectsProps) {
-  const [isCreating, setIsCreating] = useState(false)
   const { data: projects, loading } = useSanityData<any[]>(`*[_type == "project"]`)
 
   useEffect(() => {
@@ -25,7 +22,6 @@ function Projects({ onProjectClick, onLoading }: ProjectsProps) {
       <div className="p-8 md:p-12 space-y-12">
         <div className="flex justify-between items-center">
           <Skeleton className="h-10 w-48" />
-          <Skeleton className="h-10 w-32" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <ProjectSkeleton />
@@ -36,10 +32,6 @@ function Projects({ onProjectClick, onLoading }: ProjectsProps) {
     )
   }
 
-  const handleCreate = () => {
-    setIsCreating(true)
-    setTimeout(() => setIsCreating(false), 1500)
-  }
 
   // Centralized loading is handled in App.tsx
 
@@ -51,15 +43,6 @@ function Projects({ onProjectClick, onLoading }: ProjectsProps) {
       <section id="active-projects" className="px-6 py-8 sm:px-10 lg:px-12">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between mb-8">
           <h2 className="text-xl font-bold text-text-light-primary dark:text-text-dark-primary">Active Projects</h2>
-          <Button 
-            variant="primary" 
-            size="sm" 
-            isLoading={isCreating}
-            onClick={handleCreate}
-            icon={<svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>}
-          >
-            {isCreating ? 'Creating...' : 'New project'}
-          </Button>
         </div>
 
         {activeProjects.length > 0 ? (
@@ -85,7 +68,6 @@ function Projects({ onProjectClick, onLoading }: ProjectsProps) {
           <EmptyState 
             title="No Active Projects" 
             message="Your active project registry is currently empty. Initialize a new project to start tracking."
-            action={{ label: "Initialize Project", onClick: handleCreate }}
           />
         )}
       </section>

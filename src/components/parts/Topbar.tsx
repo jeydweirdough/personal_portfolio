@@ -16,7 +16,7 @@ function Topbar({ activePage }: TopbarProps) {
         </div>
         <span className="text-border-light dark:text-border-dark">/</span>
         <div className="flex items-center gap-2 text-text-light-primary dark:text-text-dark-primary">
-          <span className="text-accent-orange font-bold">{pageTitle === 'Projects' ? 'Home' : pageTitle}</span>
+          <span className="text-accent-orange font-bold">{pageTitle}</span>
           {/* <span className="rounded bg-slate-100 dark:bg-bg-dark-soft px-1.5 py-0.5 text-[10px] font-bold text-text-light-secondary uppercase tracking-wider border border-border-light dark:border-border-dark">Free</span> */}
         </div>
       </div>

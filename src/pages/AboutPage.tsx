@@ -118,9 +118,30 @@ function AboutPage({ onLoading }: AboutPageProps) {
                 <h3 className="text-xl font-black uppercase tracking-widest text-text-light-primary dark:text-text-dark-primary italic">Education</h3>
                 <div className="h-px flex-1 bg-border-light dark:border-border-dark opacity-20" />
               </div>
-              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-bg-dark-soft border border-border-light dark:border-border-dark border-dashed">
-                <h4 className="font-bold text-text-light-primary dark:text-text-dark-primary">{profile.degree || "Degree TBD"}</h4>
-                <p className="text-sm text-text-light-secondary mt-1">{profile.education || "Educational background loading..."}</p>
+              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-bg-dark-soft border border-border-light dark:border-border-dark border-dashed flex flex-col md:flex-row gap-6 items-center md:items-start text-center md:text-left">
+                {profile.schoolLogo ? (
+                  <div className="w-16 h-16 rounded-xl overflow-hidden bg-white p-1 shrink-0 border border-border-light dark:border-border-dark">
+                    <img src={urlFor(profile.schoolLogo).url()} alt="School Logo" className="w-full h-full object-contain" />
+                  </div>
+                ) : (
+                  <div className="w-16 h-16 rounded-xl bg-accent-orange/10 flex items-center justify-center shrink-0">
+                    <svg className="w-8 h-8 text-accent-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M12 14l9-5-9-5-9 5 9 5z" strokeWidth={1.5}/>
+                      <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" strokeWidth={1.5}/>
+                    </svg>
+                  </div>
+                )}
+                <div>
+                  <h4 className="font-bold text-text-light-primary dark:text-text-dark-primary">{profile.course || "Course/Degree TBD"}</h4>
+                  <div className="flex flex-wrap items-center gap-2 mt-1 text-sm text-text-light-secondary italic opacity-80">
+                    <span>{profile.attainment}</span>
+                    <span className="w-1 h-1 rounded-full bg-slate-300" />
+                    <span>{profile.school}</span>
+                  </div>
+                  <p className="text-[10px] font-black text-accent-orange uppercase tracking-widest mt-3 px-2 py-1 bg-accent-orange/5 border border-accent-orange/10 rounded-md inline-block">
+                    {profile.schoolYear || "Academic period pending..."}
+                  </p>
+                </div>
               </div>
             </div>
 

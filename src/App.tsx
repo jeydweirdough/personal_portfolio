@@ -121,7 +121,7 @@ function App() {
 
   const renderPage = () => {
     switch (activePage) {
-      case 'home': return <Home />
+      case 'home': return <Home onLoading={setIsPageLoading} onNavigate={handleNavigate} />
       case 'projects': return <Projects onLoading={setIsPageLoading} onProjectClick={(id) => handleNavigate(`project-details/${id}`)} />
       case 'about': return <AboutPage onLoading={setIsPageLoading} />
       case 'contact': return <ContactPage onLoading={setIsPageLoading} />
