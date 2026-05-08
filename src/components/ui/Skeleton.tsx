@@ -1,5 +1,3 @@
-import React from 'react'
-
 export function Skeleton({ className }: { className?: string }) {
   return (
     <div className={`animate-pulse bg-slate-100 dark:bg-bg-dark-soft rounded-md ${className}`} />

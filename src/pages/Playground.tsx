@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Button } from '../components/ui/Button'
 import { Badge } from '../components/ui/Badge'
-import { PageLoader } from '../components/ui/PageLoader'
 
 interface KeyValue {
   key: string
@@ -25,6 +24,11 @@ interface PlaygroundProps {
 }
 
 export default function Playground({ onLoading }: PlaygroundProps) {
+  // Tell the global loader we are ready
+  useEffect(() => {
+    onLoading?.(false)
+  }, [onLoading])
+
   // Persistence Key
   const STORAGE_KEY = 'playground-state'
 

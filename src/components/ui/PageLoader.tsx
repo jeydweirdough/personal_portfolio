@@ -1,5 +1,3 @@
-import React from 'react'
-
 export function PageLoader() {
   return (
     <div className="flex flex-col items-center justify-center py-24 px-6 w-full animate-fade-in">
