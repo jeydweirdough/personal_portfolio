@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Button } from '../components/ui/Button'
 import { useSanityData } from '../hooks/useSanity'
 import { Skeleton } from '../components/ui/Skeleton'
