@@ -135,8 +135,6 @@ function App() {
     }
   }
 
-  const sidebarWidth = isSidebarExpanded ? 'var(--sidebar-total-width)' : 'var(--sidebar-narrow-width)'
-
   return (
     <div className="flex h-screen bg-white dark:bg-bg-dark transition-colors duration-200 overflow-hidden font-poppins">
       
