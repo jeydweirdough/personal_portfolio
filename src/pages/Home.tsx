@@ -57,14 +57,14 @@ function Home({ onLoading, onNavigate }: HomeProps) {
   return (
     <div className="flex flex-col animate-fade-in scroll-smooth">
       {/* Section: Hero */}
-      <section className="min-h-[70vh] flex flex-col items-center justify-center text-center px-6 py-20 bg-white dark:bg-bg-dark">
-        <div className="inline-flex items-center rounded-full border border-accent-orange/20 bg-accent-orange/5 px-3 py-1 text-xs font-medium text-accent-orange mb-8 uppercase tracking-widest">
+      <section className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 py-16 sm:px-6 sm:py-20 bg-white dark:bg-bg-dark">
+        <div className="inline-flex items-center rounded-full border border-accent-orange/20 bg-accent-orange/5 px-3 py-1 text-[10px] sm:text-xs font-medium text-accent-orange mb-8 uppercase tracking-widest">
           Portfolio Navigation Guide
         </div>
-        <h1 className="text-4xl font-bold tracking-tight text-text-light-primary dark:text-text-dark-primary sm:text-7xl max-w-4xl leading-tight">
+        <h1 className="text-3xl font-bold tracking-tight text-text-light-primary dark:text-text-dark-primary sm:text-7xl max-w-4xl leading-tight">
           {homeData.heroTitle}
         </h1>
-        <p className="mx-auto mt-8 max-w-2xl text-lg text-text-light-secondary dark:text-text-dark-secondary sm:text-xl leading-relaxed">
+        <p className="mx-auto mt-6 sm:mt-8 max-w-2xl text-base text-text-light-secondary dark:text-text-dark-secondary sm:text-xl leading-relaxed">
           {homeData.heroSubtitle}
         </p>
         <div className="mt-10">
@@ -75,10 +75,10 @@ function Home({ onLoading, onNavigate }: HomeProps) {
       </section>
 
       {/* Section: Navigation Guidelines */}
-      <section className="py-24 px-6 sm:px-10 lg:px-12 bg-slate-50 dark:bg-bg-dark-soft border-t border-border-light dark:border-border-dark">
+      <section className="py-16 sm:py-24 px-4 sm:px-10 lg:px-12 bg-slate-50 dark:bg-bg-dark-soft border-t border-border-light dark:border-border-dark">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col items-center text-center mb-16">
-            <h2 className="text-3xl font-black uppercase tracking-tight text-text-light-primary dark:text-text-dark-primary italic">Best Features</h2>
+          <div className="flex flex-col items-center text-center mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl font-bold uppercase tracking-tight text-text-light-primary dark:text-text-dark-primary italic">Best Features</h2>
             <div className="w-12 h-1 bg-accent-orange mt-4 rounded-full" />
           </div>
           
@@ -90,7 +90,7 @@ function Home({ onLoading, onNavigate }: HomeProps) {
                 className="group p-8 rounded-2xl border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark hover:border-accent-orange/50 hover:shadow-2xl hover:shadow-accent-orange/5 transition-all duration-500 cursor-pointer relative overflow-hidden"
               >
                 <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                  <span className="text-6xl font-black italic">{i + 1}</span>
+                  <span className="text-6xl font-bold italic">{i + 1}</span>
                 </div>
                 
                 <div className="h-12 w-12 rounded-xl bg-accent-orange/10 flex items-center justify-center text-accent-orange mb-6 group-hover:scale-110 transition-transform duration-500">
@@ -104,7 +104,7 @@ function Home({ onLoading, onNavigate }: HomeProps) {
                   {feature.description}
                 </p>
                 
-                <div className="flex items-center text-[10px] font-black text-accent-orange uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0">
+                <div className="flex items-center text-xs font-bold text-accent-orange uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0">
                   <span>Explore Module</span>
                   <svg className="w-3 h-3 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                 </div>

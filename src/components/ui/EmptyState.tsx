@@ -38,7 +38,7 @@ export function EmptyState({ title, message, icon, action }: EmptyStateProps) {
       {action && (
         <button
           onClick={action.onClick}
-          className="mt-8 px-6 py-2.5 rounded-xl bg-accent-orange text-white text-[10px] font-black uppercase tracking-[0.2em] hover:bg-accent-orange/90 transition-all active:scale-95 shadow-lg shadow-accent-orange/20"
+          className="mt-8 px-6 py-2.5 rounded-xl bg-accent-orange text-white text-xs font-bold uppercase tracking-[0.2em] hover:bg-accent-orange/90 transition-all active:scale-95 shadow-lg shadow-accent-orange/20"
         >
           {action.label}
         </button>
@@ -47,7 +47,7 @@ export function EmptyState({ title, message, icon, action }: EmptyStateProps) {
       {/* Decorative System Metadata */}
       <div className="mt-12 flex items-center gap-4 opacity-20">
          <div className="h-[1px] w-8 bg-border-light dark:bg-border-dark" />
-         <span className="text-[8px] font-mono uppercase tracking-widest">Dataset: Null_Pointer</span>
+         <span className="text-xs font-mono uppercase tracking-widest">Dataset: Null_Pointer</span>
          <div className="h-[1px] w-8 bg-border-light dark:bg-border-dark" />
       </div>
     </div>

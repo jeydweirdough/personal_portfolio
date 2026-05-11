@@ -75,168 +75,183 @@ function Sidebar({ activePage, setActivePage, isExpanded, toggleExpanded, isDark
                      (activeItemId === 'project-details' ? menuItems.find(i => i.id === 'projects') : menuItems[0])
 
   return (
-    <aside className="fixed left-0 top-0 h-full flex z-[100] transition-all duration-300 ease-in-out bg-white dark:bg-bg-dark border-r border-border-light dark:border-border-dark shadow-2xl"
-           style={{ width: isExpanded ? 'calc(var(--sidebar-narrow-width) + var(--sidebar-wide-width))' : 'var(--sidebar-narrow-width)' }}>
-      
-      {/* PRIMARY BAR: Always visible icons */}
-      <div className="w-[var(--sidebar-narrow-width)] h-full flex flex-col items-center bg-slate-50 dark:bg-bg-dark border-r border-border-light dark:border-border-dark shrink-0 z-[110]">
-        <div className="h-[var(--topbar-height)] flex items-center justify-center w-full shrink-0">
-          <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-accent-orange text-white font-black">M</div>
-        </div>
+    <>
+      {/* MOBILE BACKDROP */}
+      {isExpanded && (
+        <div 
+          className="fixed inset-0 bg-bg-dark/40 backdrop-blur-sm z-[95] lg:hidden animate-fade-in"
+          onClick={toggleExpanded}
+        />
+      )}
+
+      <aside className={`fixed left-0 top-0 h-full flex z-[100] transition-all duration-500 ease-in-out bg-white dark:bg-bg-dark border-r border-border-light dark:border-border-dark shadow-2xl
+        ${isExpanded ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
+        style={{ width: isExpanded ? 'calc(var(--sidebar-narrow-width) + var(--sidebar-wide-width))' : 'var(--sidebar-narrow-width)' }}>
         
-        <div className="flex flex-col gap-2 flex-1 w-full items-center py-4">
-          {menuItems.map(item => {
-            const isItemActive = activeItemId === item.id || (activeItemId === 'project-details' && item.id === 'projects')
-            return (
-              <button
-                key={item.id}
-                onClick={() => {
-                  setActivePage(item.id)
-                  if (!isExpanded) toggleExpanded()
-                }}
-                className={`h-10 w-10 flex items-center justify-center rounded-md transition-all ${
-                  isItemActive ? 'bg-white dark:bg-bg-dark-soft text-accent-orange shadow-sm border border-border-light dark:border-border-dark' : 'text-text-light-secondary hover:bg-slate-100'
-                }`}
-              >
-                {item.icon}
-              </button>
-            )
-          })}
+        {/* PRIMARY BAR: Always visible icons */}
+        <div className="w-[var(--sidebar-narrow-width)] h-full flex flex-col items-center bg-slate-50 dark:bg-bg-dark border-r border-border-light dark:border-border-dark shrink-0 z-[110]">
+          <div className="h-[var(--topbar-height)] flex items-center justify-center w-full shrink-0">
+            <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-accent-orange text-white font-bold">M</div>
+          </div>
+          
+          <div className="flex flex-col gap-2 flex-1 w-full items-center py-4">
+            {menuItems.map(item => {
+              const isItemActive = activeItemId === item.id || (activeItemId === 'project-details' && item.id === 'projects')
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    setActivePage(item.id)
+                    // On mobile, close sidebar after navigation
+                    if (window.innerWidth <= 1024) toggleExpanded()
+                  }}
+                  className={`h-10 w-10 flex items-center justify-center rounded-md transition-all ${
+                    isItemActive ? 'bg-white dark:bg-bg-dark-soft text-accent-orange shadow-sm border border-border-light dark:border-border-dark' : 'text-text-light-secondary hover:bg-slate-100'
+                  }`}
+                >
+                  {item.icon}
+                </button>
+              )
+            })}
+          </div>
+
+          {/* COMPACT FOOTER */}
+          <div className="w-full flex flex-col items-center pb-6 border-t border-border-light dark:border-border-dark pt-6">
+            <button 
+              onClick={toggleExpanded} 
+              className="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-bg-dark-soft text-text-light-secondary hover:text-accent-orange transition-all"
+            >
+               {isExpanded ? (
+                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M11 19l-7-7 7-7M19 19l-7-7 7-7" strokeWidth={2}/></svg>
+               ) : (
+                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M13 5l7 7-7 7M5 5l7 7-7 7" strokeWidth={2}/></svg>
+               )}
+            </button>
+          </div>
         </div>
 
-        {/* COMPACT FOOTER */}
-        <div className="w-full flex flex-col items-center pb-6 border-t border-border-light dark:border-border-dark pt-6">
-          <button 
-            onClick={toggleExpanded} 
-            className="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-bg-dark-soft text-text-light-secondary hover:text-accent-orange transition-all"
-          >
-             {isExpanded ? (
-               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M11 19l-7-7 7-7M19 19l-7-7 7-7" strokeWidth={2}/></svg>
-             ) : (
-               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M13 5l7 7-7 7M5 5l7 7-7 7" strokeWidth={2}/></svg>
-             )}
-          </button>
-        </div>
-      </div>
-
-      {/* SECONDARY PANE: Animated width */}
-      <div 
-        className="h-full transition-all duration-300 ease-in-out bg-white dark:bg-bg-dark z-[105]"
-        style={{ width: isExpanded ? 'var(--sidebar-wide-width)' : '0px', opacity: isExpanded ? 1 : 0, overflow: isExpanded ? 'visible' : 'hidden' }}
-      >
-        <div className="w-[var(--sidebar-wide-width)] h-full flex flex-col shrink-0">
-          <div className="h-[var(--topbar-height)] flex items-center px-6 border-b border-border-light dark:border-border-dark shrink-0">
-            <div className="flex flex-col">
-              <span className="text-sm font-bold text-text-light-primary dark:text-text-dark-primary leading-tight">Mooserage</span>
-              <span className="text-[10px] text-text-light-secondary font-medium uppercase tracking-tighter">Portfolio System</span>
+        {/* SECONDARY PANE: Animated width */}
+        <div 
+          className="h-full transition-all duration-300 ease-in-out bg-white dark:bg-bg-dark z-[105]"
+          style={{ width: isExpanded ? 'var(--sidebar-wide-width)' : '0px', opacity: isExpanded ? 1 : 0, overflow: isExpanded ? 'visible' : 'hidden' }}
+        >
+          <div className="w-[var(--sidebar-wide-width)] h-full flex flex-col shrink-0">
+            <div className="h-[var(--topbar-height)] flex items-center px-6 border-b border-border-light dark:border-border-dark shrink-0">
+              <div className="flex flex-col">
+                <span className="text-sm font-bold text-text-light-primary dark:text-text-dark-primary leading-tight">Mooserage</span>
+                <span className="text-[10px] text-text-light-secondary font-medium uppercase tracking-tighter">Portfolio System</span>
+              </div>
             </div>
-          </div>
 
-          <div className="flex-1 overflow-y-auto px-3 py-4 space-y-5">
-             <div className="space-y-1">
-                <p className="text-[10px] text-text-light-secondary font-medium uppercase tracking-tighter mb-2">Sections</p>
-                {activeItem?.sections?.map(section => (
-                  <button
-                    key={section.id}
-                    onClick={() => scrollToSection(section.id)}
-                    className={`flex w-full items-center gap-3 px-3 py-1.5 rounded-md transition-all group ${
-                      activeSection === section.id 
-                        ? 'text-accent-orange bg-slate-50 dark:bg-white/5' 
-                        : 'text-text-light-secondary dark:text-text-dark-secondary hover:text-accent-orange hover:bg-slate-50 dark:hover:bg-white/5'
-                    }`}
-                  >
-                    <div
-                      className={`${
+            <div className="flex-1 overflow-y-auto px-3 py-4 space-y-5">
+               <div className="space-y-1">
+                  <p className="text-[10px] text-text-light-secondary font-medium uppercase tracking-tighter mb-2">Sections</p>
+                  {activeItem?.sections?.map(section => (
+                    <button
+                      key={section.id}
+                      onClick={() => {
+                        scrollToSection(section.id)
+                        if (window.innerWidth <= 1024) toggleExpanded()
+                      }}
+                      className={`flex w-full items-center gap-3 px-3 py-1.5 rounded-md transition-all group ${
                         activeSection === section.id 
-                          ? 'text-accent-orange' 
-                          : 'text-text-light-secondary/50 group-hover:text-accent-orange'
-                      } transition-colors`}
+                          ? 'text-accent-orange bg-slate-50 dark:bg-white/5' 
+                          : 'text-text-light-secondary dark:text-text-dark-secondary hover:text-accent-orange hover:bg-slate-50 dark:hover:bg-white/5'
+                      }`}
                     >
-                      {section.icon}
-                    </div>
+                      <div
+                        className={`${
+                          activeSection === section.id 
+                            ? 'text-accent-orange' 
+                            : 'text-text-light-secondary/50 group-hover:text-accent-orange'
+                        } transition-colors`}
+                      >
+                        {section.icon}
+                      </div>
 
-                    <span className="truncate text-[0.75rem] text-text-light-secondary font-medium uppercase tracking-tighter">
-                      {section.label}
-                    </span>
-                  </button>
-                ))}
-             </div>
+                      <span className="truncate text-[0.75rem] text-text-light-secondary font-medium uppercase tracking-tighter">
+                        {section.label}
+                      </span>
+                    </button>
+                  ))}
+               </div>
 
-             <div className="mx-2 p-4 rounded-lg bg-emerald-500/5 border border-emerald-500/10 mt-auto">
-                <div className="flex items-center gap-2 text-emerald-500 mb-2">
-                   <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                   <span className="text-[10px] font-bold uppercase tracking-wider">{profile?.status}</span>
-                </div>
-                <p className="text-[10px] text-text-light-secondary leading-normal mb-3">Available for high-precision design & development. Review my experience below.</p>
-                {profile?.resume && (
-                  <a href={profile.resume.asset?._ref} download>
-                    <Button size="xs" variant="secondary" className="w-full border-emerald-500/20 text-emerald-500 text-[10px]" icon={<svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>}>
-                      <span className="text-[10px]">Download CV</span>
-                    </Button>
-                  </a>
-                )}
-             </div>
-          </div>
-
-          {/* STRETCHED FOOTER: Profile Popup Fixed */}
-          <div className="p-4 border-t border-border-light dark:border-border-dark flex items-center gap-3 shrink-0 bg-slate-50 dark:bg-bg-dark-soft relative group/profile">
-             <div className="h-10 w-10 rounded-full border-2 border-white dark:border-border-dark overflow-hidden shadow-sm cursor-pointer hover:border-accent-orange transition-all shrink-0">
-                {profile?.avatar && <img src={urlFor(profile.avatar).url()} alt={profile?.name} className="w-full h-full object-cover" />}
-             </div>
-             
-             <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between gap-1">
-                   <p className="text-xs font-bold text-text-light-primary dark:text-text-dark-primary truncate">{profile?.name}</p>
-                  <button 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleTheme();
-                    }}
-                    className="p-1 rounded hover:bg-slate-200 dark:hover:bg-white/10 text-text-light-secondary dark:text-text-dark-secondary transition-colors"
-                  >
-                    {isDark ? (
-                      <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                      </svg>
-                    ) : (
-                      <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                      </svg>
-                    )}
-                  </button>
-                </div>
-                <p className="text-[10px] text-text-light-secondary dark:text-text-dark-secondary truncate leading-none uppercase tracking-tighter">{profile?.title}</p>
-             </div>
-
-             {/* SIDE CONVERSATION POPUP: Forced z-index and overflow escape */}
-             <div className="absolute bottom-full left-4 mb-4 opacity-0 pointer-events-none group-hover/profile:opacity-100 group-hover/profile:pointer-events-auto transition-all duration-400 transform translate-y-2 group-hover/profile:translate-y-0 z-[9999] drop-shadow-2xl">
-               <div className="bg-white dark:bg-bg-dark-soft border border-border-light dark:border-border-dark rounded-2xl p-6 w-72 relative">
-                  <div className="flex flex-col items-center text-center">
-                     <div className="h-28 w-28 rounded-full border-4 border-white dark:border-bg-dark shadow-xl overflow-hidden mb-4">
-                        {profile?.avatar && <img src={urlFor(profile.avatar).url()} alt={profile?.name} className="w-full h-full object-cover" />}
-                     </div>
-                     <h4 className="text-base font-bold text-text-light-primary dark:text-text-dark-primary">{profile?.name}</h4>
-                     <p className="text-[11px] text-accent-orange font-bold uppercase tracking-widest mb-4">{profile?.title}</p>
-                     
-                     <div className="w-full space-y-3 pt-4 border-t border-border-light dark:border-border-dark">
-                        <div className="flex items-center justify-between text-xs">
-                           <span className="text-text-light-secondary">Location</span>
-                           <span className="font-semibold text-text-light-primary dark:text-text-dark-primary">{profile?.location}</span>
-                        </div>
-                        <div className="flex items-center justify-between text-xs">
-                           <span className="text-text-light-secondary">Status</span>
-                           <span className="text-emerald-500 font-bold">{profile?.status}</span>
-                        </div>
-                     </div>
+               <div className="mx-2 p-4 rounded-lg bg-emerald-500/5 border border-emerald-500/10 mt-auto">
+                  <div className="flex items-center gap-2 text-emerald-500 mb-2">
+                     <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                     <span className="text-[10px] font-bold uppercase tracking-wider">{profile?.status}</span>
                   </div>
-                  {/* Speech Bubble Arrow */}
-                  <div className="absolute top-full left-6 w-5 h-5 bg-white dark:bg-bg-dark-soft border-r border-b border-border-light dark:border-border-dark rotate-45 -mt-[10px]"></div>
+                  <p className="text-[10px] text-text-light-secondary leading-normal mb-3">Available for high-precision design & development. Review my experience below.</p>
+                  {profile?.resume && (
+                    <a href={profile.resume.asset?._ref} download>
+                      <Button size="xs" variant="secondary" className="w-full border-emerald-500/20 text-emerald-500 text-[10px]" icon={<svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>}>
+                        <span className="text-[10px]">Download CV</span>
+                      </Button>
+                    </a>
+                  )}
                </div>
             </div>
+
+            {/* STRETCHED FOOTER: Profile Popup Fixed */}
+            <div className="p-4 border-t border-border-light dark:border-border-dark flex items-center gap-3 shrink-0 bg-slate-50 dark:bg-bg-dark-soft relative group/profile">
+               <div className="h-10 w-10 rounded-full border-2 border-white dark:border-border-dark overflow-hidden shadow-sm cursor-pointer hover:border-accent-orange transition-all shrink-0">
+                  {profile?.avatar && <img src={urlFor(profile.avatar).url()} alt={profile?.name} className="w-full h-full object-cover" />}
+               </div>
+               
+               <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between gap-1">
+                     <p className="text-xs font-bold text-text-light-primary dark:text-text-dark-primary truncate">{profile?.name}</p>
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleTheme();
+                      }}
+                      className="p-1 rounded hover:bg-slate-200 dark:hover:bg-white/10 text-text-light-secondary dark:text-text-dark-secondary transition-colors"
+                    >
+                      {isDark ? (
+                        <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                      ) : (
+                        <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                  <p className="text-[10px] text-text-light-secondary dark:text-text-dark-secondary truncate leading-none uppercase tracking-tighter">{profile?.title}</p>
+               </div>
+
+               {/* SIDE CONVERSATION POPUP: Forced z-index and overflow escape */}
+               <div className="absolute bottom-full left-4 mb-4 opacity-0 pointer-events-none group-hover/profile:opacity-100 group-hover/profile:pointer-events-auto transition-all duration-400 transform translate-y-2 group-hover/profile:translate-y-0 z-[9999] drop-shadow-2xl">
+                 <div className="bg-white dark:bg-bg-dark-soft border border-border-light dark:border-border-dark rounded-2xl p-6 w-72 relative">
+                    <div className="flex flex-col items-center text-center">
+                       <div className="h-28 w-28 rounded-full border-4 border-white dark:border-bg-dark shadow-xl overflow-hidden mb-4">
+                          {profile?.avatar && <img src={urlFor(profile.avatar).url()} alt={profile?.name} className="w-full h-full object-cover" />}
+                       </div>
+                       <h4 className="text-base font-bold text-text-light-primary dark:text-text-dark-primary">{profile?.name}</h4>
+                       <p className="text-[11px] text-accent-orange font-bold uppercase tracking-widest mb-4">{profile?.title}</p>
+                       
+                       <div className="w-full space-y-3 pt-4 border-t border-border-light dark:border-border-dark">
+                          <div className="flex items-center justify-between text-xs">
+                             <span className="text-text-light-secondary">Location</span>
+                             <span className="font-semibold text-text-light-primary dark:text-text-dark-primary">{profile?.location}</span>
+                          </div>
+                          <div className="flex items-center justify-between text-xs">
+                             <span className="text-text-light-secondary">Status</span>
+                             <span className="text-emerald-500 font-bold">{profile?.status}</span>
+                          </div>
+                       </div>
+                    </div>
+                    {/* Speech Bubble Arrow */}
+                    <div className="absolute top-full left-6 w-5 h-5 bg-white dark:bg-bg-dark-soft border-r border-b border-border-light dark:border-border-dark rotate-45 -mt-[10px]"></div>
+                 </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </aside>
+      </aside>
+    </>
   )
 }
 

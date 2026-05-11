@@ -40,9 +40,9 @@ function Projects({ onProjectClick, onLoading }: ProjectsProps) {
 
   return (
     <div className="flex flex-col animate-fade-in scroll-smooth">
-      <section id="active-projects" className="px-6 py-8 sm:px-10 lg:px-12">
+      <section id="active-projects" className="px-4 py-8 sm:px-10 lg:px-12">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between mb-8">
-          <h2 className="text-xl font-bold text-text-light-primary dark:text-text-dark-primary">Active Projects</h2>
+          <h2 className="text-lg sm:text-xl font-bold text-text-light-primary dark:text-text-dark-primary">Active Projects</h2>
         </div>
 
         {activeProjects.length > 0 ? (
@@ -72,9 +72,9 @@ function Projects({ onProjectClick, onLoading }: ProjectsProps) {
         )}
       </section>
 
-      <section id="archived" className="px-6 py-20 sm:px-10 lg:px-12 bg-slate-50 dark:bg-bg-dark-soft border-t border-border-light dark:border-border-dark mt-20">
+      <section id="archived" className="px-4 py-16 sm:py-20 sm:px-10 lg:px-12 bg-slate-50 dark:bg-bg-dark-soft border-t border-border-light dark:border-border-dark mt-12 sm:mt-20">
         <div className="max-w-4xl">
-          <h2 className="text-xl font-bold text-text-light-primary dark:text-text-dark-primary">Archived</h2>
+          <h2 className="text-lg sm:text-xl font-bold text-text-light-primary dark:text-text-dark-primary">Archived</h2>
           <p className="text-sm text-text-light-secondary mt-1">Projects that are no longer actively maintained.</p>
           
           {archivedProjects.length > 0 ? (

@@ -50,14 +50,14 @@ function AboutPage({ onLoading }: AboutPageProps) {
     <div className="flex flex-col animate-fade-in scroll-smooth bg-white dark:bg-bg-dark min-h-screen">
       
       {/* SECTION 1: PROFESSIONAL PROFILE (Matches Sidebar ID) */}
-      <section id="profile" className="px-6 py-12 sm:px-10 lg:px-16 max-w-6xl mx-auto w-full">
+      <section id="profile" className="px-4 py-10 sm:px-10 lg:px-16 max-w-6xl mx-auto w-full">
         
         {/* Bio Hero */}
         <div className="flex flex-col lg:flex-row gap-12 items-start mb-20">
           <div className="shrink-0">
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-tr from-accent-orange to-orange-400 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-              <div className="relative h-40 w-40 rounded-3xl bg-white dark:bg-bg-dark-soft border border-border-light dark:border-border-dark flex items-center justify-center text-4xl font-black text-accent-orange shadow-2xl overflow-hidden">
+              <div className="relative h-40 w-40 rounded-3xl bg-white dark:bg-bg-dark-soft border border-border-light dark:border-border-dark flex items-center justify-center text-4xl font-bold text-accent-orange shadow-2xl overflow-hidden">
                  {profile.avatar ? (
                    <img src={urlFor(profile.avatar).url()} alt={profile.name} className="w-full h-full object-cover" />
                  ) : (
@@ -72,10 +72,10 @@ function AboutPage({ onLoading }: AboutPageProps) {
 
           <div className="flex-1">
             <Badge variant="accent" className="mb-4">BS Computer Science</Badge>
-            <h1 className="text-4xl sm:text-5xl font-black text-text-light-primary dark:text-text-dark-primary tracking-tighter mb-4 leading-tight">
+            <h1 className="text-3xl font-bold text-text-light-primary dark:text-text-dark-primary sm:text-5xl mb-4 sm:mb-6 leading-tight">
               {profile.name}
             </h1>
-            <p className="text-lg text-text-light-secondary dark:text-text-dark-secondary leading-relaxed max-w-2xl mb-8">
+            <p className="text-base text-text-light-secondary dark:text-text-dark-secondary leading-relaxed max-w-2xl mb-8">
               {profile.bio || "Bio initialization in progress..."}
             </p>
           </div>
@@ -87,8 +87,8 @@ function AboutPage({ onLoading }: AboutPageProps) {
             
             {/* Experience */}
             <div>
-              <div className="flex items-center gap-4 mb-10">
-                <h3 className="text-xl font-black uppercase tracking-widest text-text-light-primary dark:text-text-dark-primary italic">Experience</h3>
+              <div className="flex items-center gap-4 mb-8 sm:mb-10">
+                <h3 className="text-lg sm:text-xl font-bold uppercase tracking-widest text-text-light-primary dark:text-text-dark-primary italic">Experience</h3>
                 <div className="h-px flex-1 bg-border-light dark:border-border-dark opacity-20" />
               </div>
               <div className="space-y-12">
@@ -97,7 +97,7 @@ function AboutPage({ onLoading }: AboutPageProps) {
                     <div key={i} className="relative pl-8 border-l border-border-light dark:border-border-dark">
                       <div className="absolute top-0 -left-1.5 w-3 h-3 rounded-full bg-accent-orange shadow-[0_0_8px_rgba(255,69,50,0.4)]" />
                       <div className="mb-1">
-                        <span className="text-[10px] font-black text-accent-orange uppercase tracking-widest">{exp.period}</span>
+                        <span className="text-xs font-bold text-accent-orange uppercase tracking-widest">{exp.period}</span>
                         <h4 className="text-lg font-bold text-text-light-primary dark:text-text-dark-primary">{exp.role}</h4>
                         <p className="text-sm font-bold text-text-light-secondary opacity-60">{exp.company}</p>
                       </div>
@@ -114,8 +114,8 @@ function AboutPage({ onLoading }: AboutPageProps) {
 
             {/* Education */}
             <div>
-              <div className="flex items-center gap-4 mb-10">
-                <h3 className="text-xl font-black uppercase tracking-widest text-text-light-primary dark:text-text-dark-primary italic">Education</h3>
+              <div className="flex items-center gap-4 mb-8 sm:mb-10">
+                <h3 className="text-lg sm:text-xl font-bold uppercase tracking-widest text-text-light-primary dark:text-text-dark-primary italic">Education</h3>
                 <div className="h-px flex-1 bg-border-light dark:border-border-dark opacity-20" />
               </div>
               <div className="p-6 rounded-2xl bg-slate-50 dark:bg-bg-dark-soft border border-border-light dark:border-border-dark border-dashed flex flex-col md:flex-row gap-6 items-center md:items-start text-center md:text-left">
@@ -138,7 +138,7 @@ function AboutPage({ onLoading }: AboutPageProps) {
                     <span className="w-1 h-1 rounded-full bg-slate-300" />
                     <span>{profile.school}</span>
                   </div>
-                  <p className="text-[10px] font-black text-accent-orange uppercase tracking-widest mt-3 px-2 py-1 bg-accent-orange/5 border border-accent-orange/10 rounded-md inline-block">
+                  <p className="text-xs font-bold text-accent-orange uppercase tracking-widest mt-3 px-2 py-1 bg-accent-orange/5 border border-accent-orange/10 rounded-md inline-block">
                     {profile.schoolYear || "Academic period pending..."}
                   </p>
                 </div>
@@ -150,7 +150,7 @@ function AboutPage({ onLoading }: AboutPageProps) {
           {/* Side Column: Skills & Details */}
           <div className="space-y-12">
             <div>
-              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-accent-orange mb-8">Technical Stack</h3>
+              <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-accent-orange mb-8">Technical Stack</h3>
               <div className="space-y-8">
                 {profile.skills && profile.skills.length > 0 ? (
                   profile.skills.map((skill: any) => {
@@ -204,7 +204,7 @@ function AboutPage({ onLoading }: AboutPageProps) {
             </div>
 
             <Card className="p-6 bg-accent-orange/5 border-accent-orange/10">
-               <h4 className="text-[10px] font-black uppercase tracking-widest mb-4">Core Strengths</h4>
+               <h4 className="text-xs font-bold uppercase tracking-widest mb-4">Core Strengths</h4>
                <ul className="space-y-3">
                  {['Problem Solving', 'Adaptability', 'Attention to Detail', 'Teamwork'].map(s => (
                    <li key={s} className="flex items-center gap-3 text-xs font-bold text-text-light-secondary">
@@ -219,10 +219,10 @@ function AboutPage({ onLoading }: AboutPageProps) {
       </section>
 
       {/* SECTION 2: FAQ (Matches Sidebar ID) */}
-      <section id="faq" className="px-6 py-24 sm:px-10 lg:px-16 bg-slate-50 dark:bg-bg-dark-soft border-t border-border-light dark:border-border-dark">
+      <section id="faq" className="px-4 py-16 sm:py-24 sm:px-10 lg:px-16 bg-slate-50 dark:bg-bg-dark-soft border-t border-border-light dark:border-border-dark">
         <div className="max-w-4xl mx-auto">
-          <p className="text-[10px] font-black text-accent-orange uppercase tracking-[0.3em] mb-3">Support Node</p>
-          <h2 className="text-3xl font-black text-text-light-primary dark:text-text-dark-primary tracking-tighter uppercase mb-10">Common Inquiries</h2>
+          <p className="text-xs font-bold text-accent-orange uppercase tracking-[0.3em] mb-3">Support Node</p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-text-light-primary dark:text-text-dark-primary tracking-tighter uppercase mb-8 sm:mb-10">Common Inquiries</h2>
           
           {faqData && faqData.length > 0 ? (
             <Card className="p-6 bg-white dark:bg-bg-dark shadow-xl">

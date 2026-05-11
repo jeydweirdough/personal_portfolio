@@ -152,10 +152,10 @@ function App() {
       />
 
       <div 
-        className="flex-1 flex flex-col min-w-0 transition-all duration-300 ease-in-out"
-        style={{ marginLeft: sidebarWidth }}
+        className="flex-1 flex flex-col min-w-0 transition-all duration-300 ease-in-out main-content"
+        style={{ '--sidebar-width': isSidebarExpanded ? 'var(--sidebar-total-width)' : 'var(--sidebar-narrow-width)' } as any}
       >
-        <Topbar activePage={activePage} />
+        <Topbar activePage={activePage} onToggleSidebar={toggleSidebar} />
         
         <main className="flex-1 overflow-y-auto scroll-smooth relative flex flex-col">
           {/* Facebook-style Top Progress Bar */}

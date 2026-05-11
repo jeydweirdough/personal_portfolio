@@ -22,7 +22,7 @@ export function Card({ children, className = '', hoverable = false, ...props }: 
 
 export function CardHeader({ children, className = '' }: { children: React.ReactNode, className?: string }) {
   return (
-    <div className={`px-6 py-4 border-b border-border-light dark:border-border-dark bg-slate-50 dark:bg-bg-dark-soft ${className}`}>
+    <div className={`px-4 sm:px-6 py-3 sm:py-4 border-b border-border-light dark:border-border-dark bg-slate-50 dark:bg-bg-dark-soft ${className}`}>
       {children}
     </div>
   )
@@ -30,7 +30,7 @@ export function CardHeader({ children, className = '' }: { children: React.React
 
 export function CardContent({ children, className = '' }: { children: React.ReactNode, className?: string }) {
   return (
-    <div className={`p-6 ${className}`}>
+    <div className={`p-4 sm:p-6 ${className}`}>
       {children}
     </div>
   )
@@ -38,7 +38,7 @@ export function CardContent({ children, className = '' }: { children: React.Reac
 
 export function CardFooter({ children, className = '' }: { children: React.ReactNode, className?: string }) {
   return (
-    <div className={`px-6 py-3 border-t border-border-light dark:border-border-dark bg-slate-50 dark:bg-bg-dark-soft ${className}`}>
+    <div className={`px-4 sm:px-6 py-2 sm:py-3 border-t border-border-light dark:border-border-dark bg-slate-50 dark:bg-bg-dark-soft ${className}`}>
       {children}
     </div>
   )
