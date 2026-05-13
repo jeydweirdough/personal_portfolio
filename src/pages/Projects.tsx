@@ -56,10 +56,24 @@ function Projects({ onProjectClick, onLoading }: ProjectsProps) {
                   </div>
                   <button className="text-text-light-secondary opacity-30 hover:opacity-100"><svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" /></svg></button>
                 </div>
-                <div className="mt-8 flex items-center gap-2">
-                  <Badge>{project.tag}</Badge>
-                  <div className={`h-1.5 w-1.5 rounded-full ${project.status === 'Active' ? 'bg-emerald-500' : 'bg-slate-300'}`}></div>
-                  <span className="text-[10px] text-text-light-secondary">{project.status}</span>
+                <div className="mt-8 flex flex-wrap items-center gap-2">
+                  {(() => {
+                    const techStack = [
+                      ...(project.technologies || []),
+                      project.framework,
+                      project.database
+                    ].filter(Boolean);
+
+                    return techStack.length > 0 ? (
+                      techStack.map((tech: string, i: number) => (
+                        <Badge key={i} variant="outline" className="text-[10px] py-0 border-accent-orange/20 text-accent-orange/80">{tech}</Badge>
+                      ))
+                    ) : (
+                      <Badge variant="outline" className="text-[10px] py-0 opacity-40 italic">System Default</Badge>
+                    );
+                  })()}
+                  <div className={`h-1.5 w-1.5 rounded-full ${project.status === 'Active' ? 'bg-emerald-500' : 'bg-slate-300'} ml-1`}></div>
+                  <span className="text-[10px] text-text-light-secondary font-bold uppercase tracking-tighter">{project.status}</span>
                 </div>
               </Card>
             ))}
@@ -72,32 +86,25 @@ function Projects({ onProjectClick, onLoading }: ProjectsProps) {
         )}
       </section>
 
-      <section id="archived" className="px-4 py-16 sm:py-20 sm:px-10 lg:px-12 bg-slate-50 dark:bg-bg-dark-soft border-t border-border-light dark:border-border-dark mt-12 sm:mt-20">
-        <div className="max-w-4xl">
-          <h2 className="text-lg sm:text-xl font-bold text-text-light-primary dark:text-text-dark-primary">Archived</h2>
-          <p className="text-sm text-text-light-secondary mt-1">Projects that are no longer actively maintained.</p>
-          
-          {archivedProjects.length > 0 ? (
+      {archivedProjects.length > 0 && (
+        <section id="archived" className="px-4 py-16 sm:py-20 sm:px-10 lg:px-12 bg-slate-50 dark:bg-bg-dark-soft border-t border-border-light dark:border-border-dark mt-12 sm:mt-20">
+          <div className="max-w-4xl">
+            <h2 className="text-lg sm:text-xl font-bold text-text-light-primary dark:text-text-dark-primary">Archived</h2>
+            <p className="text-sm text-text-light-secondary mt-1">Projects that are no longer actively maintained.</p>
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-               {/* Simplified cards for archived */}
-               {archivedProjects.map((project) => (
-                 <Card key={project._id} className="p-4 opacity-60">
-                    <h3 className="text-sm font-bold">{project.name}</h3>
-                    <p className="text-[10px] text-text-light-secondary">{project.status} • {project.tag}</p>
-                 </Card>
-               ))}
+              {archivedProjects.map((project) => (
+                <Card key={project._id} className="p-4 opacity-60">
+                  <h3 className="text-sm font-bold">{project.name}</h3>
+                  <p className="text-[10px] text-text-light-secondary">
+                    {project.status} • {project.technologies?.join(', ') || 'General'}
+                  </p>
+                </Card>
+              ))}
             </div>
-          ) : (
-            <div className="mt-8">
-              <EmptyState 
-                title="Archive Empty" 
-                message="No archived projects found in the database."
-                icon={<svg className="w-10 h-10 text-text-light-secondary opacity-20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" strokeWidth={1.5}/></svg>}
-              />
-            </div>
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
     </div>
   )
 }

@@ -150,7 +150,7 @@ function ContactPage({ onLoading }: ContactPageProps) {
           </h1>
           
           <p className="text-xs font-bold text-text-light-secondary dark:text-text-dark-secondary opacity-40 max-w-sm mx-auto mb-10 uppercase tracking-[0.15em] leading-relaxed">
-            Direct access to design support. Initialize connection via secure protocol.
+            Direct access to streamline emails. <br/>Let's connect and discuss your ideas.
           </p>
 
           <div className="flex flex-col items-center gap-8 w-full max-w-xs">
@@ -178,27 +178,27 @@ function ContactPage({ onLoading }: ContactPageProps) {
 
         {/* Section 2: Inquiry Form (Matches Sidebar ID) */}
         <section id="support-form" className="w-full">
-          <div className="flex flex-col sm:flex-row items-end justify-between mb-8 gap-4">
-            <div>
-              <p className="text-xs font-bold text-accent-orange uppercase tracking-[0.3em] mb-2 opacity-60">Protocol 02</p>
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-8 gap-4">
+            <div className="text-left">
+              <p className="text-xs font-bold text-accent-orange uppercase tracking-[0.3em] mb-2 opacity-60">Email</p>
               <h2 className="text-xl sm:text-2xl font-bold text-text-light-primary dark:text-text-dark-primary tracking-tighter uppercase">Inquiry Interface</h2>
             </div>
-            <p className="text-xs font-medium text-text-light-secondary opacity-40 max-w-[200px] sm:text-right uppercase tracking-tighter leading-tight">
-              Standard structured data submission for detailed project proposals.
+            <p className="text-xs font-medium text-text-light-secondary opacity-40 max-w-[200px] text-left sm:text-right uppercase tracking-tighter leading-tight">
+              We can connect here for any project discussions.
             </p>
           </div>
 
           <Card className="p-6 sm:p-10 bg-slate-50/30 dark:bg-bg-dark-soft/20 border-dashed backdrop-blur-sm rounded-3xl">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-               <Input label="Identity / Name" placeholder="Jane Doe" className="bg-transparent text-xs" />
-               <Input label="Access Point / Email" placeholder="jane@example.com" className="bg-transparent text-xs" />
+               <Input label="Name" placeholder="Jane Doe" className="bg-transparent text-xs" />
+               <Input label="Email" placeholder="jane@example.com" className="bg-transparent text-xs" />
             </div>
             <div className="space-y-6">
-               <Textarea label="Payload / Message" placeholder="Describe your vision..." rows={5} className="bg-transparent text-xs" />
+               <Textarea label="Message" placeholder="Describe your vision..." rows={5} className="bg-transparent text-xs" />
                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-border-light dark:border-border-dark">
                   <div className="flex items-center gap-3 text-emerald-500">
-                    <div className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-xs font-bold uppercase tracking-widest opacity-80">Encrypted</span>
+                    {/* <div className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-xs font-bold uppercase tracking-widest opacity-80">{new Date().toLocaleDateString()}</span> */}
                   </div>
                   <Button variant="primary" size="md" className="w-full sm:w-auto font-bold uppercase tracking-[0.2em]">Deploy Payload</Button>
                </div>

@@ -38,6 +38,9 @@ function App() {
 
   // Fetch Global Profile Data for Sidebar/Contact
   const { data: profile, loading: profileLoading } = useSanityData<any>(`*[_type == "profile"][0]`)
+  const { data: projectsData } = useSanityData<any[]>(`*[_type == "project"]`)
+
+  const hasArchived = projectsData?.some(p => p.status !== 'Active') || false
 
   // Scroll Spy Logic
   useEffect(() => {
@@ -147,6 +150,7 @@ function App() {
         toggleTheme={toggleTheme}
         activeSection={activeSection}
         profile={profile}
+        hasArchived={hasArchived}
       />
 
       <div 

@@ -194,9 +194,20 @@ function ProjectDetails({ projectId, onBack, onLoading }: ProjectDetailsProps) {
 
         <div className="flex flex-col lg:flex-row gap-12">
           <div className="flex-1">
-            <div className="flex items-center gap-3 mb-4">
-              <Badge variant="accent">{project.tag}</Badge>
-              <span className="text-sm text-text-light-secondary">{project.region}</span>
+            <div className="flex flex-wrap items-center gap-2 mb-4">
+              {(() => {
+                const techStack = [
+                  ...(project.technologies || []),
+                  project.framework,
+                  project.database
+                ].filter(Boolean);
+
+                return techStack.map((tech: string, i: number) => (
+                  <Badge key={i} variant="accent">{tech}</Badge>
+                ));
+              })()}
+              <span className="h-4 w-px bg-border-light dark:bg-border-dark mx-2" />
+              <span className="text-xs font-bold text-text-light-secondary uppercase tracking-widest">{project.region}</span>
               {Number(averageRating) !== 0 && (
                 <div className="flex items-center gap-2 ml-auto">
                   <StarRating rating={Number(averageRating)} size="xs" />
@@ -262,9 +273,9 @@ function ProjectDetails({ projectId, onBack, onLoading }: ProjectDetailsProps) {
               </div>
             )}
 
-             <div className="mb-12">
-                <h3 className="text-xl font-bold mb-6">Photo Documentation</h3>
-                {project.documentation && project.documentation.length > 0 ? (
+             {project.documentation && project.documentation.length > 0 && (
+               <div className="mb-12">
+                  <h3 className="text-xl font-bold mb-6">Photo Documentation</h3>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {project.documentation.map((doc: any, i: number) => {
                       const imageUrl = doc.image ? urlFor(doc.image).url() : ''
@@ -278,46 +289,39 @@ function ProjectDetails({ projectId, onBack, onLoading }: ProjectDetailsProps) {
                       )
                     })}
                   </div>
-                ) : (
-                  <EmptyState 
-                    title="No Photos Available" 
-                    message="Documentation assets for this project are currently in cold storage."
-                    icon={<svg className="w-10 h-10 text-text-light-secondary opacity-20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" strokeWidth={1.5}/></svg>}
-                  />
-                )}
-             </div>
+               </div>
+             )}
 
-             <div className="mb-12">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
-                   <div>
-                      <h3 className="text-xl font-bold">User Reviews</h3>
-                      <p className="text-[10px] text-text-light-secondary uppercase tracking-widest mt-1">{project.reviews?.length || 0} total interactions</p>
-                   </div>
-                   
-                   {/* Rating Filter UI */}
-                   <div className="flex items-center gap-2 bg-slate-50 dark:bg-bg-dark-soft p-1 rounded-xl border border-border-light dark:border-border-dark">
-                      <button 
-                        onClick={() => setFilterRating(null)}
-                        className={`px-3 py-1.5 text-[10px] font-bold rounded-lg transition-all ${filterRating === null ? 'bg-white dark:bg-bg-dark text-accent-orange shadow-sm' : 'text-text-light-secondary hover:text-text-light-primary'}`}
-                      >
-                        ALL
-                      </button>
-                      {[5, 4, 3, 2, 1].map(star => (
+             {project.reviews && project.reviews.length > 0 && (
+               <div className="mb-12">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+                     <div>
+                        <h3 className="text-xl font-bold">User Reviews</h3>
+                        <p className="text-[10px] text-text-light-secondary uppercase tracking-widest mt-1">{project.reviews.length} total interactions</p>
+                     </div>
+                     
+                     <div className="flex items-center gap-2 bg-slate-50 dark:bg-bg-dark-soft p-1 rounded-xl border border-border-light dark:border-border-dark">
                         <button 
-                          key={star}
-                          onClick={() => setFilterRating(star)}
-                          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all ${filterRating === star ? 'bg-white dark:bg-bg-dark text-accent-orange shadow-sm' : 'text-text-light-secondary hover:text-text-light-primary'}`}
+                          onClick={() => setFilterRating(null)}
+                          className={`px-3 py-1.5 text-[10px] font-bold rounded-lg transition-all ${filterRating === null ? 'bg-white dark:bg-bg-dark text-accent-orange shadow-sm' : 'text-text-light-secondary hover:text-text-light-primary'}`}
                         >
-                          <span className="text-[10px] font-bold">{star}</span>
-                          <svg className={`w-2.5 h-2.5 ${filterRating === star ? 'text-accent-orange fill-current' : 'text-slate-300'}`} viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                          </svg>
+                          ALL
                         </button>
-                      ))}
-                   </div>
-                </div>
-                
-                {filteredReviews.length > 0 ? (
+                        {[5, 4, 3, 2, 1].map(star => (
+                          <button 
+                            key={star}
+                            onClick={() => setFilterRating(star)}
+                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all ${filterRating === star ? 'bg-white dark:bg-bg-dark text-accent-orange shadow-sm' : 'text-text-light-secondary hover:text-text-light-primary'}`}
+                          >
+                            <span className="text-[10px] font-bold">{star}</span>
+                            <svg className={`w-2.5 h-2.5 ${filterRating === star ? 'text-accent-orange fill-current' : 'text-slate-300'}`} viewBox="0 0 20 20" fill="currentColor">
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                          </button>
+                        ))}
+                     </div>
+                  </div>
+                  
                   <div className="space-y-6">
                     {filteredReviews.map((rev: any, i: number) => (
                       <div key={i} className="pb-6 border-b border-border-light dark:border-border-dark last:border-0 animate-fade-in">
@@ -332,14 +336,8 @@ function ProjectDetails({ projectId, onBack, onLoading }: ProjectDetailsProps) {
                       </div>
                     ))}
                   </div>
-                ) : (
-                  <EmptyState 
-                    title={filterRating ? `No ${filterRating}-Star Reviews` : "No Peer Reviews"} 
-                    message={filterRating ? `No records found matching this rating criteria.` : "This project has not yet been peer-reviewed. System verification pending."}
-                    icon={<svg className="w-10 h-10 text-accent-orange/30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" strokeWidth={1.5}/></svg>}
-                  />
-                )}
-             </div>
+               </div>
+             )}
 
             {/* Add Review Form */}
             <Card className="p-8">

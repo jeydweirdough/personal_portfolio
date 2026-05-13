@@ -60,9 +60,10 @@ interface SidebarProps {
   toggleTheme: () => void
   activeSection: string
   profile: any
+  hasArchived?: boolean
 }
 
-function Sidebar({ activePage, setActivePage, isExpanded, toggleExpanded, isDark, toggleTheme, activeSection, profile }: SidebarProps) {
+function Sidebar({ activePage, setActivePage, isExpanded, toggleExpanded, isDark, toggleTheme, activeSection, profile, hasArchived }: SidebarProps) {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (element) {
@@ -91,7 +92,7 @@ function Sidebar({ activePage, setActivePage, isExpanded, toggleExpanded, isDark
         {/* PRIMARY BAR: Always visible icons */}
         <div className="w-[var(--sidebar-narrow-width)] h-full flex flex-col items-center bg-slate-50 dark:bg-bg-dark border-r border-border-light dark:border-border-dark shrink-0 z-[110]">
           <div className="h-[var(--topbar-height)] flex items-center justify-center w-full shrink-0">
-            <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-accent-orange text-white font-bold">M</div>
+            <img src="/mooserage_icon.svg" alt="Logo" className="h-7 w-7" />
           </div>
           
           <div className="flex flex-col gap-2 flex-1 w-full items-center py-4">
@@ -146,7 +147,7 @@ function Sidebar({ activePage, setActivePage, isExpanded, toggleExpanded, isDark
             <div className="flex-1 overflow-y-auto px-3 py-4 space-y-5">
                <div className="space-y-1">
                   <p className="text-[10px] text-text-light-secondary font-medium uppercase tracking-tighter mb-2">Sections</p>
-                  {activeItem?.sections?.map(section => (
+                  {activeItem?.sections?.filter(s => s.id !== 'archived' || hasArchived).map(section => (
                     <button
                       key={section.id}
                       onClick={() => {
