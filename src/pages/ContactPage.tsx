@@ -197,8 +197,6 @@ function ContactPage({ onLoading }: ContactPageProps) {
                <Textarea label="Message" placeholder="Describe your vision..." rows={5} className="bg-transparent text-xs" />
                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-border-light dark:border-border-dark">
                   <div className="flex items-center gap-3 text-emerald-500">
-                    {/* <div className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-xs font-bold uppercase tracking-widest opacity-80">{new Date().toLocaleDateString()}</span> */}
                   </div>
                   <Button variant="primary" size="md" className="w-full sm:w-auto font-bold uppercase tracking-[0.2em]">Deploy Payload</Button>
                </div>

@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react'
-import { Button } from '../components/ui/Button'
-import { Badge } from '../components/ui/Badge'
 
 interface KeyValue {
   key: string
@@ -249,8 +247,6 @@ export default function Playground({ onLoading }: PlaygroundProps) {
       setBodyParams(newBodyParams)
     }
 
-    if (response) {
-      console.log("Response content:", response.body)
     }
   }
 

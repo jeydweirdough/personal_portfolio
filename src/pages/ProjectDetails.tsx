@@ -236,22 +236,19 @@ function ProjectDetails({ projectId, onBack, onLoading }: ProjectDetailsProps) {
               ))}
             </div>
 
-            <div className="space-y-6 mb-12">
-               <h3 className="text-xl font-bold">Key Features</h3>
-               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                 {[
-                   'Real-time message processing with low latency.',
-                   'Custom NLP models for industry-specific terminology.',
-                   'Seamless integration with Discord, Slack, and Telegram.',
-                   'Comprehensive analytics dashboard for usage tracking.'
-                 ].map((feature, i) => (
-                   <li key={i} className="flex gap-3 text-sm text-text-light-secondary dark:text-text-dark-secondary">
-                      <div className="mt-1 h-1.5 w-1.5 rounded-full bg-accent-orange shrink-0"></div>
-                      {feature}
-                   </li>
-                 ))}
-               </ul>
-            </div>
+            {project.features && project.features.length > 0 && (
+              <div className="space-y-6 mb-12">
+                 <h3 className="text-xl font-bold">Key Features</h3>
+                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                   {project.features.map((feature: string, i: number) => (
+                     <li key={i} className="flex gap-3 text-sm text-text-light-secondary dark:text-text-dark-secondary">
+                        <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-accent-orange shrink-0"></div>
+                        {feature}
+                     </li>
+                   ))}
+                 </ul>
+              </div>
+            )}
 
             {/* Featured Review */}
             {latestHighestReview && (
