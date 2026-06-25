@@ -145,8 +145,8 @@ function ContactPage({ onLoading }: ContactPageProps) {
             <span className="text-xs font-bold uppercase tracking-[0.3em] text-accent-orange">Ready for Collaboration</span>
           </div>
 
-          <h1 className="text-2xl sm:text-5xl font-bold text-text-light-primary dark:text-text-dark-primary tracking-tighter mb-4 sm:mb-6 leading-tight">
-            Let's keep in <span className="text-accent-orange italic underline decoration-accent-orange/20 underline-offset-4">touch</span>.
+          <h1 className="text-2xl sm:text-3xl font-bold text-text-light-primary dark:text-text-dark-primary tracking-tight mb-3 sm:mb-4 leading-snug">
+            Let's keep in <span className="text-accent-orange italic">touch</span>.
           </h1>
           
           <p className="text-xs font-bold text-text-light-secondary dark:text-text-dark-secondary opacity-40 max-w-sm mx-auto mb-10 uppercase tracking-[0.15em] leading-relaxed">
@@ -181,7 +181,7 @@ function ContactPage({ onLoading }: ContactPageProps) {
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-8 gap-4">
             <div className="text-left">
               <p className="text-xs font-bold text-accent-orange uppercase tracking-[0.3em] mb-2 opacity-60">Email</p>
-              <h2 className="text-xl sm:text-2xl font-bold text-text-light-primary dark:text-text-dark-primary tracking-tighter uppercase">Inquiry Interface</h2>
+              <h2 className="text-base font-bold text-text-light-primary dark:text-text-dark-primary tracking-tight uppercase">Inquiry Form</h2>
             </div>
             <p className="text-xs font-medium text-text-light-secondary opacity-40 max-w-[200px] text-left sm:text-right uppercase tracking-tighter leading-tight">
               We can connect here for any project discussions.

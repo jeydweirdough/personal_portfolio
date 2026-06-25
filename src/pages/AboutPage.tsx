@@ -71,11 +71,11 @@ function AboutPage({ onLoading }: AboutPageProps) {
           </div>
 
           <div className="flex-1">
-            <Badge variant="accent" className="mb-4">BS Computer Science</Badge>
-            <h1 className="text-3xl font-bold text-text-light-primary dark:text-text-dark-primary sm:text-5xl mb-4 sm:mb-6 leading-tight">
+            <Badge variant="accent" className="mb-3">BS Computer Science</Badge>
+            <h1 className="text-xl sm:text-3xl font-bold text-text-light-primary dark:text-text-dark-primary mb-3 leading-tight">
               {profile.name}
             </h1>
-            <p className="text-base text-text-light-secondary dark:text-text-dark-secondary leading-relaxed max-w-2xl mb-8">
+            <p className="text-sm text-text-light-secondary dark:text-text-dark-secondary leading-relaxed max-w-2xl mb-6">
               {profile.bio || "Bio initialization in progress..."}
             </p>
           </div>
@@ -88,7 +88,7 @@ function AboutPage({ onLoading }: AboutPageProps) {
             {/* Experience */}
             <div>
               <div className="flex items-center gap-4 mb-8 sm:mb-10">
-                <h3 className="text-lg sm:text-xl font-bold uppercase tracking-widest text-text-light-primary dark:text-text-dark-primary italic">Experience</h3>
+                <h3 className="text-sm font-semibold uppercase tracking-widest text-text-light-primary dark:text-text-dark-primary italic">Experience</h3>
                 <div className="h-px flex-1 bg-border-light dark:border-border-dark opacity-20" />
               </div>
               <div className="space-y-12">
@@ -115,7 +115,7 @@ function AboutPage({ onLoading }: AboutPageProps) {
             {/* Education */}
             <div>
               <div className="flex items-center gap-4 mb-8 sm:mb-10">
-                <h3 className="text-lg sm:text-xl font-bold uppercase tracking-widest text-text-light-primary dark:text-text-dark-primary italic">Education</h3>
+                <h3 className="text-sm font-semibold uppercase tracking-widest text-text-light-primary dark:text-text-dark-primary italic">Education</h3>
                 <div className="h-px flex-1 bg-border-light dark:border-border-dark opacity-20" />
               </div>
               <div className="p-6 rounded-2xl bg-slate-50 dark:bg-bg-dark-soft border border-border-light dark:border-border-dark border-dashed flex flex-col md:flex-row gap-6 items-center md:items-start text-center md:text-left">
@@ -150,7 +150,7 @@ function AboutPage({ onLoading }: AboutPageProps) {
           {/* Side Column: Skills & Details */}
           <div className="space-y-12">
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-accent-orange mb-8">Technical Stack</h3>
+              <h3 className="text-xs font-semibold uppercase tracking-widest text-accent-orange mb-6">Technical Stack</h3>
               <div className="space-y-8">
                 {profile.skills && profile.skills.length > 0 ? (
                   profile.skills.map((skill: any) => {
@@ -221,8 +221,8 @@ function AboutPage({ onLoading }: AboutPageProps) {
       {/* SECTION 2: FAQ (Matches Sidebar ID) */}
       <section id="faq" className="px-4 py-16 sm:py-24 sm:px-10 lg:px-16 bg-slate-50 dark:bg-bg-dark-soft border-t border-border-light dark:border-border-dark">
         <div className="max-w-4xl mx-auto">
-          <p className="text-xs font-bold text-accent-orange uppercase tracking-[0.3em] mb-3">Support Node</p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-text-light-primary dark:text-text-dark-primary tracking-tighter uppercase mb-8 sm:mb-10">Common Inquiries</h2>
+          <p className="text-[10px] font-semibold text-accent-orange uppercase tracking-widest mb-2">Support Node</p>
+          <h2 className="text-lg font-bold text-text-light-primary dark:text-text-dark-primary tracking-tight uppercase mb-6 sm:mb-8">Common Inquiries</h2>
           
           {faqData && faqData.length > 0 ? (
             <Card className="p-6 bg-white dark:bg-bg-dark shadow-xl">

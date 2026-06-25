@@ -55,6 +55,12 @@
     50% { transform: translateX(0); }
     100% { transform: translateX(100%); }
   }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-10px) rotate(1deg); }
+    66% { transform: translateY(-5px) rotate(-1deg); }
+  }
 }
 
 :root {
@@ -81,7 +87,6 @@ body {
   background-color: var(--color-bg-light);
   color: var(--color-text-light-primary);
   transition: background-color 0.2s ease, color 0.2s ease;
-  overflow: hidden; /* Prevent double scrollbars on body */
 }
 
 html.dark body {
@@ -121,8 +126,8 @@ button {
   animation: puff 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@media (min-width: 1024px) {
-  .main-content {
-    margin-left: var(--sidebar-width, 64px);
-  }
+.animate-float {
+  animation: float 4s ease-in-out infinite;
 }
+
+
