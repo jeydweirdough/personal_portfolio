@@ -371,7 +371,7 @@ function App() {
 
       </main>
 
-      <Footer profile={profile} socials={socials} />
+      <Footer profile={profile} socials={socials ?? undefined} />
     </div>
   )
 }
