@@ -1,0 +1,73 @@
+[
+  {
+    "_createdAt": "2026-05-11T02:15:55Z",
+    "_id": "7e5bd775-f757-4956-a9bb-20f98ac6affb",
+    "_rev": "6Q6jM6mukeQOe5iPkMz9wS",
+    "_system": {
+      "base": {
+        "id": "7e5bd775-f757-4956-a9bb-20f98ac6affb",
+        "rev": "dcfy3erGKhTeOCMBwM2ci8"
+      }
+    },
+    "_type": "project",
+    "_updatedAt": "2026-05-13T06:09:15Z",
+    "database": "Static",
+    "demoUrl": "https://jecaticonstructionservices.vercel.app/",
+    "description": "Jecati has built a foundation of first-hand expertise, having personally managed hundreds of projects. His understanding covers everything from meticulous cleanup to comprehensive product knowledge, forming the simple yet effective business model of \"GOOD SERVICE, GOOD PRODUCT, and GOOD PRICE.\"",
+    "documentation": [
+      {
+        "_key": "eb1d8c734bf6"
+      }
+    ],
+    "framework": "React + Typescript + Tailwind",
+    "name": "Jecati Construction Services",
+    "provider": "Vercel",
+    "region": "ap-southeast-1",
+    "repoUrl": "https://github.com/jeydweirdough/jecaticonstructionservices",
+    "status": "Active"
+  },
+  {
+    "_createdAt": "2026-05-08T06:01:20Z",
+    "_id": "project-1",
+    "_rev": "6Q6jM6mukeQOe5iPkMz9Oo",
+    "_system": {
+      "base": {
+        "id": "project-1",
+        "rev": "hr5hJ4kXWKYQ5JXTNFWahz"
+      }
+    },
+    "_type": "project",
+    "_updatedAt": "2026-05-13T06:09:08Z",
+    "database": "PostgreSQL",
+    "demoUrl": "https://mooserage-chatbot.vercel.app/",
+    "description": "A modern, AI-powered chatbot built with Flask and Groq (LLaMA 3.3 70B), featuring real-time streaming responses, persistent cloud storage via Supabase, and a premium warm-toned UI.",
+    "documentation": [
+      {
+        "_key": "1ec46a532162",
+        "image": "/images/projects-1-documentation-0-image-7906e521ba90.png",
+        "title": "Authentication view Email"
+      },
+      {
+        "_key": "ca8335740a56",
+        "image": "/images/projects-1-documentation-1-image-de184f9bcf2c.png",
+        "title": "Verification Code"
+      },
+      {
+        "_key": "d307b376e480",
+        "image": "/images/projects-1-documentation-2-image-a1211e6d3c22.png",
+        "title": "Landing Page"
+      },
+      {
+        "_key": "da83a983b8a9",
+        "image": "/images/projects-1-documentation-3-image-4d31fffed39c.png",
+        "title": "Conversation Feature"
+      }
+    ],
+    "framework": "React",
+    "name": "Mooserage Chatbot",
+    "provider": "Vercel",
+    "region": "ap-southeast-1",
+    "repoUrl": "https://github.com/jeydweirdough/mooserage_chatbot",
+    "status": "Active"
+  }
+]

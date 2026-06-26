@@ -4,8 +4,8 @@ import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
 import ProjectDetails from './pages/ProjectDetails'
 import Footer from './components/parts/Footer'
-import { useSanityData } from './hooks/useSanity'
-import { urlFor } from './lib/sanity'
+import profile from './data/profile.json'
+import socials from './data/socials.json'
 
 const NAV_ITEMS = [
   { id: 'profile', label: 'About' },
@@ -33,6 +33,7 @@ function App() {
     return NAV_ITEMS.find(n => n.id === hash) ? hash : 'profile'
   })
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null)
+  const [activeProjectId, setActiveProjectId] = useState<string | null>(null)
   const [navScrolled, setNavScrolled] = useState(false)
   const [showBackToTop, setShowBackToTop] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -45,8 +46,7 @@ function App() {
     return false
   })
 
-  const { data: profile } = useSanityData<any>(`*[_type == "profile"][0]`)
-  const { data: socials } = useSanityData<any[]>(`*[_type == "social"]`)
+  // Profile and socials are loaded statically from local JSON data
 
   // Scroll to hash section on initial load
   useEffect(() => {
@@ -177,7 +177,7 @@ function App() {
             {/* Profile Avatar */}
             {profile?.avatar && (
               <div className="hidden md:block h-8 w-8 rounded-full overflow-hidden border-2 border-border-light dark:border-border-dark">
-                <img src={urlFor(profile.avatar).url()} alt={profile?.name} className="w-full h-full object-cover" />
+                <img src={profile.avatar} alt={profile?.name} className="w-full h-full object-cover" />
               </div>
             )}
 
@@ -237,17 +237,6 @@ function App() {
       {/* ── PROJECT DETAIL OVERLAY ──────────────────────────── */}
       {selectedProjectId && (
         <div className="fixed inset-0 z-[250] bg-white dark:bg-bg-dark overflow-y-auto animate-fade-in">
-          <div className="sticky top-0 z-10 bg-white/90 dark:bg-bg-dark/90 backdrop-blur-md border-b border-border-light dark:border-border-dark h-16 flex items-center px-6 gap-4">
-            <button
-              onClick={() => setSelectedProjectId(null)}
-              className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-text-light-secondary dark:text-text-dark-secondary hover:text-accent-orange transition-colors"
-            >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-              Back to Projects
-            </button>
-          </div>
           <ProjectDetails
             projectId={selectedProjectId}
             onBack={() => setSelectedProjectId(null)}
@@ -362,7 +351,13 @@ function App() {
             <p className="text-xs font-bold text-accent-orange uppercase tracking-[0.3em] mb-2">Portfolio</p>
             <h2 className="text-2xl sm:text-3xl font-bold text-text-light-primary dark:text-text-dark-primary tracking-tighter uppercase">Projects</h2>
           </div>
-          <Projects onProjectClick={(id) => setSelectedProjectId(id)} />
+          <Projects 
+            selectedProjectId={activeProjectId} 
+            onProjectClick={(id) => {
+              setSelectedProjectId(id)
+              setActiveProjectId(id)
+            }} 
+          />
         </section>
 
         <section id="contact-section" className="scroll-mt-16 min-h-screen flex flex-col justify-center border-t border-border-light dark:border-border-dark">

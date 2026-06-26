@@ -1,11 +1,9 @@
 import { Card } from '../components/ui/Card'
 import { Badge } from '../components/ui/Badge'
 import { Accordion } from '../components/ui/Accordion'
-import { useSanityData } from '../hooks/useSanity'
-import { urlFor } from '../lib/sanity'
+import profile from '../data/profile.json'
+import faqData from '../data/faq.json'
 import { EmptyState } from '../components/ui/EmptyState'
-
-import { ProfileSkeleton, Skeleton } from '../components/ui/Skeleton'
 import { useEffect } from 'react'
 
 interface AboutPageProps {
@@ -13,29 +11,11 @@ interface AboutPageProps {
 }
 
 function AboutPage({ onLoading }: AboutPageProps) {
-  const { data: profile, loading: profileLoading } = useSanityData<any>(`*[_type == "profile"][0]`)
-  const { data: faqData, loading: faqLoading } = useSanityData<any[]>(`*[_type == "faq"] | order(order asc)`)
-
-  const isLoading = profileLoading || faqLoading
+  const isLoading = false
 
   useEffect(() => {
     onLoading?.(isLoading)
   }, [isLoading, onLoading])
-
-  if (isLoading) {
-    return (
-      <div className="p-8 md:p-12 space-y-12">
-        <ProfileSkeleton />
-        <div className="space-y-6">
-          <Skeleton className="h-8 w-48" />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Skeleton className="h-24 w-full" />
-            <Skeleton className="h-24 w-full" />
-          </div>
-        </div>
-      </div>
-    )
-  }
 
   if (!profile) {
     return (
@@ -59,7 +39,7 @@ function AboutPage({ onLoading }: AboutPageProps) {
               <div className="absolute -inset-1 bg-gradient-to-tr from-accent-orange to-orange-400 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
               <div className="relative h-40 w-40 rounded-3xl bg-white dark:bg-bg-dark-soft border border-border-light dark:border-border-dark flex items-center justify-center text-4xl font-bold text-accent-orange shadow-2xl overflow-hidden">
                  {profile.avatar ? (
-                   <img src={urlFor(profile.avatar).url()} alt={profile.name} className="w-full h-full object-cover" />
+                   <img src={profile.avatar} alt={profile.name} className="w-full h-full object-cover" />
                  ) : (
                    profile.name?.split(' ').map((n: string) => n[0]).join('') || '?'
                  )}
@@ -121,7 +101,7 @@ function AboutPage({ onLoading }: AboutPageProps) {
               <div className="p-6 rounded-2xl bg-slate-50 dark:bg-bg-dark-soft border border-border-light dark:border-border-dark border-dashed flex flex-col md:flex-row gap-6 items-center md:items-start text-center md:text-left">
                 {profile.schoolLogo ? (
                   <div className="w-16 h-16 rounded-xl overflow-hidden bg-white p-1 shrink-0 border border-border-light dark:border-border-dark">
-                    <img src={urlFor(profile.schoolLogo).url()} alt="School Logo" className="w-full h-full object-contain" />
+                    <img src={profile.schoolLogo} alt="School Logo" className="w-full h-full object-contain" />
                   </div>
                 ) : (
                   <div className="w-16 h-16 rounded-xl bg-accent-orange/10 flex items-center justify-center shrink-0">

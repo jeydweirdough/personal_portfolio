@@ -1,0 +1,32 @@
+[
+  {
+    "_createdAt": "2026-05-08T05:56:49Z",
+    "_id": "c0e1bdec-b9c3-43db-ab46-51f9e6a03312",
+    "_rev": "tSPisjy2yHY5QX8S75lEyw",
+    "_type": "faq",
+    "_updatedAt": "2026-05-08T05:56:49Z",
+    "content": "I specialize in React, TypeScript, and modern CSS frameworks. My backend stack typically includes Node.js and PostgreSQL.",
+    "order": 1,
+    "title": "What technologies do you use?"
+  },
+  {
+    "_createdAt": "2026-05-08T05:56:49Z",
+    "_id": "d99decc5-8c65-4f7e-9571-4e2a6e8d5efa",
+    "_rev": "tSPisjy2yHY5QX8S75lEyw",
+    "_type": "faq",
+    "_updatedAt": "2026-05-08T05:56:49Z",
+    "content": "Yes, I am currently accepting new projects and collaborations. Feel free to reach out via the contact form.",
+    "order": 2,
+    "title": "Are you available for freelance work?"
+  },
+  {
+    "_createdAt": "2026-05-08T05:56:49Z",
+    "_id": "237f2da4-84cf-4672-b83a-f59405fcc496",
+    "_rev": "tSPisjy2yHY5QX8S75lEyw",
+    "_type": "faq",
+    "_updatedAt": "2026-05-08T05:56:49Z",
+    "content": "I use Agile methodologies, maintaining transparency through regular updates and clear communication channels.",
+    "order": 3,
+    "title": "How do you handle project management?"
+  }
+]

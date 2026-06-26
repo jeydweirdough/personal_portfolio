@@ -1,36 +1,23 @@
 import { Card } from '../components/ui/Card'
 import { Badge } from '../components/ui/Badge'
-import { useSanityData } from '../hooks/useSanity'
+import projectsData from '../data/projects.json'
 import { EmptyState } from '../components/ui/EmptyState'
-import { ProjectSkeleton, Skeleton } from '../components/ui/Skeleton'
 import { useEffect } from 'react'
 
+const projects = projectsData as any[]
+
 interface ProjectsProps {
+  selectedProjectId?: string | null
   onProjectClick: (projectId: string) => void
   onLoading?: (isLoading: boolean) => void
 }
 
-function Projects({ onProjectClick, onLoading }: ProjectsProps) {
-  const { data: projects, loading } = useSanityData<any[]>(`*[_type == "project"]`)
+function Projects({ selectedProjectId, onProjectClick, onLoading }: ProjectsProps) {
+  const loading = false
 
   useEffect(() => {
     onLoading?.(loading)
   }, [loading, onLoading])
-
-  if (loading) {
-    return (
-      <div className="p-8 md:p-12 space-y-12">
-        <div className="flex justify-between items-center">
-          <Skeleton className="h-10 w-48" />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <ProjectSkeleton />
-          <ProjectSkeleton />
-          <ProjectSkeleton />
-        </div>
-      </div>
-    )
-  }
 
 
   // Centralized loading is handled in App.tsx
@@ -47,15 +34,33 @@ function Projects({ onProjectClick, onLoading }: ProjectsProps) {
 
         {activeProjects.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-            {activeProjects.map((project) => (
-              <Card key={project._id} hoverable className="p-6 group cursor-pointer" onClick={() => onProjectClick(project._id)}>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h3 className="text-sm font-bold text-text-light-primary dark:text-text-dark-primary group-hover:text-accent-orange transition-colors">{project.name}</h3>
-                    <p className="mt-1 text-xs text-text-light-secondary dark:text-text-dark-secondary">{project.provider} | {project.region}</p>
+            {activeProjects.map((project) => {
+              const isSelected = project._id === selectedProjectId
+              return (
+                <Card 
+                  key={project._id} 
+                  hoverable 
+                  className={`p-6 group cursor-pointer transition-all duration-300 border ${
+                    isSelected 
+                      ? 'border-accent-orange ring-2 ring-accent-orange/20 shadow-md shadow-accent-orange/10 scale-[1.01]' 
+                      : 'border-border-light dark:border-border-dark'
+                  }`} 
+                  onClick={() => onProjectClick(project._id)}
+                >
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-sm font-bold text-text-light-primary dark:text-text-dark-primary group-hover:text-accent-orange transition-colors">{project.name}</h3>
+                        {isSelected && (
+                          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[8px] font-bold bg-accent-orange text-white uppercase tracking-wider animate-pulse">
+                            Selected
+                          </span>
+                        )}
+                      </div>
+                      <p className="mt-1 text-xs text-text-light-secondary dark:text-text-dark-secondary">{project.provider} | {project.region}</p>
+                    </div>
+                    <button className="text-text-light-secondary opacity-30 hover:opacity-100"><svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" /></svg></button>
                   </div>
-                  <button className="text-text-light-secondary opacity-30 hover:opacity-100"><svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" /></svg></button>
-                </div>
                 <div className="mt-8 flex flex-wrap items-center gap-2">
                   {(() => {
                     const techStack = [
@@ -76,7 +81,7 @@ function Projects({ onProjectClick, onLoading }: ProjectsProps) {
                   <span className="text-[10px] text-text-light-secondary font-bold uppercase tracking-tighter">{project.status}</span>
                 </div>
               </Card>
-            ))}
+            )})}
           </div>
         ) : (
           <EmptyState 

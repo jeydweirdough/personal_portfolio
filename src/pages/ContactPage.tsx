@@ -1,9 +1,9 @@
 import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
 import { Input, Textarea } from '../components/ui/Input'
-import { useSanityData } from '../hooks/useSanity'
+import profile from '../data/profile.json'
+import socials from '../data/socials.json'
 import { useEffect } from 'react'
-import { Skeleton } from '../components/ui/Skeleton'
 
 interface SocialItemProps {
   name: string
@@ -54,73 +54,11 @@ interface ContactPageProps {
 }
 
 function ContactPage({ onLoading }: ContactPageProps) {
-  const { data: profile, loading: profileLoading } = useSanityData<any>(`*[_type == "profile"][0]`)
-  const { data: socials, loading: socialsLoading } = useSanityData<any[]>(`*[_type == "social"]`)
-
-  const isLoading = profileLoading || socialsLoading
+  const isLoading = false
 
   useEffect(() => {
     onLoading?.(isLoading)
   }, [isLoading, onLoading])
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-white dark:bg-bg-dark transition-colors duration-300">
-        <div className="max-w-4xl mx-auto px-6 py-12 sm:px-10 space-y-24">
-          
-          {/* Section 1 Skeleton: Direct Contact */}
-          <section className="flex flex-col items-center text-center pt-6 space-y-8">
-            <Skeleton className="h-6 w-40 rounded-full" />
-            <Skeleton className="h-16 w-3/4 max-w-lg" />
-            <Skeleton className="h-8 w-1/2 max-w-sm" />
-            
-            <div className="w-full max-w-xs space-y-6">
-              <Skeleton className="h-14 w-full rounded-2xl" />
-              <div className="flex justify-center gap-4">
-                <Skeleton className="h-11 w-11 rounded-xl" />
-                <Skeleton className="h-11 w-11 rounded-xl" />
-                <Skeleton className="h-11 w-11 rounded-xl" />
-                <Skeleton className="h-11 w-11 rounded-xl" />
-              </div>
-            </div>
-          </section>
-
-          {/* Section 2 Skeleton: Inquiry Form */}
-          <section className="w-full space-y-8">
-            <div className="flex flex-col sm:flex-row items-end justify-between gap-4">
-              <div className="space-y-3">
-                <Skeleton className="h-4 w-24" />
-                <Skeleton className="h-8 w-48" />
-              </div>
-              <Skeleton className="h-10 w-40" />
-            </div>
-
-            <div className="p-6 sm:p-10 border border-border-light dark:border-border-dark border-dashed rounded-3xl space-y-8">
-               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                 <div className="space-y-2">
-                   <Skeleton className="h-4 w-20" />
-                   <Skeleton className="h-10 w-full rounded-lg" />
-                 </div>
-                 <div className="space-y-2">
-                   <Skeleton className="h-4 w-20" />
-                   <Skeleton className="h-10 w-full rounded-lg" />
-                 </div>
-               </div>
-               <div className="space-y-2">
-                 <Skeleton className="h-4 w-20" />
-                 <Skeleton className="h-40 w-full rounded-lg" />
-               </div>
-               <div className="flex items-center justify-between pt-4">
-                 <Skeleton className="h-4 w-24" />
-                 <Skeleton className="h-10 w-32 rounded-lg" />
-               </div>
-            </div>
-          </section>
-
-        </div>
-      </div>
-    )
-  }
 
   const handleSend = () => {
     if (!profile) return
