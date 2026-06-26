@@ -11,7 +11,7 @@
   "_type": "profile",
   "_updatedAt": "2026-05-08T15:28:36Z",
   "attainment": "1st Year",
-  "avatar": "/images/profile-avatar-06a8d40fc5d7.png",
+  "avatar": "/images/profile-avatar.png",
   "bio": "Seeking a challenging role that utilizes my analytical skills and software proficiency to ensure operational efficiency, maintain data integrity, and provide effective technical support. 4th Year BS in Computer Science at Cavite State University.",
   "course": "Bachelor of Science in Computer Science",
   "email": "jamadigal@gmail.com",
@@ -49,7 +49,7 @@
     }
   },
   "school": "Cavite State University",
-  "schoolLogo": "/images/profile-schoolLogo-f30d938b9366.png",
+  "schoolLogo": "/images/school-logo.png",
   "schoolYear": "2022 - 2026",
   "skills": [
     {

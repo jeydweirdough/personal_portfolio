@@ -84,8 +84,8 @@ function ProjectDetails({ projectId, onBack, onLoading }: ProjectDetailsProps) {
               {[
                 { label: 'Status', value: project.status, color: project.status === 'Active' ? 'text-emerald-500' : 'text-slate-400' },
                 { label: 'Provider', value: project.provider },
-                { label: 'Framework', value: project.framework },
-                { label: 'Database', value: project.database }
+                { label: 'Framework', value: Array.isArray(project.framework) ? project.framework.join(', ') : project.framework },
+                { label: 'Database', value: Array.isArray(project.database) ? project.database.join(', ') : project.database }
               ].map((stat, i) => (
                 <div key={i}>
                   <p className="text-[10px] font-bold text-text-light-secondary uppercase tracking-wider">{stat.label}</p>

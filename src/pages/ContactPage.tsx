@@ -35,7 +35,6 @@ function SocialItem({ name, url }: SocialItemProps) {
       {/* QR Code Tooltip */}
       <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 transform group-hover:translate-y-0 translate-y-2 z-50">
         <div className="bg-white dark:bg-bg-dark-soft border border-border-light dark:border-border-dark rounded-2xl p-4 shadow-2xl relative w-40 text-center backdrop-blur-md">
-           <p className="text-xs font-bold text-accent-orange uppercase tracking-[0.2em] mb-3">Scan Connection</p>
            <div className="aspect-square w-full rounded-lg bg-white p-1 mb-3 border border-slate-50">
               <img src={qrUrl} alt={`${name} QR Code`} className="w-full h-full object-contain" />
            </div>

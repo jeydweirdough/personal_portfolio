@@ -8,11 +8,11 @@
   --color-accent-orange: #ff4532;
   --color-accent-orange-hover: #ff6300;
   
-  --color-bg-light: #ffffff;
+  --color-bg-light: #FFF9F4; /* Warm off-white complementing orange */
   --color-bg-dark: #09090b; /* Softer Zinc-950 black */
   --color-bg-dark-soft: #18181b; /* Zinc-900 */
   
-  --color-border-light: #e5e7eb;
+  --color-border-light: #F3EAE3; /* Warmer light border */
   --color-border-dark: #27272a; /* Zinc-800 */
   
   --color-text-light-primary: #111827;
