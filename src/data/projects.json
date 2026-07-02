@@ -1,73 +1,79 @@
 [
   {
-    "_createdAt": "2026-05-11T02:15:55Z",
-    "_id": "7e5bd775-f757-4956-a9bb-20f98ac6affb",
-    "_rev": "6Q6jM6mukeQOe5iPkMz9wS",
-    "_system": {
-      "base": {
-        "id": "7e5bd775-f757-4956-a9bb-20f98ac6affb",
-        "rev": "dcfy3erGKhTeOCMBwM2ci8"
-      }
-    },
-    "_type": "project",
-    "_updatedAt": "2026-05-13T06:09:15Z",
-    "database": ["Static"],
+    "id": "project-1",
+    "database": ["Static", "Sample"],
     "demoUrl": "https://jecaticonstructionservices.vercel.app/",
     "description": "Jecati has built a foundation of first-hand expertise, having personally managed hundreds of projects. His understanding covers everything from meticulous cleanup to comprehensive product knowledge, forming the simple yet effective business model of \"GOOD SERVICE, GOOD PRODUCT, and GOOD PRICE.\"",
     "documentation": [
       {
-        "_key": "eb1d8c734bf6"
+        "key": "eb1d8c734bf6"
       }
     ],
-    "framework": ["React", "Typescript", "Tailwind"],
+    "techStack": ["React", "Typescript", "Tailwind"],
     "name": "Jecati Construction Services",
-    "provider": "Vercel",
+    "hosting": "Vercel",
     "region": "ap-southeast-1",
     "repoUrl": "https://github.com/jeydweirdough/jecaticonstructionservices",
     "status": "Active"
   },
   {
-    "_createdAt": "2026-05-08T06:01:20Z",
-    "_id": "project-1",
-    "_rev": "6Q6jM6mukeQOe5iPkMz9Oo",
-    "_system": {
-      "base": {
-        "id": "project-1",
-        "rev": "hr5hJ4kXWKYQ5JXTNFWahz"
-      }
-    },
-    "_type": "project",
-    "_updatedAt": "2026-05-13T06:09:08Z",
+    "id": "project-2",
     "database": ["PostgreSQL"],
     "demoUrl": "https://mooserage-chatbot.vercel.app/",
     "description": "A modern, AI-powered chatbot built with Flask and Groq (LLaMA 3.3 70B), featuring real-time streaming responses, persistent cloud storage via Supabase, and a premium warm-toned UI.",
     "documentation": [
       {
-        "_key": "1ec46a532162",
+        "key": "1ec46a532162",
         "image": "/images/mooserage-chatbot-photo-1.png",
         "title": "Authentication view Email"
       },
       {
-        "_key": "ca8335740a56",
+        "key": "ca8335740a56",
         "image": "/images/mooserage-chatbot-photo-2.png",
         "title": "Verification Code"
       },
       {
-        "_key": "d307b376e480",
+        "key": "d307b376e480",
         "image": "/images/mooserage-chatbot-photo-3.png",
         "title": "Landing Page"
       },
       {
-        "_key": "da83a983b8a9",
+        "key": "da83a983b8a9",
         "image": "/images/mooserage-chatbot-photo-4.png",
         "title": "Conversation Feature"
       }
     ],
-    "framework": ["React"],
+    "techStack": ["React"],
     "name": "Mooserage Chatbot",
-    "provider": "Vercel",
+    "hosting": "Vercel",
     "region": "ap-southeast-1",
     "repoUrl": "https://github.com/jeydweirdough/mooserage_chatbot",
     "status": "Active"
+  },
+  {
+    "id": "project-3",
+    "name": "Cognify CvSU-B",
+    "description": "The study aimed to develop a guided and support system that enhances the licensure exam preparation of Psychology students at Cavite State University – Bacoor Campus by providing personalized, data-driven learning experiences aligned with the Professional Regulation Commission’s (PRC) Table of Specifications (TOS).",
+    "demoUrl": "",
+    "repos": [
+      {
+        "label": "Admin Frontend",
+        "url": "https://github.com/jeydweirdough/cognify_admin_frontend_v2"
+      },
+      {
+        "label": "Mobile App",
+        "url": "https://github.com/jeydweirdough/cognify_mobile_v2"
+      },
+      {
+        "label": "Backend API",
+        "url": "https://github.com/jeydweirdough/cognify_backend_v2"
+      }
+    ],
+    "status": "Active",
+    "techStack": ["React", "React Native", "Express", "Node.js"],
+    "hosting": "Vercel",
+    "region": "ap-southeast-1",
+    "database": ["PostgreSQL"],
+    "documentation": []
   }
 ]

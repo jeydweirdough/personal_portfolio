@@ -27,7 +27,7 @@ function Footer({ profile, socials }: FooterProps) {
               const slug = s.name?.toLowerCase().replace(/\s+/g, '-')
               return (
                 <a
-                  key={s._id}
+                  key={s.id}
                   href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"

@@ -1,6 +1,6 @@
 import { Card } from '../components/ui/Card'
 import { Badge } from '../components/ui/Badge'
-import projectsData from '../data/projects.json'
+import { projects as projectsData } from '../data'
 import { EmptyState } from '../components/ui/EmptyState'
 import { useEffect } from 'react'
 
@@ -35,19 +35,19 @@ function Projects({ selectedProjectId, onProjectClick, onLoading }: ProjectsProp
         {activeProjects.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {activeProjects.map((project) => {
-              const isSelected = project._id === selectedProjectId
+              const isSelected = project.id === selectedProjectId
               const coverImage = project.documentation?.[0]?.image
 
               return (
                 <Card 
-                  key={project._id} 
+                  key={project.id} 
                   hoverable 
                   className={`relative overflow-hidden p-6 group cursor-pointer transition-all duration-300 border ${
                     isSelected 
                       ? 'border-accent-orange ring-2 ring-accent-orange/20 shadow-md shadow-accent-orange/10 scale-[1.01]' 
                       : 'border-border-light dark:border-border-dark'
                   }`} 
-                  onClick={() => onProjectClick(project._id)}
+                  onClick={() => onProjectClick(project.id)}
                 >
                   {coverImage && (
                     <div className="absolute inset-0 pointer-events-none z-0">
@@ -66,7 +66,7 @@ function Projects({ selectedProjectId, onProjectClick, onLoading }: ProjectsProp
                             </span>
                           )}
                         </div>
-                        <p className="mt-1 text-xs text-text-light-secondary dark:text-text-dark-secondary">{project.provider} | {project.region}</p>
+                        <p className="mt-1 text-xs text-text-light-secondary dark:text-text-dark-secondary">{project.hosting} | {project.region}</p>
                       </div>
                       <button className="text-text-light-secondary opacity-30 hover:opacity-100"><svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" /></svg></button>
                     </div>
@@ -74,7 +74,7 @@ function Projects({ selectedProjectId, onProjectClick, onLoading }: ProjectsProp
                   {(() => {
                     const techStack = [
                       ...(project.technologies || []),
-                      ...(project.framework || []),
+                      ...(project.techStack || []),
                       ...(project.database || [])
                     ].filter(Boolean);
 
@@ -109,7 +109,7 @@ function Projects({ selectedProjectId, onProjectClick, onLoading }: ProjectsProp
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
               {archivedProjects.map((project) => (
-                <Card key={project._id} className="p-4 opacity-60">
+                <Card key={project.id} className="p-4 opacity-60">
                   <h3 className="text-sm font-bold">{project.name}</h3>
                   <p className="text-[10px] text-text-light-secondary">
                     {project.status} • {project.technologies?.join(', ') || 'General'}

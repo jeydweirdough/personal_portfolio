@@ -1,58 +1,20 @@
 [
   {
-    "_createdAt": "2026-05-08T06:03:12Z",
-    "_id": "38a3927b-940a-4c01-a0ac-70ca84700150",
-    "_rev": "sII9hJaKsVVdnypRs50xGG",
-    "_system": {
-      "base": {
-        "id": "38a3927b-940a-4c01-a0ac-70ca84700150",
-        "rev": "gc9fhbHp7ZhzVW02IcrwZX"
-      }
-    },
-    "_type": "social",
-    "_updatedAt": "2026-05-11T02:43:01Z",
     "id": "github",
     "name": "GitHub",
     "url": "https://github.com/jeydweirdough"
   },
   {
-    "_createdAt": "2026-05-08T06:03:12Z",
-    "_id": "4e550d18-0dd4-4329-9355-730424aeb621",
-    "_rev": "gc9fhbHp7ZhzVW02IcrwZX",
-    "_type": "social",
-    "_updatedAt": "2026-05-08T06:03:12Z",
     "id": "linkedin",
     "name": "LinkedIn",
     "url": "https://linkedin.com/in/mooserage"
   },
   {
-    "_createdAt": "2026-05-08T06:03:12Z",
-    "_id": "b1312544-7fc1-4946-a6ec-ece55acde1bf",
-    "_rev": "dcfy3erGKhTeOCMBwLjdiU",
-    "_system": {
-      "base": {
-        "id": "b1312544-7fc1-4946-a6ec-ece55acde1bf",
-        "rev": "gc9fhbHp7ZhzVW02IcrwZX"
-      }
-    },
-    "_type": "social",
-    "_updatedAt": "2026-05-11T02:44:09Z",
     "id": "viber",
     "name": "Viber",
     "url": "viber://chat?number=639513192584"
   },
   {
-    "_createdAt": "2026-05-08T06:03:12Z",
-    "_id": "e6de475c-0229-4209-aa67-a9d32a5b6d03",
-    "_rev": "dcfy3erGKhTeOCMBwLjcoN",
-    "_system": {
-      "base": {
-        "id": "e6de475c-0229-4209-aa67-a9d32a5b6d03",
-        "rev": "gc9fhbHp7ZhzVW02IcrwZX"
-      }
-    },
-    "_type": "social",
-    "_updatedAt": "2026-05-11T02:43:59Z",
     "id": "whatsapp",
     "name": "WhatsApp",
     "url": "https://wa.me/639513192584"

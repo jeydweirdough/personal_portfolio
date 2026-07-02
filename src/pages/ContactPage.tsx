@@ -1,8 +1,7 @@
 import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
 import { Input, Textarea } from '../components/ui/Input'
-import profile from '../data/profile.json'
-import socials from '../data/socials.json'
+import { profile, socials } from '../data'
 import { useEffect } from 'react'
 
 interface SocialItemProps {
@@ -105,7 +104,7 @@ function ContactPage({ onLoading }: ContactPageProps) {
               <div className="flex justify-center gap-4">
                 {socials?.map((social) => (
                   <SocialItem 
-                    key={social._id}
+                    key={social.id}
                     {...social}
                   />
                 ))}

@@ -1,82 +1,31 @@
 {
-  "_createdAt": "2026-05-08T05:58:43Z",
-  "_id": "profile-jade",
-  "_rev": "sII9hJaKsVVdnypRrosrsT",
-  "_system": {
-    "base": {
-      "id": "profile-jade",
-      "rev": "tB0bbZVUSAd0Z7SGxqNd28"
-    }
-  },
-  "_type": "profile",
-  "_updatedAt": "2026-05-08T15:28:36Z",
-  "attainment": "1st Year",
   "avatar": "/images/profile-avatar.png",
   "bio": "Seeking a challenging role that utilizes my analytical skills and software proficiency to ensure operational efficiency, maintain data integrity, and provide effective technical support. 4th Year BS in Computer Science at Cavite State University.",
-  "course": "Bachelor of Science in Computer Science",
-  "email": "jamadigal@gmail.com",
-  "experience": [
-    {
-      "_key": "l5zarkr3",
-      "company": "Bihira Healthcare",
-      "description": "Manage and organize spreadsheet data using Excel and Google Sheets to support scheduling and lead tracking.",
-      "period": "Dec. 2025 – Present",
-      "role": "Part-Time Data Analyst"
-    },
-    {
-      "_key": "hrm7ck3h",
-      "company": "Getmeds Philippines Inc.",
-      "description": "Provide technical support for hardware, software, and network-related issues. Troubleshoot and resolve system problems.",
-      "period": "Jan. 2025 – Present",
-      "role": "Part-Time IT Support"
-    },
-    {
-      "_key": "413gnkjo",
-      "company": "Getmeds Philippines Inc.",
-      "description": "Managed product inventory migration to ZOHO system and assisted in WordPress web content management.",
-      "period": "Aug. 2025 – Sept. 2025",
-      "role": "IT Intern"
-    }
+  "coreStrengths": [
+    "Problem Solving",
+    "Adaptability",
+    "Attention to Detail",
+    "Teamwork"
   ],
+  "email": "jamadigal@gmail.com",
   "location": "Bacoor, Cavite",
   "name": "Jade Atyla L. Madigal",
   "phone": "09513192584",
   "resume": {
-    "_type": "file",
+    "type": "file",
     "asset": {
-      "_ref": "file-a31a185bec4d83d4e89a04005bbef21bd0dedcce-pdf",
-      "_type": "reference"
+      "ref": "file-a31a185bec4d83d4e89a04005bbef21bd0dedcce-pdf",
+      "type": "reference"
     }
   },
-  "school": "Cavite State University",
-  "schoolLogo": "/images/school-logo.png",
-  "schoolYear": "2022 - 2026",
   "skills": [
-    {
-      "_key": "5xoxhax2",
-      "name": "Frontend"
-    },
-    {
-      "_key": "0ytovfo3",
-      "name": "Backend"
-    },
-    {
-      "_key": "3byj20ez",
-      "name": "Database"
-    },
-    {
-      "_key": "1a4gb3a6",
-      "name": "IT Support & Networking"
-    },
-    {
-      "_key": "xnkl5dm3",
-      "name": "AI Management"
-    },
-    {
-      "_key": "ljo3i87e",
-      "name": "WordPress and Inventory Management"
-    }
+    "Frontend",
+    "Backend",
+    "Database",
+    "IT Support & Networking",
+    "AI Management",
+    "WordPress and Inventory Management"
   ],
-  "status": "Available for Hire",
+  "status": "knowledge comes from challenges",
   "title": "Computer Science Student & Technical Support Engineer"
 }

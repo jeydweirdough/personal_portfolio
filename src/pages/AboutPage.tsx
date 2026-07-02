@@ -1,8 +1,7 @@
 import { Card } from '../components/ui/Card'
 import { Badge } from '../components/ui/Badge'
 import { Accordion } from '../components/ui/Accordion'
-import profile from '../data/profile.json'
-import faqData from '../data/faq.json'
+import { profile, education, experience, faq as faqData } from '../data'
 import { EmptyState } from '../components/ui/EmptyState'
 import { useEffect } from 'react'
 
@@ -30,7 +29,7 @@ function AboutPage({ onLoading }: AboutPageProps) {
     <div className="flex flex-col animate-fade-in scroll-smooth bg-white dark:bg-bg-dark min-h-screen">
       
       {/* SECTION 1: PROFESSIONAL PROFILE (Matches Sidebar ID) */}
-      <section id="profile" className="px-4 py-10 sm:px-10 lg:px-16 max-w-6xl mx-auto w-full">
+      <section id="profile" className="px-4 pt-25 pb-10 sm:px-10 lg:px-16 max-w-6xl mx-auto w-full">
         
         {/* Bio Hero */}
         <div className="flex flex-col lg:flex-row gap-12 items-start mb-20">
@@ -72,8 +71,8 @@ function AboutPage({ onLoading }: AboutPageProps) {
                 <div className="h-px flex-1 bg-border-light dark:border-border-dark opacity-20" />
               </div>
               <div className="space-y-12">
-                {profile.experience && profile.experience.length > 0 ? (
-                  profile.experience.map((exp: any, i: number) => (
+                {experience && experience.length > 0 ? (
+                  experience.map((exp: any, i: number) => (
                     <div key={i} className="relative pl-8 border-l border-border-light dark:border-border-dark">
                       <div className="absolute top-0 -left-1.5 w-3 h-3 rounded-full bg-accent-orange shadow-[0_0_8px_rgba(255,69,50,0.4)]" />
                       <div className="mb-1">
@@ -98,30 +97,38 @@ function AboutPage({ onLoading }: AboutPageProps) {
                 <h3 className="text-sm font-semibold uppercase tracking-widest text-text-light-primary dark:text-text-dark-primary italic">Education</h3>
                 <div className="h-px flex-1 bg-border-light dark:border-border-dark opacity-20" />
               </div>
-              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-bg-dark-soft border border-border-light dark:border-border-dark border-dashed flex flex-col md:flex-row gap-6 items-center md:items-start text-center md:text-left">
-                {profile.schoolLogo ? (
-                  <div className="w-16 h-16 rounded-xl overflow-hidden bg-white p-1 shrink-0 border border-border-light dark:border-border-dark">
-                    <img src={profile.schoolLogo} alt="School Logo" className="w-full h-full object-contain" />
-                  </div>
+              <div className="space-y-6">
+                {education && education.length > 0 ? (
+                  education.map((edu: any, i: number) => (
+                    <div key={i} className="p-6 rounded-2xl bg-slate-50 dark:bg-bg-dark-soft border border-border-light dark:border-border-dark border-dashed flex flex-col md:flex-row gap-6 items-center md:items-start text-center md:text-left">
+                      {edu.schoolLogo ? (
+                        <div className="w-16 h-16 rounded-xl overflow-hidden bg-white p-1 shrink-0 border border-border-light dark:border-border-dark">
+                          <img src={edu.schoolLogo} alt="School Logo" className="w-full h-full object-contain" />
+                        </div>
+                      ) : (
+                        <div className="w-16 h-16 rounded-xl bg-accent-orange/10 flex items-center justify-center shrink-0">
+                          <svg className="w-8 h-8 text-accent-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="M12 14l9-5-9-5-9 5 9 5z" strokeWidth={1.5}/>
+                            <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" strokeWidth={1.5}/>
+                          </svg>
+                        </div>
+                      )}
+                      <div>
+                        <h4 className="font-bold text-text-light-primary dark:text-text-dark-primary">{edu.course || "Course/Degree TBD"}</h4>
+                        <div className="flex flex-wrap items-center gap-2 mt-1 text-sm text-text-light-secondary italic opacity-80">
+                          <span>{edu.attainment}</span>
+                          <span className="w-1 h-1 rounded-full bg-slate-300" />
+                          <span>{edu.school}</span>
+                        </div>
+                        <p className="text-xs font-bold text-accent-orange uppercase tracking-widest mt-3 px-2 py-1 bg-accent-orange/5 border border-accent-orange/10 rounded-md inline-block">
+                          {edu.schoolYear || "Academic period pending..."}
+                        </p>
+                      </div>
+                    </div>
+                  ))
                 ) : (
-                  <div className="w-16 h-16 rounded-xl bg-accent-orange/10 flex items-center justify-center shrink-0">
-                    <svg className="w-8 h-8 text-accent-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path d="M12 14l9-5-9-5-9 5 9 5z" strokeWidth={1.5}/>
-                      <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" strokeWidth={1.5}/>
-                    </svg>
-                  </div>
+                  <p className="text-xs text-text-light-secondary opacity-40 italic">Educational registry in compilation stage...</p>
                 )}
-                <div>
-                  <h4 className="font-bold text-text-light-primary dark:text-text-dark-primary">{profile.course || "Course/Degree TBD"}</h4>
-                  <div className="flex flex-wrap items-center gap-2 mt-1 text-sm text-text-light-secondary italic opacity-80">
-                    <span>{profile.attainment}</span>
-                    <span className="w-1 h-1 rounded-full bg-slate-300" />
-                    <span>{profile.school}</span>
-                  </div>
-                  <p className="text-xs font-bold text-accent-orange uppercase tracking-widest mt-3 px-2 py-1 bg-accent-orange/5 border border-accent-orange/10 rounded-md inline-block">
-                    {profile.schoolYear || "Academic period pending..."}
-                  </p>
-                </div>
               </div>
             </div>
 
@@ -133,7 +140,7 @@ function AboutPage({ onLoading }: AboutPageProps) {
               <h3 className="text-xs font-semibold uppercase tracking-widest text-accent-orange mb-6">Technical Stack</h3>
               <div className="space-y-8">
                 {profile.skills && profile.skills.length > 0 ? (
-                  profile.skills.map((skill: any) => {
+                  profile.skills.map((skill: string) => {
                     const getLogos = (name: string) => {
                       const n = name.toLowerCase();
                       const logos: string[] = [];
@@ -146,12 +153,12 @@ function AboutPage({ onLoading }: AboutPageProps) {
                       return logos;
                     };
 
-                    const logos = getLogos(skill.name);
+                    const logos = getLogos(skill);
 
                     return (
-                      <div key={skill.name} className="space-y-3">
+                      <div key={skill} className="space-y-3">
                         <div className="flex justify-between items-center">
-                          <span className="text-[10px] font-bold text-text-light-primary dark:text-text-dark-primary uppercase tracking-widest">{skill.name}</span>
+                          <span className="text-[10px] font-bold text-text-light-primary dark:text-text-dark-primary uppercase tracking-widest">{skill}</span>
                         </div>
                         <div className="flex flex-wrap gap-3">
                           {logos.map(logo => (
@@ -178,7 +185,7 @@ function AboutPage({ onLoading }: AboutPageProps) {
                     );
                   })
                 ) : (
-                  <p className="text-xs text-text-light-secondary opacity-40 italic">Technical assets in cold storage...</p>
+                  <p className="text-xs text-text-light-secondary opacity-40 italic">Technical stack details are offline...</p>
                 )}
               </div>
             </div>
@@ -186,7 +193,7 @@ function AboutPage({ onLoading }: AboutPageProps) {
             <Card className="p-6 bg-accent-orange/5 border-accent-orange/10">
                <h4 className="text-xs font-bold uppercase tracking-widest mb-4">Core Strengths</h4>
                <ul className="space-y-3">
-                 {['Problem Solving', 'Adaptability', 'Attention to Detail', 'Teamwork'].map(s => (
+                 {(profile.coreStrengths || []).map(s => (
                    <li key={s} className="flex items-center gap-3 text-xs font-bold text-text-light-secondary">
                      <div className="h-1 w-1 rounded-full bg-accent-orange" />
                      {s}
@@ -206,7 +213,7 @@ function AboutPage({ onLoading }: AboutPageProps) {
           
           {faqData && faqData.length > 0 ? (
             <Card className="p-6 bg-white dark:bg-bg-dark shadow-xl">
-              <Accordion items={faqData.map(item => ({ id: item._id, title: item.title, content: item.content }))} />
+              <Accordion items={faqData.map(item => ({ id: item.id, title: item.title, content: item.content }))} />
             </Card>
           ) : (
             <EmptyState 

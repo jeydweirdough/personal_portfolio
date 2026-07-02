@@ -4,8 +4,7 @@ import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
 import ProjectDetails from './pages/ProjectDetails'
 import Footer from './components/parts/Footer'
-import profile from './data/profile.json'
-import socials from './data/socials.json'
+import { profile, socials } from './data'
 
 const NAV_ITEMS = [
   { id: 'profile', label: 'About' },
@@ -29,11 +28,20 @@ const FLOAT_ICONS = [
 
 function App() {
   const [activeSection, setActiveSection] = useState(() => {
-    const hash = window.location.hash.replace('#', '')
-    return NAV_ITEMS.find(n => n.id === hash) ? hash : 'profile'
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('activeSection')
+      return stored && (stored === 'home' || NAV_ITEMS.find(n => n.id === stored)) ? stored : 'home'
+    }
+    return 'home'
   })
-  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null)
-  const [activeProjectId, setActiveProjectId] = useState<string | null>(null)
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search)
+      return params.get('project')
+    }
+    return null
+  })
+  const [activeProjectId, setActiveProjectId] = useState<string | null>(selectedProjectId)
   const [navScrolled, setNavScrolled] = useState(false)
   const [showBackToTop, setShowBackToTop] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -48,16 +56,18 @@ function App() {
 
   // Profile and socials are loaded statically from local JSON data
 
-  // Scroll to hash section on initial load
+  // Scroll to saved section on initial load
   useEffect(() => {
-    const hash = window.location.hash.replace('#', '')
-    if (hash) {
-      // Small delay to let the DOM render fully
-      const timeout = setTimeout(() => {
-        const el = document.getElementById(hash)
-        if (el) el.scrollIntoView({ behavior: 'smooth' })
-      }, 300)
-      return () => clearTimeout(timeout)
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('activeSection')
+      if (stored) {
+        // Small delay to let the DOM render fully
+        const timeout = setTimeout(() => {
+          const el = document.getElementById(stored)
+          if (el) el.scrollIntoView({ behavior: 'smooth' })
+        }, 300)
+        return () => clearTimeout(timeout)
+      }
     }
   }, [])
 
@@ -82,7 +92,7 @@ function App() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Scroll Spy — updates activeSection and URL hash
+  // Scroll Spy — updates activeSection and localStorage
   useEffect(() => {
     if (selectedProjectId) return
     const observer = new IntersectionObserver(
@@ -90,7 +100,7 @@ function App() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setActiveSection(entry.target.id)
-            history.replaceState(null, '', `#${entry.target.id}`)
+            localStorage.setItem('activeSection', entry.target.id)
           }
         })
       },
@@ -101,16 +111,48 @@ function App() {
     return () => observer.disconnect()
   }, [selectedProjectId])
 
+  // Handle browser back/forward buttons for project selection
+  useEffect(() => {
+    const handlePopState = () => {
+      const params = new URLSearchParams(window.location.search)
+      const projId = params.get('project')
+      setSelectedProjectId(projId)
+      if (projId) {
+        setActiveProjectId(projId)
+      }
+    }
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
+
+  const handleProjectSelect = (id: string | null) => {
+    setSelectedProjectId(id)
+    if (id) {
+      setActiveProjectId(id)
+      const searchParams = new URLSearchParams(window.location.search)
+      searchParams.set('project', id)
+      const newUrl = `${window.location.pathname}?${searchParams.toString()}`
+      window.history.pushState({ path: newUrl }, '', newUrl)
+    } else {
+      const searchParams = new URLSearchParams(window.location.search)
+      searchParams.delete('project')
+      const newUrl = searchParams.toString() ? `${window.location.pathname}?${searchParams.toString()}` : window.location.pathname
+      window.history.pushState({ path: newUrl }, '', newUrl)
+    }
+  }
+
   const scrollTo = (id: string) => {
     const el = document.getElementById(id)
     if (el) el.scrollIntoView({ behavior: 'smooth' })
-    history.replaceState(null, '', `#${id}`)
+    setActiveSection(id)
+    localStorage.setItem('activeSection', id)
     setMobileMenuOpen(false)
   }
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
-    history.replaceState(null, '', window.location.pathname)
+    setActiveSection('profile')
+    localStorage.setItem('activeSection', 'profile')
   }
 
   const toggleTheme = () => setIsDark((d) => !d)
@@ -239,7 +281,7 @@ function App() {
         <div className="fixed inset-0 z-[250] bg-white dark:bg-bg-dark overflow-y-auto animate-fade-in">
           <ProjectDetails
             projectId={selectedProjectId}
-            onBack={() => setSelectedProjectId(null)}
+            onBack={() => handleProjectSelect(null)}
           />
         </div>
       )}
@@ -247,104 +289,102 @@ function App() {
       {/* ── PAGE SECTIONS ───────────────────────────────────── */}
       <main>
 
-        {/* ABOUT — Landing section with hero opener */}
-        <section id="about-section" className="scroll-mt-16 pt-16 flex flex-col">
+        {/* HOME — Landing section with hero opener */}
+        <section id="home" className="min-h-[calc(100vh-4rem)] relative bg-slate-50 dark:bg-bg-dark-soft border-b border-border-light dark:border-border-dark flex items-center overflow-hidden pt-16">
 
-          {/* ── HERO OPENER ── fills the viewport height */}
-          <div className="min-h-[calc(100vh-4rem)] relative bg-slate-50 dark:bg-bg-dark-soft border-b border-border-light dark:border-border-dark flex items-center overflow-hidden">
-
-            {/* Floating tech icons — decorative background */}
-            {FLOAT_ICONS.map((icon) => (
-              <div
-                key={icon.slug}
-                className="absolute animate-float opacity-[0.18] dark:opacity-[0.08] pointer-events-none hidden lg:block"
-                style={{ ...icon.style, animationDelay: icon.delay, animationDuration: icon.dur }}
-              >
-                <div className="h-14 w-14 p-3 rounded-2xl bg-white dark:bg-bg-dark border border-border-light dark:border-border-dark shadow-sm">
-                  <img
-                    src={`https://thesvg.org/icons/${icon.slug}/default.svg`}
-                    alt={icon.slug}
-                    className="w-full h-full object-contain"
-                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = `https://cdn.svgl.app/library/${icon.slug}.svg` }}
-                  />
-                </div>
-              </div>
-            ))}
-
-            {/* Centered hero text */}
-            <div className="relative z-10 max-w-xl mx-auto w-full px-6 py-16 text-center">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent-orange/5 border border-accent-orange/15 mb-6">
-                <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-[9px] font-semibold text-accent-orange uppercase tracking-wider">
-                  {profile?.status || 'Open to Work'}
-                </span>
-              </div>
-
-              <p className="text-[11px] text-text-light-secondary dark:text-text-dark-secondary uppercase tracking-widest mb-3">
-                {profile?.name || 'Jade Atyla'} · {profile?.title || 'Developer & Designer'}
-              </p>
-
-              <h1 className="text-2xl sm:text-4xl font-bold text-text-light-primary dark:text-text-dark-primary leading-snug tracking-tight mb-4">
-                Welcome to my{' '}
-                <span className="text-accent-orange italic">portfolio.</span>
-              </h1>
-
-              <p className="text-sm text-text-light-secondary dark:text-text-dark-secondary leading-relaxed max-w-sm mx-auto mb-8">
-                I design and build modern web experiences — clean UIs, solid back-end systems.
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-wrap items-center gap-2 justify-center">
-                <button
-                  onClick={() => scrollTo('contact-section')}
-                  className="px-4 py-2 bg-accent-orange hover:bg-accent-orange-hover text-white text-[11px] font-semibold rounded-lg transition-all active:scale-95"
-                >
-                  Get in Touch
-                </button>
-                <button
-                  onClick={() => scrollTo('projects-section')}
-                  className="px-4 py-2 border border-border-light dark:border-border-dark text-text-light-secondary dark:text-text-dark-secondary text-[11px] font-semibold rounded-lg hover:border-accent-orange hover:text-accent-orange transition-all"
-                >
-                  View Projects
-                </button>
-                {socials && socials.length > 0 && (
-                  <div className="flex items-center gap-1.5">
-                    {socials.slice(0, 4).map((s: any) => {
-                      const slug = s.name?.toLowerCase().replace(/\s+/g, '-')
-                      return (
-                        <a
-                          key={s._id}
-                          href={s.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="h-7 w-7 flex items-center justify-center rounded-md border border-border-light dark:border-border-dark hover:border-accent-orange/50 transition-all p-1.5"
-                        >
-                          <img
-                            src={`https://thesvg.org/icons/${slug}/default.svg`}
-                            alt={s.name}
-                            className="w-full h-full object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all"
-                            onError={(e) => { (e.currentTarget as HTMLImageElement).src = `https://cdn.svgl.app/library/${slug}.svg` }}
-                          />
-                        </a>
-                      )
-                    })}
-                  </div>
-                )}
-              </div>
-
-              {/* Scroll hint */}
-              <div className="mt-12 flex flex-col items-center gap-1.5 opacity-25">
-                <span className="text-[9px] uppercase tracking-widest text-text-light-secondary">scroll</span>
-                <svg className="w-3.5 h-3.5 text-text-light-secondary animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
+          {/* Floating tech icons — decorative background */}
+          {FLOAT_ICONS.map((icon) => (
+            <div
+              key={icon.slug}
+              className="absolute animate-float opacity-[0.18] dark:opacity-[0.08] pointer-events-none hidden lg:block"
+              style={{ ...icon.style, animationDelay: icon.delay, animationDuration: icon.dur }}
+            >
+              <div className="h-14 w-14 p-3 rounded-2xl bg-white dark:bg-bg-dark border border-border-light dark:border-border-dark shadow-sm">
+                <img
+                  src={`https://thesvg.org/icons/${icon.slug}/default.svg`}
+                  alt={icon.slug}
+                  className="w-full h-full object-contain"
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).src = `https://cdn.svgl.app/library/${icon.slug}.svg` }}
+                />
               </div>
             </div>
-          </div>
+          ))}
 
-          {/* About page detailed content */}
-          <AboutPage />
+          {/* Centered hero text */}
+          <div className="relative z-10 max-w-xl mx-auto w-full px-6 py-16 text-center">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent-orange/5 border border-accent-orange/15 mb-6">
+              <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[9px] font-semibold text-accent-orange uppercase tracking-wider">
+                {profile?.status || 'Status Not Available'}
+              </span>
+            </div>
+
+            <p className="text-[11px] text-text-light-secondary dark:text-text-dark-secondary uppercase tracking-widest mb-3">
+              {profile?.name || 'Jade Atyla'}
+              <br />
+              {profile?.title || 'Developer & Designer'}
+            </p>
+
+            <h1 className="text-2xl sm:text-4xl font-bold text-text-light-primary dark:text-text-dark-primary leading-snug tracking-tight mb-4">
+              Welcome to my{' '}
+              <span className="text-accent-orange italic">portfolio.</span>
+            </h1>
+
+            <p className="text-sm text-text-light-secondary dark:text-text-dark-secondary leading-relaxed max-w-sm mx-auto mb-8">
+              I design and build modern web experiences — clean UIs, solid back-end systems.
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center gap-2 justify-center">
+              <button
+                onClick={() => scrollTo('contact-section')}
+                className="px-4 py-2 bg-accent-orange hover:bg-accent-orange-hover text-white text-[11px] font-semibold rounded-lg transition-all active:scale-95"
+              >
+                Get in Touch
+              </button>
+              <button
+                onClick={() => scrollTo('projects-section')}
+                className="px-4 py-2 border border-border-light dark:border-border-dark text-text-light-secondary dark:text-text-dark-secondary text-[11px] font-semibold rounded-lg hover:border-accent-orange hover:text-accent-orange transition-all"
+              >
+                View Projects
+              </button>
+              {socials && socials.length > 0 && (
+                <div className="flex items-center gap-1.5">
+                  {socials.slice(0, 4).map((s: any) => {
+                    const slug = s.name?.toLowerCase().replace(/\s+/g, '-')
+                    return (
+                      <a
+                        key={s.id}
+                        href={s.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="h-7 w-7 flex items-center justify-center rounded-md border border-border-light dark:border-border-dark hover:border-accent-orange/50 transition-all p-1.5"
+                      >
+                        <img
+                          src={`https://thesvg.org/icons/${slug}/default.svg`}
+                          alt={s.name}
+                          className="w-full h-full object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all"
+                          onError={(e) => { (e.currentTarget as HTMLImageElement).src = `https://cdn.svgl.app/library/${slug}.svg` }}
+                        />
+                      </a>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* Scroll hint */}
+            <div className="mt-12 flex flex-col items-center gap-1.5 opacity-25">
+              <span className="text-[9px] uppercase tracking-widest text-text-light-secondary">scroll</span>
+              <svg className="w-3.5 h-3.5 text-text-light-secondary animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
         </section>
+
+        {/* ABOUT — About page detailed content */}
+        <AboutPage />
 
         <section id="projects-section" className="scroll-mt-16 min-h-screen flex flex-col justify-center border-t border-border-light dark:border-border-dark">
           <div className="px-4 pt-12 pb-2 sm:px-10 lg:px-16 max-w-6xl mx-auto">
@@ -353,10 +393,7 @@ function App() {
           </div>
           <Projects 
             selectedProjectId={activeProjectId} 
-            onProjectClick={(id) => {
-              setSelectedProjectId(id)
-              setActiveProjectId(id)
-            }} 
+            onProjectClick={(id) => handleProjectSelect(id)} 
           />
         </section>
 
