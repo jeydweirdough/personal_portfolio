@@ -70,7 +70,7 @@
       }
     ],
     "status": "Active",
-    "techStack": ["React", "React Native", "Express", "Node.js"],
+    "techStack": ["React", "ReactNative", "Express", "Nodejs"],
     "hosting": "Vercel",
     "region": "ap-southeast-1",
     "database": ["PostgreSQL"],

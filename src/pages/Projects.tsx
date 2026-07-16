@@ -68,7 +68,22 @@ function Projects({ selectedProjectId, onProjectClick, onLoading }: ProjectsProp
                         </div>
                         <p className="mt-1 text-xs text-text-light-secondary dark:text-text-dark-secondary">{project.hosting} | {project.region}</p>
                       </div>
-                      <button className="text-text-light-secondary opacity-30 hover:opacity-100"><svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" /></svg></button>
+                      <button className="text-text-light-secondary opacity-30 hover:opacity-100">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                          stroke="currentColor"
+                          className="w-5 h-5"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M13.5 6H18m0 0v4.5M18 6l-7.5 7.5M6 7.5v10.5A1.5 1.5 0 007.5 19.5h10.5A1.5 1.5 0 0019.5 18V13.5"
+                          />
+                        </svg>
+                      </button>
                     </div>
                   <div className="mt-8 flex flex-wrap items-center gap-2">
                   {(() => {
