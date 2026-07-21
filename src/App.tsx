@@ -1,10 +1,99 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Projects from './pages/Projects'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
 import ProjectDetails from './pages/ProjectDetails'
 import Footer from './components/parts/Footer'
 import { profile, socials } from './data'
+
+interface FloatingIconProps {
+  icon: { slug: string; style: any; delay: string; dur: string }
+  mousePosRef: React.RefObject<{ x: number; y: number }>
+}
+
+function InteractiveFloatingIcon({ icon, mousePosRef }: FloatingIconProps) {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    let animationFrameId: number;
+    let currentOffset = { x: 0, y: 0 };
+
+    const updatePhysics = () => {
+      if (!ref.current) {
+        animationFrameId = requestAnimationFrame(updatePhysics);
+        return;
+      }
+
+      const element = ref.current;
+      const rect = element.getBoundingClientRect();
+      const parentRect = element.parentElement?.getBoundingClientRect();
+
+      if (!parentRect) {
+        animationFrameId = requestAnimationFrame(updatePhysics);
+        return;
+      }
+
+      // Icon center relative to container
+      const iconX = rect.left - parentRect.left + rect.width / 2;
+      const iconY = rect.top - parentRect.top + rect.height / 2;
+
+      // Mouse pos from Ref
+      const mouse = mousePosRef.current || { x: -1000, y: -1000 };
+
+      let targetX = 0;
+      let targetY = 0;
+
+      if (mouse.x !== -1000) {
+        const dx = iconX - mouse.x;
+        const dy = iconY - mouse.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const avoidanceRadius = 180; // distance threshold in pixels
+        const maxPush = 45; // max displacement
+
+        if (distance < avoidanceRadius) {
+          const force = (avoidanceRadius - distance) / avoidanceRadius;
+          // Smooth avoidance trajectory (spring physics push)
+          targetX = (dx / (distance || 1)) * force * maxPush;
+          targetY = (dy / (distance || 1)) * force * maxPush;
+        }
+      }
+
+      // Liquid spring physics interpolation
+      currentOffset.x += (targetX - currentOffset.x) * 0.08;
+      currentOffset.y += (targetY - currentOffset.y) * 0.08;
+
+      element.style.transform = `translate(${currentOffset.x}px, ${currentOffset.y}px)`;
+
+      animationFrameId = requestAnimationFrame(updatePhysics);
+    };
+
+    animationFrameId = requestAnimationFrame(updatePhysics);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [mousePosRef]);
+
+  return (
+    <div
+      ref={ref}
+      className="absolute opacity-[0.22] dark:opacity-[0.10] hidden lg:block select-none pointer-events-none"
+      style={{
+        ...icon.style,
+        willChange: 'transform',
+      }}
+    >
+      <div 
+        className="h-14 w-14 p-3 rounded-2xl bg-white dark:bg-bg-dark border border-border-light dark:border-border-dark shadow-sm animate-float"
+        style={{ animationDelay: icon.delay, animationDuration: icon.dur }}
+      >
+        <img
+          src={`https://thesvg.org/icons/${icon.slug}/default.svg`}
+          alt={icon.slug}
+          className="w-full h-full object-contain select-none"
+          onError={(e) => { (e.currentTarget as HTMLImageElement).src = `https://cdn.svgl.app/library/${icon.slug}.svg` }}
+        />
+      </div>
+    </div>
+  )
+}
 
 const NAV_ITEMS = [
   { id: 'profile', label: 'About' },
@@ -53,6 +142,35 @@ function App() {
     }
     return false
   })
+
+  const homeRef = useRef<HTMLDivElement>(null)
+  const mousePosRef = useRef({ x: -1000, y: -1000 })
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!homeRef.current) return;
+      const rect = homeRef.current.getBoundingClientRect();
+      mousePosRef.current = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      };
+    };
+    const handleMouseLeave = () => {
+      mousePosRef.current = { x: -1000, y: -1000 };
+    };
+
+    const container = homeRef.current;
+    if (container) {
+      container.addEventListener('mousemove', handleMouseMove);
+      container.addEventListener('mouseleave', handleMouseLeave);
+    }
+    return () => {
+      if (container) {
+        container.removeEventListener('mousemove', handleMouseMove);
+        container.removeEventListener('mouseleave', handleMouseLeave);
+      }
+    };
+  }, []);
 
   // Profile and socials are loaded statically from local JSON data
 
@@ -290,24 +408,15 @@ function App() {
       <main>
 
         {/* HOME — Landing section with hero opener */}
-        <section id="home" className="min-h-[calc(100vh-4rem)] relative bg-slate-50 dark:bg-bg-dark-soft border-b border-border-light dark:border-border-dark flex items-center overflow-hidden pt-16">
+        <section ref={homeRef} id="home" className="min-h-[calc(100vh-4rem)] relative bg-slate-50 dark:bg-bg-dark-soft border-b border-border-light dark:border-border-dark flex items-center overflow-hidden pt-16">
 
           {/* Floating tech icons — decorative background */}
           {FLOAT_ICONS.map((icon) => (
-            <div
+            <InteractiveFloatingIcon
               key={icon.slug}
-              className="absolute animate-float opacity-[0.18] dark:opacity-[0.08] pointer-events-none hidden lg:block"
-              style={{ ...icon.style, animationDelay: icon.delay, animationDuration: icon.dur }}
-            >
-              <div className="h-14 w-14 p-3 rounded-2xl bg-white dark:bg-bg-dark border border-border-light dark:border-border-dark shadow-sm">
-                <img
-                  src={`https://thesvg.org/icons/${icon.slug}/default.svg`}
-                  alt={icon.slug}
-                  className="w-full h-full object-contain"
-                  onError={(e) => { (e.currentTarget as HTMLImageElement).src = `https://cdn.svgl.app/library/${icon.slug}.svg` }}
-                />
-              </div>
-            </div>
+              icon={icon}
+              mousePosRef={mousePosRef}
+            />
           ))}
 
           {/* Centered hero text */}
@@ -352,6 +461,9 @@ function App() {
                 <div className="flex items-center gap-1.5">
                   {socials.slice(0, 4).map((s: any) => {
                     const slug = s.name?.toLowerCase().replace(/\s+/g, '-')
+                    const src = s.link_svg 
+                      ? `https://thesvg.org/icons/${s.link_svg}`
+                      : `https://thesvg.org/icons/${slug}/default.svg`
                     return (
                       <a
                         key={s.id}
@@ -361,10 +473,16 @@ function App() {
                         className="h-7 w-7 flex items-center justify-center rounded-md border border-border-light dark:border-border-dark hover:border-accent-orange/50 transition-all p-1.5"
                       >
                         <img
-                          src={`https://thesvg.org/icons/${slug}/default.svg`}
+                          src={src}
                           alt={s.name}
                           className="w-full h-full object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all"
-                          onError={(e) => { (e.currentTarget as HTMLImageElement).src = `https://cdn.svgl.app/library/${slug}.svg` }}
+                          onError={(e) => {
+                            const target = e.currentTarget as HTMLImageElement
+                            if (target.src.includes('thesvg.org')) {
+                              const fallbackSlug = s.link_svg ? s.link_svg.split('/')[0] : slug
+                              target.src = `https://cdn.svgl.app/library/${fallbackSlug}.svg`
+                            }
+                          }}
                         />
                       </a>
                     )

@@ -1,26 +1,78 @@
 [
   {
     "id": "project-1",
-    "database": ["Static", "Sample"],
+    "name": "Jecati Construction Services",
+    "description": [
+      "Jecati has built a foundation of first-hand expertise, having personally managed hundreds of projects. His understanding covers everything from meticulous cleanup to comprehensive product knowledge, forming the simple yet effective business model of \"GOOD SERVICE, GOOD PRODUCT, and GOOD PRICE.\""
+    ],
     "demoUrl": "https://jecaticonstructionservices.vercel.app/",
-    "description": "Jecati has built a foundation of first-hand expertise, having personally managed hundreds of projects. His understanding covers everything from meticulous cleanup to comprehensive product knowledge, forming the simple yet effective business model of \"GOOD SERVICE, GOOD PRODUCT, and GOOD PRICE.\"",
+    "repoUrl": "https://github.com/jeydweirdough/jecaticonstructionservices",
+    "status": "Active",
+    "hosting": "Vercel",
+    "hosting_link_svg": "vercel/mono.svg",
+    "techStack": [
+      {
+        "name": "React",
+        "link_svg": "react/default.svg"
+      },
+      {
+        "name": "Typescript",
+        "link_svg": "typescript/default.svg"
+      },
+      {
+        "name": "Tailwind",
+        "link_svg": "tailwindcss/default.svg"
+      }
+    ],
+    "database": [
+      {
+        "name": "Static",
+        "link_svg": "json/default.svg"
+      }
+    ],
     "documentation": [
       {
         "key": "eb1d8c734bf6"
       }
-    ],
-    "techStack": ["React", "Typescript", "Tailwind"],
-    "name": "Jecati Construction Services",
-    "hosting": "Vercel",
-    "region": "ap-southeast-1",
-    "repoUrl": "https://github.com/jeydweirdough/jecaticonstructionservices",
-    "status": "Active"
+    ]
   },
   {
     "id": "project-2",
-    "database": ["PostgreSQL"],
-    "demoUrl": "https://mooserage-chatbot.vercel.app/",
+    "name": "Mooserage Chatbot",
     "description": "A modern, AI-powered chatbot built with Flask and Groq (LLaMA 3.3 70B), featuring real-time streaming responses, persistent cloud storage via Supabase, and a premium warm-toned UI.",
+    "demoUrl": "https://mooserage-chatbot.vercel.app/",
+    "repoUrl": "https://github.com/jeydweirdough/mooserage_chatbot",
+    "status": "Active",
+    "hosting": "Vercel",
+    "hosting_link_svg": "vercel/default.svg",
+    "techStack": [
+      {
+        "name": "Flask",
+        "link_svg": "flask/light.svg"
+      },
+      {
+        "name": "python",
+        "link_svg": "python/default.svg"
+      },
+      {
+        "name": "HTML",
+        "link_svg": "html5/default.svg"
+      },
+      {
+        "name": "CSS",
+        "link_svg": "css3/default.svg"
+      },
+      {
+        "name": "Javscript",
+        "link_svg": "javascript/default.svg"
+      }
+    ],
+    "database": [
+      {
+        "name": "PostgreSQL",
+        "link_svg": "postgresql/default.svg"
+      }
+    ],
     "documentation": [
       {
         "key": "1ec46a532162",
@@ -42,19 +94,40 @@
         "image": "/images/mooserage-chatbot-photo-4.png",
         "title": "Conversation Feature"
       }
-    ],
-    "techStack": ["React"],
-    "name": "Mooserage Chatbot",
-    "hosting": "Vercel",
-    "region": "ap-southeast-1",
-    "repoUrl": "https://github.com/jeydweirdough/mooserage_chatbot",
-    "status": "Active"
+    ]
   },
   {
     "id": "project-3",
     "name": "Cognify CvSU-B",
     "description": "The study aimed to develop a guided and support system that enhances the licensure exam preparation of Psychology students at Cavite State University – Bacoor Campus by providing personalized, data-driven learning experiences aligned with the Professional Regulation Commission’s (PRC) Table of Specifications (TOS).",
     "demoUrl": "",
+    "status": "Active",
+    "hosting": "Vercel",
+    "hosting_link_svg": "vercel/default.svg",
+    "techStack": [
+      {
+        "name": "React",
+        "link_svg": "react/default.svg"
+      },
+      {
+        "name": "ReactNative",
+        "link_svg": "react/default.svg"
+      },
+      {
+        "name": "Express",
+        "link_svg": "express/default.svg"
+      },
+      {
+        "name": "Nodejs",
+        "link_svg": "nodejs/default.svg"
+      }
+    ],
+    "database": [
+      {
+        "name": "PostgreSQL",
+        "link_svg": "postgresql/default.svg"
+      }
+    ],
     "repos": [
       {
         "label": "Admin Frontend",
@@ -69,11 +142,54 @@
         "url": "https://github.com/jeydweirdough/cognify_backend_v2"
       }
     ],
+    "documentation": []
+  },
+  {
+    "id": "project-4",
+    "name": "Getmeds Test Creation",
+    "description": "",
+    "demoUrl": "",
+    "repos": "",
     "status": "Active",
-    "techStack": ["React", "ReactNative", "Express", "Nodejs"],
+    "hosting": "",
+    "hosting_link_svg": "",
+    "techStack": [],
+    "database": [],
+    "documentation": []
+  },
+  {
+    "id": "project-5",
+    "name": "Mooserage Bank Simulator",
+    "description": "A banking system simulation built with Python (Flask) that demonstrates account management, authentication, money transfers, transaction history, and an admin dashboard. The project also includes QR code-based login, a simple banking interface, and a robot client that simulates user transactions.",
+    "demoUrl": "",
+    "repoUrl": "https://github.com/jeydweirdough/bank_simulator",
+    "status": "Active",
     "hosting": "Vercel",
-    "region": "ap-southeast-1",
-    "database": ["PostgreSQL"],
+    "hosting_link_svg": "vercel/mono.svg",
+    "techStack": [
+      {
+        "name": "HTML",
+        "link_svg": "html5/default.svg"
+      },
+      {
+        "name": "CSS",
+        "link_svg": "css3/default.svg"
+      },
+      {
+        "name": "JavaScript",
+        "link_svg": "javascript/default.svg"
+      },
+      {
+        "name": "Python",
+        "link_svg": "python/default.svg"
+      }
+    ],
+    "database": [
+      {
+        "name": "Static",
+        "link_svg": "json/default.svg"
+      }
+    ],
     "documentation": []
   }
 ]

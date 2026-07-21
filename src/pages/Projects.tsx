@@ -1,5 +1,6 @@
 import { Card } from '../components/ui/Card'
 import { Badge } from '../components/ui/Badge'
+import { TechIcon } from '../components/ui/TechIcon'
 import { projects as projectsData } from '../data'
 import { EmptyState } from '../components/ui/EmptyState'
 import { useEffect } from 'react'
@@ -49,12 +50,22 @@ function Projects({ selectedProjectId, onProjectClick, onLoading }: ProjectsProp
                   }`} 
                   onClick={() => onProjectClick(project.id)}
                 >
-                  {coverImage && (
-                    <div className="absolute inset-0 pointer-events-none z-0">
-                      <div className="absolute inset-0 bg-gradient-to-r from-white via-white/40 to-transparent dark:from-bg-dark dark:via-bg-dark/90 dark:to-transparent z-10" />
-                      <img src={coverImage} alt={project.name} className="w-full h-full object-cover object-right opacity-60 group-hover:opacity-60 transition-opacity duration-500" />
-                    </div>
-                  )}
+                  <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+                    {coverImage && (
+                      <>
+                        {/* Image cover and overlays */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/40 to-transparent dark:from-bg-dark dark:via-bg-dark/90 dark:to-transparent z-10" />
+                        <img 
+                          src={coverImage} 
+                          alt={project.name} 
+                          className="w-full h-full object-cover object-right opacity-0 group-hover:opacity-60 transition-opacity duration-[800ms] ease-out" 
+                        />
+                      </>
+                    )}
+
+                    {/* Gloss Shimmer Shine Beam */}
+                    <div className="absolute inset-y-0 -left-[100%] w-full bg-[linear-gradient(90deg,transparent_0%,rgba(15,23,42,0.03)_35%,rgba(15,23,42,0.15)_50%,rgba(15,23,42,0.03)_65%,transparent_100%)] dark:bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.05)_35%,rgba(255,255,255,0.45)_50%,rgba(255,255,255,0.05)_65%,transparent_100%)] skew-x-[-20deg] group-hover:translate-x-[200%] transition-transform duration-[1000ms] ease-out z-20" />
+                  </div>
                   <div className="relative z-20">
                     <div className="flex items-start justify-between">
                       <div>
@@ -66,7 +77,7 @@ function Projects({ selectedProjectId, onProjectClick, onLoading }: ProjectsProp
                             </span>
                           )}
                         </div>
-                        <p className="mt-1 text-xs text-text-light-secondary dark:text-text-dark-secondary">{project.hosting} | {project.region}</p>
+                        <p className="mt-1 text-xs text-text-light-secondary dark:text-text-dark-secondary">{project.hosting}</p>
                       </div>
                       <button className="text-text-light-secondary opacity-30 hover:opacity-100">
                         <svg
@@ -85,22 +96,55 @@ function Projects({ selectedProjectId, onProjectClick, onLoading }: ProjectsProp
                         </svg>
                       </button>
                     </div>
-                  <div className="mt-8 flex flex-wrap items-center gap-2">
-                  {(() => {
-                    const techStack = [
-                      ...(project.technologies || []),
-                      ...(project.techStack || []),
-                      ...(project.database || [])
-                    ].filter(Boolean);
+                  <div className="mt-8 flex flex-wrap items-center gap-1.5">
+                    {(() => {
+                      const techStack = [
+                        ...(project.technologies || []),
+                        ...(project.techStack || []),
+                        ...(project.database || [])
+                      ].filter((t: any) => t && (typeof t === 'string' ? t.trim() !== '' : t.name?.trim() !== ''));
 
-                    return techStack.length > 0 ? (
-                      techStack.map((tech: string, i: number) => (
-                        <Badge key={i} variant="outline" className="text-[10px] py-0 border-accent-orange/20 text-accent-orange/80">{tech}</Badge>
-                      ))
-                    ) : (
-                      <Badge variant="outline" className="text-[10px] py-0 opacity-40 italic">System Default</Badge>
-                    );
-                  })()}
+                      const MAX_VISIBLE = 3
+                      const visibleTech = techStack.slice(0, MAX_VISIBLE)
+                      const hiddenTech = techStack.slice(MAX_VISIBLE)
+                      const hiddenNames = hiddenTech
+                        .map((t: any) => typeof t === 'string' ? t : t.name)
+                        .filter(Boolean)
+                        .join(', ')
+
+                      return techStack.length > 0 ? (
+                        <>
+                          {visibleTech.map((tech: any, i: number) => {
+                            const name = typeof tech === 'string' ? tech : tech.name
+                            const link_svg = typeof tech === 'string' ? undefined : tech.link_svg
+                            return (
+                              <div key={name || i} className="group/tech relative">
+                                <div className="h-6 w-6 p-1 rounded-md bg-slate-50 dark:bg-white/5 border border-border-light dark:border-border-dark flex items-center justify-center hover:border-accent-orange transition-colors">
+                                  <TechIcon name={name} link_svg={link_svg} />
+                                </div>
+                                {/* Tooltip */}
+                                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 bg-bg-dark text-white text-[9px] font-bold rounded-lg opacity-0 group-hover/tech:opacity-100 transition-all pointer-events-none whitespace-nowrap z-50 shadow-md">
+                                  {name}
+                                </div>
+                              </div>
+                            )
+                          })}
+                          {hiddenTech.length > 0 && (
+                            <div className="group/tech relative">
+                              <div className="h-6 px-1.5 rounded-md bg-slate-100 dark:bg-white/10 border border-border-light dark:border-border-dark flex items-center justify-center text-[9px] font-bold text-text-light-secondary dark:text-text-dark-secondary hover:border-accent-orange transition-colors cursor-help">
+                                +{hiddenTech.length}
+                              </div>
+                              {/* Tooltip */}
+                              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 bg-bg-dark text-white text-[9px] font-bold rounded-lg opacity-0 group-hover/tech:opacity-100 transition-all pointer-events-none whitespace-nowrap z-50 shadow-md">
+                                {hiddenNames}
+                              </div>
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <Badge variant="outline" className="text-[10px] py-0 opacity-40 italic">System Default</Badge>
+                      );
+                    })()}
                   <div className={`h-1.5 w-1.5 rounded-full ${project.status === 'Active' ? 'bg-emerald-500' : 'bg-slate-300'} ml-1`}></div>
                   <span className="text-[10px] text-text-light-secondary font-bold uppercase tracking-tighter">{project.status}</span>
                 </div>

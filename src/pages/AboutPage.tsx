@@ -1,6 +1,8 @@
 import { Card } from '../components/ui/Card'
+import { Markdown } from '../components/ui/Markdown'
 import { Badge } from '../components/ui/Badge'
 import { Accordion } from '../components/ui/Accordion'
+import { TechIcon } from '../components/ui/TechIcon'
 import { profile, education, experience, faq as faqData } from '../data'
 import { EmptyState } from '../components/ui/EmptyState'
 import { useEffect } from 'react'
@@ -80,9 +82,10 @@ function AboutPage({ onLoading }: AboutPageProps) {
                         <h4 className="text-lg font-bold text-text-light-primary dark:text-text-dark-primary">{exp.role}</h4>
                         <p className="text-sm font-bold text-text-light-secondary opacity-60">{exp.company}</p>
                       </div>
-                      <p className="text-sm text-text-light-secondary leading-relaxed mt-4">
-                        {exp.description}
-                      </p>
+                      <Markdown 
+                        content={exp.description} 
+                        className="text-sm text-text-light-secondary mt-4" 
+                      />
                     </div>
                   ))
                 ) : (
@@ -162,20 +165,14 @@ function AboutPage({ onLoading }: AboutPageProps) {
                         </div>
                         <div className="flex flex-wrap gap-3">
                           {logos.map(logo => (
-                            <div key={logo} className="group relative">
+                            <div key={logo} className="group/tech relative">
                               <div className="h-10 w-10 p-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-border-light dark:border-border-dark flex items-center justify-center transition-all hover:scale-110 hover:border-accent-orange hover:shadow-lg hover:shadow-accent-orange/10">
-                                <img
-                                  src={`https://thesvg.org/icons/${logo}/${
-                                    ['mysql', 'ollama'].includes(logo) ? 'light' : 'default'
-                                  }.svg`}
-                                  alt={logo}
-                                  className="w-full h-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
-                                  onError={(e) => {
-                                    ;(e.currentTarget as HTMLImageElement).src = `https://cdn.svgl.app/library/${logo}.svg`
-                                  }}
+                                <TechIcon 
+                                  name={logo} 
+                                  className="w-full h-full object-contain grayscale opacity-60 group-hover/tech:grayscale-0 group-hover/tech:opacity-100 transition-all duration-300" 
                                 />
                               </div>
-                              <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 px-1.5 py-0.5 bg-bg-dark text-white text-[8px] font-bold rounded opacity-0 group-hover:opacity-100 transition-all transform translate-y-1 group-hover:translate-y-0 whitespace-nowrap pointer-events-none capitalize tracking-tighter">
+                              <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 px-1.5 py-0.5 bg-bg-dark text-white text-[8px] font-bold rounded opacity-0 group-hover/tech:opacity-100 transition-all transform translate-y-1 group-hover/tech:translate-y-0 whitespace-nowrap pointer-events-none capitalize tracking-tighter">
                                 {logo}
                               </div>
                             </div>

@@ -2,21 +2,25 @@
   {
     "id": "github",
     "name": "GitHub",
-    "url": "https://github.com/jeydweirdough"
+    "url": "https://github.com/jeydweirdough",
+    "link_svg": "github/mono.svg"
   },
   {
     "id": "linkedin",
     "name": "LinkedIn",
-    "url": "https://linkedin.com/in/mooserage"
+    "url": "https://linkedin.com/in/mooserage",
+    "link_svg": "linkedin/default.svg"
   },
   {
     "id": "viber",
     "name": "Viber",
-    "url": "viber://chat?number=639513192584"
+    "url": "viber://chat?number=639513192584",
+    "link_svg": "viber/default.svg"
   },
   {
     "id": "whatsapp",
     "name": "WhatsApp",
-    "url": "https://wa.me/639513192584"
+    "url": "https://wa.me/639513192584",
+    "link_svg": "whatsapp/default.svg"
   }
 ]

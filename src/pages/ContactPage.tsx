@@ -7,11 +7,15 @@ import { useEffect } from 'react'
 interface SocialItemProps {
   name: string
   url: string
+  link_svg?: string
 }
 
-function SocialItem({ name, url }: SocialItemProps) {
+function SocialItem({ name, url, link_svg }: SocialItemProps) {
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(url)}`
   const slug = name.toLowerCase().replace(/\s+/g, '-');
+  const src = link_svg 
+    ? `https://thesvg.org/icons/${link_svg}`
+    : `https://thesvg.org/icons/${slug}/default.svg`
 
   return (
     <div className="relative group">
@@ -22,11 +26,15 @@ function SocialItem({ name, url }: SocialItemProps) {
         className="flex items-center justify-center w-11 h-11 rounded-xl bg-white dark:bg-bg-dark border border-border-light dark:border-border-dark text-text-light-secondary dark:text-text-dark-secondary hover:text-accent-orange hover:border-accent-orange/50 transition-all duration-500 shadow-sm hover:shadow-lg p-2.5"
       >
         <img
-          src={`https://thesvg.org/icons/${slug}/default.svg`}
+          src={src}
           alt={name}
           className="w-full h-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
           onError={(e) => {
-            ;(e.currentTarget as HTMLImageElement).src = `https://cdn.svgl.app/library/${slug}.svg`
+            const target = e.currentTarget as HTMLImageElement
+            if (target.src.includes('thesvg.org')) {
+              const fallbackSlug = link_svg ? link_svg.split('/')[0] : slug
+              target.src = `https://cdn.svgl.app/library/${fallbackSlug}.svg`
+            }
           }}
         />
       </a>

@@ -25,6 +25,9 @@ function Footer({ profile, socials }: FooterProps) {
           <div className="flex items-center gap-3">
             {socials.map((s: any) => {
               const slug = s.name?.toLowerCase().replace(/\s+/g, '-')
+              const src = s.link_svg 
+                ? `https://thesvg.org/icons/${s.link_svg}`
+                : `https://thesvg.org/icons/${slug}/default.svg`
               return (
                 <a
                   key={s.id}
@@ -34,10 +37,16 @@ function Footer({ profile, socials }: FooterProps) {
                   className="h-8 w-8 flex items-center justify-center rounded-lg border border-border-light dark:border-border-dark text-text-light-secondary hover:text-accent-orange hover:border-accent-orange/50 transition-all p-1.5"
                 >
                   <img
-                    src={`https://thesvg.org/icons/${slug}/default.svg`}
+                    src={src}
                     alt={s.name}
                     className="w-full h-full object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all"
-                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = `https://cdn.svgl.app/library/${slug}.svg` }}
+                    onError={(e) => {
+                      const target = e.currentTarget as HTMLImageElement
+                      if (target.src.includes('thesvg.org')) {
+                        const fallbackSlug = s.link_svg ? s.link_svg.split('/')[0] : slug
+                        target.src = `https://cdn.svgl.app/library/${fallbackSlug}.svg`
+                      }
+                    }}
                   />
                 </a>
               )
