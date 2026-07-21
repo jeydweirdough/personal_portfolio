@@ -1,57 +1,56 @@
-# React + Tailwind Starter
+# Jade Atyla L. Madigal — Personal Portfolio
 
-Modern 2026 baseline using Vite, React, TypeScript, and Tailwind CSS v4.
+My portfolio website, aa a Computer Science student and Technical Support Engineer, showcasing background, skills, work experience, and project work.
 
-## Install
+**Live site:** https://jade-atyla-portfolio.vercel.app/
+
+## About This Site
+
+- **Home** — introduction, current status, and quick links to socials
+- **About** — bio, core strengths, and technical skills (Frontend, Backend, Database, IT Support & Networking, AI Management, WordPress & Inventory Management)
+- **Education** — academic background at Cavite State University
+- **Experience** — work history including data analyst, IT support, and internship roles
+- **Projects** — a showcase of built projects, each with description, tech stack, and links to a live demo and repository
+- **Contact** — a way for visitors to get in touch, plus links to GitHub, LinkedIn, Viber, and WhatsApp
+
+## Project Structure (High Level)
+
+```
+public/          → images, docs, and static assets used across the site
+src/pages/       → About, Projects, Project Details, and Contact pages
+src/components/  → shared UI pieces (navbar, footer, cards, etc.)
+src/data/        → site content (profile, education, experience, projects, socials, FAQ)
+```
+
+## Running the Project Locally
 
 ```bash
 npm install
-npm install tailwindcss @tailwindcss/vite
 npm run dev
 ```
 
-## Config
+This starts a local development server. Open the URL shown in the terminal to view the site.
 
-`vite.config.ts`
+To build a production-ready version of the site:
 
-```ts
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
-
-export default defineConfig({
-  plugins: [react(), tailwindcss()],
-})
+```bash
+npm run build
 ```
 
-`src/index.css`
+To lint and build in one step:
 
-```css
-@import "tailwindcss";
+```bash
+npm run check
 ```
 
-Tailwind v4 uses the Vite plugin and CSS-first configuration, so a `postcss.config.js` or `tailwind.config.js` is not required for the standard setup.
+## Deployment
 
-## Structure
+The site is deployed and hosted on **Vercel**, and updates to the codebase are automatically published when changes are pushed.
 
-```txt
-public/
-src/
-  assets/
-  components/
-    TestCard.tsx
-  App.tsx
-  index.css
-  main.tsx
-eslint.config.js
-index.html
-package.json
-vite.config.ts
-```
+## Ownership
 
-## Notes
+This project is the personal portfolio of **Jade Atyla L. Madigal**.
 
-- Keep reusable UI in `src/components` and promote feature folders as the app grows.
-- Put direct URL assets in `public/`; import everything else from `src/`.
-- Use `@theme` in CSS for Tailwind tokens before reaching for legacy JS config.
-- Run `npm run check` before shipping to catch lint and build issues together.
+## License
+
+This project is proprietary. All rights reserved — no copying, reuse, or distribution is permitted without written permission. See [LICENSE](./LICENSE) for details.
