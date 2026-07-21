@@ -1,6 +1,6 @@
 # Jade Atyla L. Madigal — Personal Portfolio
 
-A personal portfolio website for **Jade Atyla L. Madigal**, a Computer Science student and Technical Support Engineer, showcasing background, skills, work experience, and project work.
+My portfolio website, aa a Computer Science student and Technical Support Engineer, showcasing background, skills, work experience, and project work.
 
 **Live site:** https://jade-atyla-portfolio.vercel.app/
 
