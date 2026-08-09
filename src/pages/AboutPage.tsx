@@ -1,3 +1,5 @@
+'use client'
+
 import { Card } from '../components/ui/Card'
 import { Markdown } from '../components/ui/Markdown'
 import { Badge } from '../components/ui/Badge'
@@ -28,63 +30,63 @@ function AboutPage({ onLoading }: AboutPageProps) {
   }
 
   return (
-    <div className="flex flex-col animate-fade-in scroll-smooth bg-white dark:bg-bg-dark min-h-screen">
+    <div className="flex flex-col animate-fade-in scroll-smooth bg-white dark:bg-bg-dark">
       
-      {/* SECTION 1: PROFESSIONAL PROFILE (Matches Sidebar ID) */}
-      <section id="profile" className="px-4 pt-25 pb-10 sm:px-10 lg:px-16 max-w-6xl mx-auto w-full">
+      {/* SECTION 1: PROFESSIONAL PROFILE */}
+      <section id="profile" className="px-4 py-8 sm:py-12 sm:px-10 lg:px-16 max-w-6xl mx-auto w-full">
         
         {/* Bio Hero */}
-        <div className="flex flex-col lg:flex-row gap-12 items-start mb-20">
+        <div className="flex flex-col lg:flex-row gap-8 items-start mb-10">
           <div className="shrink-0">
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-tr from-accent-orange to-orange-400 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-              <div className="relative h-40 w-40 rounded-3xl bg-white dark:bg-bg-dark-soft border border-border-light dark:border-border-dark flex items-center justify-center text-4xl font-bold text-accent-orange shadow-2xl overflow-hidden">
+              <div className="relative h-32 w-32 sm:h-36 sm:w-36 rounded-3xl bg-white dark:bg-bg-dark-soft border border-border-light dark:border-border-dark flex items-center justify-center text-3xl font-bold text-accent-orange shadow-xl overflow-hidden">
                  {profile.avatar ? (
                    <img src={profile.avatar} alt={profile.name} className="w-full h-full object-cover" />
                  ) : (
                    profile.name?.split(' ').map((n: string) => n[0]).join('') || '?'
                  )}
               </div>
-              <div className="absolute -bottom-3 -right-3 h-10 w-10 rounded-2xl bg-emerald-500 border-4 border-white dark:border-bg-dark flex items-center justify-center shadow-lg">
-                <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+              <div className="absolute -bottom-2 -right-2 h-8 w-8 rounded-xl bg-emerald-500 border-2 border-white dark:border-bg-dark flex items-center justify-center shadow-md">
+                <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
               </div>
             </div>
           </div>
 
           <div className="flex-1">
-            <Badge variant="accent" className="mb-3">BS Computer Science</Badge>
-            <h1 className="text-xl sm:text-3xl font-bold text-text-light-primary dark:text-text-dark-primary mb-3 leading-tight">
+            <Badge variant="accent" className="mb-2">BS Computer Science</Badge>
+            <h1 className="text-xl sm:text-2xl font-bold text-text-light-primary dark:text-text-dark-primary mb-2 leading-tight">
               {profile.name}
             </h1>
-            <p className="text-sm text-text-light-secondary dark:text-text-dark-secondary leading-relaxed max-w-2xl mb-6">
+            <p className="text-xs sm:text-sm text-text-light-secondary dark:text-text-dark-secondary leading-relaxed max-w-2xl">
               {profile.bio || "Bio initialization in progress..."}
             </p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Column: Experience & Education */}
-          <div className="lg:col-span-2 space-y-16">
+          <div className="lg:col-span-2 space-y-8">
             
             {/* Experience */}
             <div>
-              <div className="flex items-center gap-4 mb-8 sm:mb-10">
-                <h3 className="text-sm font-semibold uppercase tracking-widest text-text-light-primary dark:text-text-dark-primary italic">Experience</h3>
+              <div className="flex items-center gap-3 mb-4">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-text-light-primary dark:text-text-dark-primary">Experience</h3>
                 <div className="h-px flex-1 bg-border-light dark:border-border-dark opacity-20" />
               </div>
-              <div className="space-y-12">
+              <div className="space-y-6">
                 {experience && experience.length > 0 ? (
                   experience.map((exp: any, i: number) => (
-                    <div key={i} className="relative pl-8 border-l border-border-light dark:border-border-dark">
-                      <div className="absolute top-0 -left-1.5 w-3 h-3 rounded-full bg-accent-orange shadow-[0_0_8px_rgba(255,69,50,0.4)]" />
-                      <div className="mb-1">
-                        <span className="text-xs font-bold text-accent-orange uppercase tracking-widest">{exp.period}</span>
-                        <h4 className="text-lg font-bold text-text-light-primary dark:text-text-dark-primary">{exp.role}</h4>
-                        <p className="text-sm font-bold text-text-light-secondary opacity-60">{exp.company}</p>
+                    <div key={i} className="relative pl-6 border-l border-border-light dark:border-border-dark">
+                      <div className="absolute top-1 -left-1.5 w-3 h-3 rounded-full bg-accent-orange shadow-[0_0_8px_rgba(255,69,50,0.4)]" />
+                      <div>
+                        <span className="text-[10px] font-bold text-accent-orange uppercase tracking-wider">{exp.period}</span>
+                        <h4 className="text-base font-bold text-text-light-primary dark:text-text-dark-primary">{exp.role}</h4>
+                        <p className="text-xs font-bold text-text-light-secondary opacity-60">{exp.company}</p>
                       </div>
                       <Markdown 
                         content={exp.description} 
-                        className="text-sm text-text-light-secondary mt-4" 
+                        className="text-xs text-text-light-secondary mt-2" 
                       />
                     </div>
                   ))
@@ -96,34 +98,34 @@ function AboutPage({ onLoading }: AboutPageProps) {
 
             {/* Education */}
             <div>
-              <div className="flex items-center gap-4 mb-8 sm:mb-10">
-                <h3 className="text-sm font-semibold uppercase tracking-widest text-text-light-primary dark:text-text-dark-primary italic">Education</h3>
+              <div className="flex items-center gap-3 mb-4">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-text-light-primary dark:text-text-dark-primary">Education</h3>
                 <div className="h-px flex-1 bg-border-light dark:border-border-dark opacity-20" />
               </div>
-              <div className="space-y-6">
+              <div className="space-y-4">
                 {education && education.length > 0 ? (
                   education.map((edu: any, i: number) => (
-                    <div key={i} className="p-6 rounded-2xl bg-slate-50 dark:bg-bg-dark-soft border border-border-light dark:border-border-dark border-dashed flex flex-col md:flex-row gap-6 items-center md:items-start text-center md:text-left">
+                    <div key={i} className="p-4 rounded-xl bg-slate-50 dark:bg-bg-dark-soft border border-border-light dark:border-border-dark flex flex-col md:flex-row gap-4 items-center md:items-start text-center md:text-left">
                       {edu.schoolLogo ? (
-                        <div className="w-16 h-16 rounded-xl overflow-hidden bg-white p-1 shrink-0 border border-border-light dark:border-border-dark">
+                        <div className="w-12 h-12 rounded-lg overflow-hidden bg-white p-1 shrink-0 border border-border-light dark:border-border-dark">
                           <img src={edu.schoolLogo} alt="School Logo" className="w-full h-full object-contain" />
                         </div>
                       ) : (
-                        <div className="w-16 h-16 rounded-xl bg-accent-orange/10 flex items-center justify-center shrink-0">
-                          <svg className="w-8 h-8 text-accent-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div className="w-12 h-12 rounded-lg bg-accent-orange/10 flex items-center justify-center shrink-0">
+                          <svg className="w-6 h-6 text-accent-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path d="M12 14l9-5-9-5-9 5 9 5z" strokeWidth={1.5}/>
                             <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" strokeWidth={1.5}/>
                           </svg>
                         </div>
                       )}
                       <div>
-                        <h4 className="font-bold text-text-light-primary dark:text-text-dark-primary">{edu.course || "Course/Degree TBD"}</h4>
-                        <div className="flex flex-wrap items-center gap-2 mt-1 text-sm text-text-light-secondary italic opacity-80">
+                        <h4 className="text-sm font-bold text-text-light-primary dark:text-text-dark-primary">{edu.course || "Course/Degree TBD"}</h4>
+                        <div className="flex flex-wrap items-center gap-2 mt-1 text-xs text-text-light-secondary opacity-80">
                           <span>{edu.attainment}</span>
                           <span className="w-1 h-1 rounded-full bg-slate-300" />
                           <span>{edu.school}</span>
                         </div>
-                        <p className="text-xs font-bold text-accent-orange uppercase tracking-widest mt-3 px-2 py-1 bg-accent-orange/5 border border-accent-orange/10 rounded-md inline-block">
+                        <p className="text-[10px] font-bold text-accent-orange uppercase tracking-wider mt-2 px-2 py-0.5 bg-accent-orange/5 border border-accent-orange/10 rounded inline-block">
                           {edu.schoolYear || "Academic period pending..."}
                         </p>
                       </div>
@@ -138,10 +140,10 @@ function AboutPage({ onLoading }: AboutPageProps) {
           </div>
 
           {/* Side Column: Skills & Details */}
-          <div className="space-y-12">
+          <div className="space-y-6">
             <div>
-              <h3 className="text-xs font-semibold uppercase tracking-widest text-accent-orange mb-6">Technical Stack</h3>
-              <div className="space-y-8">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-accent-orange mb-4">Technical Stack</h3>
+              <div className="space-y-4">
                 {profile.skills && profile.skills.length > 0 ? (
                   profile.skills.map((skill: string) => {
                     const getLogos = (name: string) => {
@@ -159,20 +161,18 @@ function AboutPage({ onLoading }: AboutPageProps) {
                     const logos = getLogos(skill);
 
                     return (
-                      <div key={skill} className="space-y-3">
-                        <div className="flex justify-between items-center">
-                          <span className="text-[10px] font-bold text-text-light-primary dark:text-text-dark-primary uppercase tracking-widest">{skill}</span>
-                        </div>
-                        <div className="flex flex-wrap gap-3">
+                      <div key={skill} className="space-y-2">
+                        <span className="text-[10px] font-bold text-text-light-primary dark:text-text-dark-primary uppercase tracking-wider">{skill}</span>
+                        <div className="flex flex-wrap gap-2">
                           {logos.map(logo => (
                             <div key={logo} className="group/tech relative">
-                              <div className="h-10 w-10 p-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-border-light dark:border-border-dark flex items-center justify-center transition-all hover:scale-110 hover:border-accent-orange hover:shadow-lg hover:shadow-accent-orange/10">
+                              <div className="h-8 w-8 p-1.5 rounded-lg bg-slate-50 dark:bg-white/5 border border-border-light dark:border-border-dark flex items-center justify-center transition-all hover:scale-105 hover:border-accent-orange shadow-2xs">
                                 <TechIcon 
                                   name={logo} 
-                                  className="w-full h-full object-contain grayscale opacity-60 group-hover/tech:grayscale-0 group-hover/tech:opacity-100 transition-all duration-300" 
+                                  className="w-full h-full object-contain grayscale opacity-60 group-hover/tech:grayscale-0 group-hover/tech:opacity-100 transition-all" 
                                 />
                               </div>
-                              <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 px-1.5 py-0.5 bg-bg-dark text-white text-[8px] font-bold rounded opacity-0 group-hover/tech:opacity-100 transition-all transform translate-y-1 group-hover/tech:translate-y-0 whitespace-nowrap pointer-events-none capitalize tracking-tighter">
+                              <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 px-1 py-0.5 bg-bg-dark text-white text-[8px] font-bold rounded opacity-0 group-hover/tech:opacity-100 transition-all pointer-events-none whitespace-nowrap capitalize">
                                 {logo}
                               </div>
                             </div>
@@ -187,12 +187,12 @@ function AboutPage({ onLoading }: AboutPageProps) {
               </div>
             </div>
 
-            <Card className="p-6 bg-accent-orange/5 border-accent-orange/10">
-               <h4 className="text-xs font-bold uppercase tracking-widest mb-4">Core Strengths</h4>
-               <ul className="space-y-3">
+            <Card className="p-4 bg-accent-orange/5 border-accent-orange/10 rounded-2xl">
+               <h4 className="text-xs font-bold uppercase tracking-wider mb-3">Core Strengths</h4>
+               <ul className="space-y-2">
                  {(profile.coreStrengths || []).map(s => (
-                   <li key={s} className="flex items-center gap-3 text-xs font-bold text-text-light-secondary">
-                     <div className="h-1 w-1 rounded-full bg-accent-orange" />
+                   <li key={s} className="flex items-center gap-2 text-xs font-semibold text-text-light-secondary">
+                     <div className="h-1 w-1 rounded-full bg-accent-orange shrink-0" />
                      {s}
                    </li>
                  ))}
@@ -202,21 +202,20 @@ function AboutPage({ onLoading }: AboutPageProps) {
         </div>
       </section>
 
-      {/* SECTION 2: FAQ (Matches Sidebar ID) */}
-      <section id="faq" className="px-4 py-16 sm:py-24 sm:px-10 lg:px-16 bg-slate-50 dark:bg-bg-dark-soft border-t border-border-light dark:border-border-dark">
+      {/* SECTION 2: FAQ */}
+      <section id="faq" className="px-4 py-8 sm:py-12 sm:px-10 lg:px-16 bg-slate-50 dark:bg-bg-dark-soft border-t border-border-light dark:border-border-dark">
         <div className="max-w-4xl mx-auto">
-          <p className="text-[10px] font-semibold text-accent-orange uppercase tracking-widest mb-2">Support Node</p>
-          <h2 className="text-lg font-bold text-text-light-primary dark:text-text-dark-primary tracking-tight uppercase mb-6 sm:mb-8">Common Inquiries</h2>
+          <p className="text-[10px] font-semibold text-accent-orange uppercase tracking-wider mb-1">Support Node</p>
+          <h2 className="text-lg font-bold text-text-light-primary dark:text-text-dark-primary tracking-tight uppercase mb-4">Common Inquiries</h2>
           
           {faqData && faqData.length > 0 ? (
-            <Card className="p-6 bg-white dark:bg-bg-dark shadow-xl">
+            <Card className="p-4 sm:p-6 bg-white dark:bg-bg-dark shadow-md rounded-2xl">
               <Accordion items={faqData.map(item => ({ id: item.id, title: item.title, content: item.content }))} />
             </Card>
           ) : (
             <EmptyState 
               title="Knowledge Base Empty" 
-              message="No FAQ entries have been logged in the system. System protocols are currently under review."
-              icon={<svg className="w-10 h-10 text-accent-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" strokeWidth={1.5}/></svg>}
+              message="No FAQ entries have been logged in the system."
             />
           )}
         </div>
@@ -227,5 +226,3 @@ function AboutPage({ onLoading }: AboutPageProps) {
 }
 
 export default AboutPage
-
-

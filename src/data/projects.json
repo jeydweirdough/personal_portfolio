@@ -161,12 +161,20 @@
     "id": "project-5",
     "name": "Mooserage Bank Simulator",
     "description": "A banking system simulation built with Python (Flask) that demonstrates account management, authentication, money transfers, transaction history, and an admin dashboard. The project also includes QR code-based login, a simple banking interface, and a robot client that simulates user transactions.",
-    "demoUrl": "",
+    "demoUrl": "https://bank-simulator-lemon.vercel.app",
     "repoUrl": "https://github.com/jeydweirdough/bank_simulator",
     "status": "Active",
     "hosting": "Vercel",
     "hosting_link_svg": "vercel/mono.svg",
     "techStack": [
+      {
+        "name": "Flask",
+        "link_svg": "flask/light.svg"
+      },
+      {
+        "name": "Python",
+        "link_svg": "python/default.svg"
+      },
       {
         "name": "HTML",
         "link_svg": "html5/default.svg"
@@ -178,18 +186,38 @@
       {
         "name": "JavaScript",
         "link_svg": "javascript/default.svg"
-      },
-      {
-        "name": "Python",
-        "link_svg": "python/default.svg"
       }
     ],
     "database": [
       {
-        "name": "Static",
+        "name": "Static / JSON",
         "link_svg": "json/default.svg"
       }
     ],
-    "documentation": []
+    "features": [
+      "User Registration & Authentication",
+      "QR Code Generation & Webcam QR Login",
+      "Deposit, Withdrawal, & Money Transfers",
+      "Real-Time Transaction History Tracking",
+      "Admin Dashboard for Account Statistics",
+      "Automated Robot Client for Transaction Testing"
+    ],
+    "documentation": [
+      {
+        "key": "b4a8e9102c3d",
+        "image": "/images/bank-simulator-photo-1.png",
+        "title": "Desktop Banking Overview"
+      },
+      {
+        "key": "f7c91a82d4b5",
+        "image": "/images/bank-simulator-photo-2.png",
+        "title": "Desktop Account Dashboard & Operations"
+      },
+      {
+        "key": "e3d18c940a6b",
+        "image": "/images/bank-simulator-photo-3.png",
+        "title": "Mobile Responsive Interface (Galaxy A12)"
+      }
+    ]
   }
 ]

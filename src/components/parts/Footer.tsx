@@ -1,3 +1,5 @@
+'use client'
+
 interface FooterProps {
   profile: any
   socials?: any[]

@@ -504,15 +504,13 @@ function App() {
         {/* ABOUT — About page detailed content */}
         <AboutPage />
 
-        <section id="projects-section" className="scroll-mt-16 min-h-screen flex flex-col justify-center border-t border-border-light dark:border-border-dark">
-          <div className="px-4 pt-12 pb-2 sm:px-10 lg:px-16 max-w-6xl mx-auto">
-            <span className="text-xs font-bold text-accent-orange uppercase tracking-[0.3em] mb-2">Portfolio</span>
-            <h2 className="text-2xl sm:text-3xl font-bold text-text-light-primary dark:text-text-dark-primary tracking-tighter uppercase">Projects</h2>
+        <section id="projects-section" className="scroll-mt-16 py-16 sm:py-24 border-t border-border-light dark:border-border-dark">
+          <div className="px-4 sm:px-10 lg:px-16 max-w-6xl mx-auto w-full">
+            <Projects 
+              selectedProjectId={activeProjectId} 
+              onProjectClick={(id) => handleProjectSelect(id)} 
+            />
           </div>
-          <Projects 
-            selectedProjectId={activeProjectId} 
-            onProjectClick={(id) => handleProjectSelect(id)} 
-          />
         </section>
 
         <section id="contact-section" className="scroll-mt-16 min-h-screen flex flex-col justify-center border-t border-border-light dark:border-border-dark">

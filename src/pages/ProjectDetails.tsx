@@ -1,9 +1,12 @@
+'use client'
+
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { Button } from '../components/ui/Button'
 import { Card } from '../components/ui/Card'
 import { EmptyState } from '../components/ui/EmptyState'
 import { TechIcon } from '../components/ui/TechIcon'
 import { Markdown } from '../components/ui/Markdown'
+import { DeviceMockupShowcase } from '../components/ui/DeviceMockupShowcase'
 import { projects as projectsData } from '../data'
 const projects = projectsData as any[]
 
@@ -509,25 +512,13 @@ function ProjectDetails({ projectId, onBack, onLoading }: ProjectDetailsProps) {
             )}
 
             {project.documentation && project.documentation.length > 0 && (
-              <div className="mb-12">
-                 <h3 className="text-xl font-bold mb-6">Photo Documentation</h3>
-                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                   {project.documentation.map((doc: any, i: number) => {
-                     const imageUrl = doc.image || ''
-                     if (!imageUrl) return null
-                     return (
-                       <div key={i} className="group relative aspect-video rounded-xl overflow-hidden border border-border-light dark:border-border-dark cursor-zoom-in hover:border-accent-orange/50 transition-all" onClick={() => setSelectedImage(imageUrl)}>
-                         <img src={imageUrl} alt={doc.title || 'Documentation image'} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                         {doc.title && (
-                           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-3">
-                               <p className="text-[10px] font-bold text-white uppercase tracking-wider">{doc.title}</p>
-                           </div>
-                         )}
-                       </div>
-                     )
-                   })}
-                 </div>
-              </div>
+               <div className="mb-12">
+                 <DeviceMockupShowcase 
+                   documentation={project.documentation}
+                   demoUrl={project.demoUrl}
+                   onImageClick={(imageUrl) => setSelectedImage(imageUrl)}
+                 />
+               </div>
             )}
              {project.repos && project.repos.length > 0 && (
               <div className="mb-12">
