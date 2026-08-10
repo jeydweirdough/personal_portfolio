@@ -92,11 +92,11 @@ function ContactPage({ onLoading }: ContactPageProps) {
           </div>
 
           <h1 className="text-xl sm:text-2xl font-bold text-text-light-primary dark:text-text-dark-primary tracking-tight mb-2 leading-snug">
-            Let's keep in <span className="text-accent-orange italic">touch</span>.
+            Let&apos;s keep in <span className="text-accent-orange italic">touch</span>.
           </h1>
           
           <p className="text-[11px] font-bold text-text-light-secondary dark:text-text-dark-secondary opacity-50 max-w-sm mx-auto mb-6 uppercase tracking-[0.12em] leading-relaxed">
-            Direct access to streamline emails. <br/>Let's connect and discuss your ideas.
+            Direct access to streamline emails. <br/>Let&apos;s connect and discuss your ideas.
           </p>
 
           <div className="flex flex-col items-center gap-5 w-full max-w-xs">
