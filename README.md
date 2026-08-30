@@ -1,6 +1,6 @@
 # Jade Atyla L. Madigal — Personal Portfolio
 
-My portfolio website, aa a Computer Science student and Technical Support Engineer, showcasing background, skills, work experience, and project work.
+My portfolio website as a System & Web Developer and IT Support at Getmeds Philippines Inc., showcasing my background, skills, work experience, and project work.
 
 **Live site:** https://jade-atyla-portfolio.vercel.app/
 
@@ -8,8 +8,9 @@ My portfolio website, aa a Computer Science student and Technical Support Engine
 
 - **Home** — introduction, current status, and quick links to socials
 - **About** — bio, core strengths, and technical skills (Frontend, Backend, Database, IT Support & Networking, AI Management, WordPress & Inventory Management)
+- **Journey** — a timeline of how I got here, from starting Computer Science in 2022 to developing systems today
 - **Education** — academic background at Cavite State University
-- **Experience** — work history including data analyst, IT support, and internship roles
+- **Experience** — work history at Getmeds Philippines, from IT support into system and web development
 - **Projects** — a showcase of built projects, each with description, tech stack, and links to a live demo and repository
 - **Contact** — a way for visitors to get in touch, plus links to GitHub, LinkedIn, Viber, and WhatsApp
 
@@ -17,7 +18,7 @@ My portfolio website, aa a Computer Science student and Technical Support Engine
 
 ```
 public/          → images, docs, and static assets used across the site
-src/pages/       → About, Projects, Project Details, and Contact pages
+src/views/       → About, Journey, Projects, Project Details, and Contact sections
 src/components/  → shared UI pieces (navbar, footer, cards, etc.)
 src/data/        → site content (profile, education, experience, projects, socials, FAQ)
 ```

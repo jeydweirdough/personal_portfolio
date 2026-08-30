@@ -1,6 +1,6 @@
 {
   "avatar": "/images/profile-avatar.png",
-  "bio": "BS Computer Science graduate from Cavite State University, now seeking a full-time role that utilizes my analytical skills and software proficiency to ensure operational efficiency, maintain data integrity, and provide effective technical support.",
+  "bio": "BS Computer Science graduate from Cavite State University, now working as a System & Web Developer and IT Support at Getmeds Philippines Inc. I build and maintain the internal systems and web content the business runs on, and keep the hardware, software, and networks behind them working. Open to freelance and project work on the side.",
   "coreStrengths": [
     "Problem Solving",
     "Adaptability",
@@ -10,7 +10,7 @@
   "email": "jamadigal@gmail.com",
   "location": "Bacoor, Cavite",
   "name": "Jade Atyla L. Madigal",
-  "openToWork": true,
+  "openToProjects": true,
   "phone": "09513192584",
   "resume": {
     "type": "file",
@@ -27,5 +27,5 @@
     "WordPress and Inventory Management"
   ],
   "status": "knowledge comes from challenges",
-  "title": "Computer Science Graduate & Technical Support Engineer"
+  "title": "System & Web Developer + IT Support"
 }

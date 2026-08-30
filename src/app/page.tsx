@@ -5,6 +5,7 @@ import { FeaturedCardWidget, ShowcaseItem } from '../components/ui/FeaturedCardW
 import Projects from '../views/Projects'
 import AboutPage from '../views/AboutPage'
 import ContactPage from '../views/ContactPage'
+import JourneyPage from '../views/JourneyPage'
 import ProjectDetails from '../views/ProjectDetails'
 import Footer from '../components/parts/Footer'
 import { profile, socials, projects } from '../data'
@@ -96,6 +97,7 @@ function InteractiveFloatingIcon({ icon, mousePosRef }: FloatingIconProps) {
 
 const NAV_ITEMS = [
   { id: 'profile', label: 'About' },
+  { id: 'journey-section', label: 'Journey' },
   { id: 'projects-section', label: 'Projects' },
   { id: 'contact-section', label: 'Contact' },
 ]
@@ -478,6 +480,13 @@ export default function HomePage() {
 
         {/* ABOUT */}
         <AboutPage />
+
+        {/* JOURNEY */}
+        <section id="journey-section" className="scroll-mt-16 py-16 sm:py-24 border-t border-border-light dark:border-border-dark bg-slate-50/40 dark:bg-bg-dark-soft/20">
+          <div className="px-4 sm:px-10 lg:px-16 max-w-6xl mx-auto w-full">
+            <JourneyPage />
+          </div>
+        </section>
 
         {/* PROJECTS */}
         <section id="projects-section" className="scroll-mt-16 py-16 sm:py-24 border-t border-border-light dark:border-border-dark">

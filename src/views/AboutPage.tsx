@@ -56,13 +56,13 @@ function AboutPage({ onLoading }: AboutPageProps) {
           <div className="flex-1">
             <div className="flex flex-wrap items-center gap-2 mb-2">
               <Badge variant="accent">BS Computer Science</Badge>
-              {profile.openToWork && (
+              {profile.openToProjects && (
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold uppercase tracking-[0.15em] text-emerald-600 dark:text-emerald-400">
                   <span className="relative flex h-1.5 w-1.5">
                     <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75 animate-ping" />
                     <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
                   </span>
-                  Open to Work
+                  Open to Projects
                 </span>
               )}
             </div>

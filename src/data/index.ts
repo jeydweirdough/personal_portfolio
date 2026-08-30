@@ -4,6 +4,7 @@ import socialsData from './socials.json'
 import faqData from './faq.json'
 import educationData from './education.json'
 import experienceData from './experience.json'
+import journeyData from './journey.json'
 
 export const profile = profileData
 export const projects = projectsData
@@ -11,3 +12,4 @@ export const socials = socialsData
 export const faq = faqData
 export const education = educationData
 export const experience = experienceData
+export const journey = journeyData

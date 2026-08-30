@@ -9,9 +9,9 @@ const poppins = Poppins({
 })
 
 const SITE_URL = 'https://jade-atyla-portfolio.vercel.app'
-const SITE_TITLE = 'Jade Atyla L. Madigal | Computer Science Graduate & Technical Support Engineer'
+const SITE_TITLE = 'Jade Atyla L. Madigal | System & Web Developer'
 const SITE_DESC =
-  'Portfolio of Jade Atyla L. Madigal — BS Computer Science graduate from Cavite State University, open to work. Software projects, IT support experience, and technical skills.'
+  'Portfolio of Jade Atyla L. Madigal — System & Web Developer and IT Support at Getmeds Philippines, BS Computer Science graduate from Cavite State University. Software projects, systems work, and technical skills.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -20,10 +20,11 @@ export const metadata: Metadata = {
   keywords: [
     'Jade Atyla Madigal',
     'Portfolio',
-    'Computer Science Graduate',
-    'Technical Support Engineer',
+    'System Developer',
+    'Web Developer',
     'IT Support',
     'Software Developer',
+    'Computer Science Graduate',
     'Cavite State University',
     'Next.js',
   ],
