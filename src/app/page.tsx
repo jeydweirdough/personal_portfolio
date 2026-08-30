@@ -2,10 +2,10 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { FeaturedCardWidget, ShowcaseItem } from '../components/ui/FeaturedCardWidget'
-import Projects from '../pages/Projects'
-import AboutPage from '../pages/AboutPage'
-import ContactPage from '../pages/ContactPage'
-import ProjectDetails from '../pages/ProjectDetails'
+import Projects from '../views/Projects'
+import AboutPage from '../views/AboutPage'
+import ContactPage from '../views/ContactPage'
+import ProjectDetails from '../views/ProjectDetails'
 import Footer from '../components/parts/Footer'
 import { profile, socials, projects } from '../data'
 
