@@ -1,25 +1,37 @@
 'use client'
 
-import React from 'react'
+import React, { useId } from 'react'
+
+const fieldBase =
+  'w-full border border-[var(--plate-rule)] bg-transparent px-3.5 py-3 text-[15px] text-[var(--plate-ink)] outline-none transition-colors placeholder:text-[var(--plate-ink-dim)] focus:border-[var(--plate-ink)]'
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string
   error?: string
 }
 
-export function Input({ label, error, className = '', ...props }: InputProps) {
+export function Input({ label, error, className = '', id, ...props }: InputProps) {
+  const auto = useId()
+  const fieldId = id ?? auto
   return (
-    <div className="w-full space-y-1.5">
-      {label && <label className="text-xs font-medium text-text-light-secondary dark:text-text-dark-secondary">{label}</label>}
+    <div className="w-full">
+      {label && (
+        <label htmlFor={fieldId} className="stencil mb-2 block text-[var(--plate-ink-dim)]">
+          {label}
+        </label>
+      )}
       <input
-        className={`
-          w-full px-3 py-2 rounded-md border border-border-light dark:border-border-dark 
-          bg-white dark:bg-bg-dark text-sm outline-none focus:border-accent-orange 
-          transition-colors placeholder:opacity-50 ${className}
-        `}
+        id={fieldId}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? `${fieldId}-error` : undefined}
+        className={`${fieldBase} ${error ? 'border-[var(--plate-caution)]' : ''} ${className}`}
         {...props}
       />
-      {error && <p className="text-[10px] text-red-500 font-medium">{error}</p>}
+      {error && (
+        <p id={`${fieldId}-error`} className="stencil mt-2 text-[var(--plate-caution)]">
+          {error}
+        </p>
+      )}
     </div>
   )
 }
@@ -29,19 +41,28 @@ interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement
   error?: string
 }
 
-export function Textarea({ label, error, className = '', ...props }: TextareaProps) {
+export function Textarea({ label, error, className = '', id, ...props }: TextareaProps) {
+  const auto = useId()
+  const fieldId = id ?? auto
   return (
-    <div className="w-full space-y-1.5">
-      {label && <label className="text-xs font-medium text-text-light-secondary dark:text-text-dark-secondary">{label}</label>}
+    <div className="w-full">
+      {label && (
+        <label htmlFor={fieldId} className="stencil mb-2 block text-[var(--plate-ink-dim)]">
+          {label}
+        </label>
+      )}
       <textarea
-        className={`
-          w-full px-3 py-2 rounded-md border border-border-light dark:border-border-dark 
-          bg-white dark:bg-bg-dark text-sm outline-none focus:border-accent-orange 
-          transition-colors placeholder:opacity-50 resize-none ${className}
-        `}
+        id={fieldId}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? `${fieldId}-error` : undefined}
+        className={`${fieldBase} resize-y ${error ? 'border-[var(--plate-caution)]' : ''} ${className}`}
         {...props}
       />
-      {error && <p className="text-[10px] text-red-500 font-medium">{error}</p>}
+      {error && (
+        <p id={`${fieldId}-error`} className="stencil mt-2 text-[var(--plate-caution)]">
+          {error}
+        </p>
+      )}
     </div>
   )
 }

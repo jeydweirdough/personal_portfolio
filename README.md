@@ -6,22 +6,33 @@ My portfolio website as a System & Web Developer and IT Support at Getmeds Phili
 
 ## About This Site
 
-- **Home** — introduction, current status, and quick links to socials
-- **About** — bio, core strengths, and technical skills (Frontend, Backend, Database, IT Support & Networking, AI Management, WordPress & Inventory Management)
-- **Journey** — a timeline of how I got here, from starting Computer Science in 2022 to developing systems today
-- **Education** — academic background at Cavite State University
-- **Experience** — work history at Getmeds Philippines, from IT support into system and web development
-- **Projects** — a showcase of built projects, each with description, tech stack, and links to a live demo and repository
-- **Contact** — a way for visitors to get in touch, plus links to GitHub, LinkedIn, Viber, and WhatsApp
+The site is built in the graphic language of infrastructure tagging — enamel
+plates, stencil labels, panel schedules — because the claim it makes is that I
+build and maintain the systems a business runs on.
+
+- **Identity plate** — the record header: what I do, since when, and whether I am taking work
+- **Equipment record** — bio, employment, schooling, capability, and how to reach me
+- **Service history** — a line diagram from starting Computer Science in 2022 to developing systems today
+- **Systems built** — every project as a numbered circuit with its real status, stack, and host
+- **Record sheet** — the full detail for one system, including documentation plates
+- **Service request** — the contact form, plus direct channels on GitHub, LinkedIn, Viber, and WhatsApp
+
+Day and night plates both ship; the theme switch is in the top rail.
 
 ## Project Structure (High Level)
 
 ```
-public/          → images, docs, and static assets used across the site
-src/views/       → About, Journey, Projects, Project Details, and Contact sections
-src/components/  → shared UI pieces (navbar, footer, cards, etc.)
-src/data/        → site content (profile, education, experience, projects, socials, FAQ)
+public/               → images, docs, and static assets used across the site
+src/app/globals.css   → the design system: plate tokens, stencil type, browser surfaces
+src/views/            → About, Journey, Projects, Project Details, and Contact sections
+src/components/ui/    → plate primitives (Plate, Button, Input, Accordion, Badge, Card, TechIcon)
+src/components/parts/ → footer
+src/data/             → site content (profile, education, experience, journey, projects, socials, FAQ)
 ```
+
+All copy lives in `src/data/*.json`. Editing the site's words never means editing
+a component. `DESIGN.md` records the visual system; `PRODUCT.md` records who the
+site is for and what it may claim.
 
 ## Running the Project Locally
 
@@ -38,10 +49,10 @@ To build a production-ready version of the site:
 npm run build
 ```
 
-To lint and build in one step:
+To lint the project:
 
 ```bash
-npm run check
+npm run lint
 ```
 
 ## Deployment

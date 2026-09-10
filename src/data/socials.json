@@ -6,6 +6,12 @@
     "link_svg": "github/mono.svg"
   },
   {
+    "id": "github-work",
+    "name": "GitHub (work)",
+    "url": "https://github.com/backenddepartment",
+    "link_svg": "github/mono.svg"
+  },
+  {
     "id": "linkedin",
     "name": "LinkedIn",
     "url": "https://linkedin.com/in/mooserage",

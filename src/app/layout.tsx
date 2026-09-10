@@ -1,17 +1,22 @@
 import type { Metadata, Viewport } from 'next'
-import { Poppins } from 'next/font/google'
+import { Archivo } from 'next/font/google'
 import './globals.css'
 
-const poppins = Poppins({
+// One family carries the whole system. Archivo's width axis gives the
+// condensed stencil labels and the expanded plate lettering from the
+// same face, which is what keeps this reading as engineered rather
+// than art-directed.
+const archivo = Archivo({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
-  variable: '--font-poppins',
+  axes: ['wdth'],
+  variable: '--font-archivo',
+  display: 'swap',
 })
 
 const SITE_URL = 'https://jade-atyla-portfolio.vercel.app'
 const SITE_TITLE = 'Jade Atyla L. Madigal | System & Web Developer'
 const SITE_DESC =
-  'Portfolio of Jade Atyla L. Madigal — System & Web Developer and IT Support at Getmeds Philippines, BS Computer Science graduate from Cavite State University. Software projects, systems work, and technical skills.'
+  'Jade Atyla L. Madigal builds the internal systems a business runs on and keeps the hardware, software, and networks under them working. System & Web Developer and IT Support at Getmeds Philippines. Based in Bacoor, Cavite. Available for project work.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -64,8 +69,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={poppins.variable} suppressHydrationWarning>
-      <body className="min-h-screen bg-bg-light dark:bg-bg-dark text-text-light-primary dark:text-text-dark-primary transition-colors duration-200" suppressHydrationWarning>
+    <html lang="en" className={archivo.variable} suppressHydrationWarning>
+      <body className="min-h-screen" suppressHydrationWarning>
         {children}
       </body>
     </html>

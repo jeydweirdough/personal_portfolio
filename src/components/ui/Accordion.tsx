@@ -9,32 +9,41 @@ interface AccordionItemProps {
   onClick?: () => void
 }
 
+/**
+ * A record row that opens. Square, ruled, no chevron flourish — the mark is a
+ * plus that becomes a minus, which is what a schedule actually uses.
+ */
 export function AccordionItem({ title, children, isOpen, onClick }: AccordionItemProps) {
   return (
-    <div className="border-b border-border-light dark:border-border-dark last:border-b-0">
+    <div className="border-b border-[var(--plate-rule)]">
       <button
         onClick={onClick}
-        className="flex w-full items-center justify-between py-4 text-left transition-all hover:text-accent-orange"
+        aria-expanded={isOpen}
+        className="flex w-full items-center justify-between gap-6 py-4 text-left transition-colors hover:text-[var(--plate-ink)]"
       >
-        <span className="text-sm font-medium text-text-light-primary dark:text-text-dark-primary">
-          {title}
-        </span>
-        <svg
-          className={`h-4 w-4 transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        <span className="text-[15px] font-medium text-[var(--plate-ink)]">{title}</span>
+        <svg viewBox="0 0 16 16" className="h-4 w-4 shrink-0 text-[var(--plate-ink-dim)]" aria-hidden="true">
+          <line x1="1" y1="8" x2="15" y2="8" stroke="currentColor" strokeWidth="1.6" />
+          <line
+            x1="8"
+            y1="1"
+            x2="8"
+            y2="15"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            className="transition-opacity duration-200 ease-[var(--ease-plate)]"
+            style={{ opacity: isOpen ? 0 : 1 }}
+          />
         </svg>
       </button>
       <div
-        className={`overflow-hidden transition-all duration-300 ease-in-out ${
-          isOpen ? 'max-h-96 pb-4 opacity-100' : 'max-h-0 opacity-0'
-        }`}
+        className="grid transition-[grid-template-rows] duration-300 ease-[var(--ease-plate)]"
+        style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}
       >
-        <div className="text-sm text-text-light-secondary dark:text-text-dark-secondary leading-relaxed">
-          {children}
+        <div className="overflow-hidden">
+          <div className="max-w-[64ch] pb-5 text-[15px] leading-relaxed text-[var(--plate-ink-dim)]">
+            {children}
+          </div>
         </div>
       </div>
     </div>
@@ -42,7 +51,7 @@ export function AccordionItem({ title, children, isOpen, onClick }: AccordionIte
 }
 
 interface AccordionProps {
-  items: { title: string; content: React.ReactNode }[]
+  items: { id?: string; title: string; content: React.ReactNode }[]
   allowMultiple?: boolean
 }
 
@@ -51,19 +60,19 @@ export function Accordion({ items, allowMultiple = false }: AccordionProps) {
 
   const toggle = (index: number) => {
     if (allowMultiple) {
-      setOpenIndexes(prev => 
-        prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
+      setOpenIndexes((prev) =>
+        prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
       )
     } else {
-      setOpenIndexes(prev => prev.includes(index) ? [] : [index])
+      setOpenIndexes((prev) => (prev.includes(index) ? [] : [index]))
     }
   }
 
   return (
-    <div className="divide-y divide-border-light dark:divide-border-dark">
+    <div className="border-t border-[var(--plate-rule)]">
       {items.map((item, index) => (
         <AccordionItem
-          key={index}
+          key={item.id ?? index}
           title={item.title}
           isOpen={openIndexes.includes(index)}
           onClick={() => toggle(index)}

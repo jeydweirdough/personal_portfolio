@@ -48,3 +48,8 @@ lerna-debug.log*
 
 # claude code
 .claude/
+
+# impeccable: inspection screenshots are build artifacts, not source.
+# The surface brief and design tokens under .impeccable/ ARE tracked on purpose.
+.impeccable/review/
+.impeccable

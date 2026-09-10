@@ -1,5 +1,105 @@
 [
   {
+    "id": "work-getmeds-ph",
+    "kind": "work",
+    "name": "Getmeds Philippines",
+    "org": "Getmeds Philippines Inc.",
+    "role": "Built and maintained",
+    "description": [
+      "The public site for Getmeds Philippines, the pharmaceutical and healthcare company I work for. I build it and I keep it running — the same site the business points its customers at every day."
+    ],
+    "demoUrl": "https://getmeds.ph",
+    "repoUrl": "",
+    "status": "Active",
+    "hosting": "Vercel",
+    "techStack": [
+      {
+        "name": "React"
+      },
+      {
+        "name": "Tailwind"
+      }
+    ],
+    "database": [],
+    "documentation": []
+  },
+  {
+    "id": "work-getmeds-healthcare",
+    "kind": "work",
+    "name": "Getmeds Healthcare",
+    "org": "Getmeds Philippines Inc.",
+    "role": "Built and maintained",
+    "description": [
+      "The export-facing site for Getmeds Healthcare, covering certified pharmaceutical exports out of India. WordPress, which means the people who need to change copy can change it without me."
+    ],
+    "demoUrl": "https://getmedshealthcare.com",
+    "repoUrl": "",
+    "status": "Active",
+    "hosting": "LiteSpeed",
+    "techStack": [
+      {
+        "name": "WordPress"
+      },
+      {
+        "name": "PHP"
+      }
+    ],
+    "database": [
+      {
+        "name": "MySQL"
+      }
+    ],
+    "documentation": []
+  },
+  {
+    "id": "work-bishnoi",
+    "kind": "work",
+    "name": "Bishnoi",
+    "org": "Getmeds Philippines Inc.",
+    "role": "Built and maintained",
+    "description": [
+      "A heritage site for the Bishnoi community — its history and its living legacy. Statically exported and served from GitHub Pages on a custom domain, so there is no server to go down."
+    ],
+    "demoUrl": "https://bishnoi.ai",
+    "repoUrl": "https://github.com/backenddepartment/bishnoi",
+    "status": "Active",
+    "hosting": "GitHub Pages",
+    "techStack": [
+      {
+        "name": "Next.js"
+      },
+      {
+        "name": "React"
+      }
+    ],
+    "database": [],
+    "documentation": []
+  },
+  {
+    "id": "work-bishnoi-omniverse",
+    "kind": "work",
+    "name": "Bishnoi Omniverse",
+    "org": "Getmeds Philippines Inc.",
+    "role": "Built and maintained",
+    "description": [
+      "Global medical supply and specialty sourcing for Bishnoi Omniverse. Same static-export approach as the heritage site, still running on GitHub Pages."
+    ],
+    "demoUrl": "https://backenddepartment.github.io/bishnoi-omniverse/",
+    "repoUrl": "https://github.com/backenddepartment/bishnoi-omniverse",
+    "status": "Active",
+    "hosting": "GitHub Pages",
+    "techStack": [
+      {
+        "name": "Next.js"
+      },
+      {
+        "name": "React"
+      }
+    ],
+    "database": [],
+    "documentation": []
+  },
+  {
     "id": "project-1",
     "name": "Jecati Construction Services",
     "description": [
@@ -16,7 +116,7 @@
         "link_svg": "react/default.svg"
       },
       {
-        "name": "Typescript",
+        "name": "TypeScript",
         "link_svg": "typescript/default.svg"
       },
       {
@@ -34,7 +134,10 @@
       {
         "key": "eb1d8c734bf6"
       }
-    ]
+    ],
+    "kind": "personal",
+    "org": "Jecati Construction Services",
+    "role": "Built"
   },
   {
     "id": "project-2",
@@ -51,7 +154,7 @@
         "link_svg": "flask/light.svg"
       },
       {
-        "name": "python",
+        "name": "Python",
         "link_svg": "python/default.svg"
       },
       {
@@ -63,7 +166,7 @@
         "link_svg": "css3/default.svg"
       },
       {
-        "name": "Javscript",
+        "name": "JavaScript",
         "link_svg": "javascript/default.svg"
       }
     ],
@@ -94,7 +197,10 @@
         "image": "/images/mooserage-chatbot-photo-4.png",
         "title": "Conversation Feature"
       }
-    ]
+    ],
+    "kind": "personal",
+    "org": "Personal project",
+    "role": "Built"
   },
   {
     "id": "project-3",
@@ -110,7 +216,7 @@
         "link_svg": "react/default.svg"
       },
       {
-        "name": "ReactNative",
+        "name": "React Native",
         "link_svg": "react/default.svg"
       },
       {
@@ -118,7 +224,7 @@
         "link_svg": "express/default.svg"
       },
       {
-        "name": "Nodejs",
+        "name": "Node.js",
         "link_svg": "nodejs/default.svg"
       }
     ],
@@ -142,7 +248,10 @@
         "url": "https://github.com/jeydweirdough/cognify_backend_v2"
       }
     ],
-    "documentation": []
+    "documentation": [],
+    "kind": "personal",
+    "org": "Capstone · Cavite State University",
+    "role": "Built"
   },
   {
     "id": "project-4",
@@ -155,7 +264,10 @@
     "hosting_link_svg": "",
     "techStack": [],
     "database": [],
-    "documentation": []
+    "documentation": [],
+    "kind": "work",
+    "org": "Getmeds Philippines Inc.",
+    "role": "Built and maintained"
   },
   {
     "id": "project-5",
@@ -218,6 +330,9 @@
         "image": "/images/bank-simulator-photo-3.png",
         "title": "Mobile Responsive Interface (Galaxy A12)"
       }
-    ]
+    ],
+    "kind": "personal",
+    "org": "Personal project",
+    "role": "Built"
   }
 ]

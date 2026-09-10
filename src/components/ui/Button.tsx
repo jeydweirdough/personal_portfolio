@@ -9,46 +9,55 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean
 }
 
-export function Button({ 
-  children, 
-  variant = 'primary', 
-  size = 'md', 
-  icon, 
+/**
+ * Stamped controls. Square corners, stencil caps, no shadow.
+ * The signal colour is the primary action and nothing else, and it resolves
+ * per ground — so the label keeps its contrast on concrete, asphalt, or an
+ * orange field without any per-surface special-casing here.
+ */
+export function Button({
+  children,
+  variant = 'primary',
+  size = 'md',
+  icon,
   isLoading = false,
-  className = '', 
-  ...props 
+  className = '',
+  ...props
 }: ButtonProps) {
-  
-  const baseStyles = "inline-flex items-center justify-center gap-2 rounded-md font-medium transition-all focus:outline-none disabled:opacity-50 disabled:pointer-events-none relative"
-  
+  const base =
+    'inline-flex items-center justify-center gap-2 font-bold uppercase tracking-[0.12em] transition-colors duration-200 ease-[var(--ease-plate)] disabled:opacity-45 disabled:pointer-events-none relative'
+
   const variants = {
-    primary: "bg-accent-orange text-white shadow-sm hover:bg-accent-orange-hover",
-    secondary: "bg-slate-50 dark:bg-bg-dark-soft border border-border-light dark:border-border-dark text-text-light-primary dark:text-text-dark-primary hover:bg-slate-100 dark:hover:bg-white/5",
-    outline: "border border-border-light dark:border-border-dark bg-transparent text-text-light-primary dark:text-text-dark-primary hover:border-accent-orange/50 hover:text-accent-orange",
-    ghost: "text-text-light-secondary dark:text-text-dark-secondary hover:text-text-light-primary dark:hover:text-text-dark-primary hover:bg-slate-100 dark:hover:bg-bg-dark-soft"
+    primary: 'bg-[var(--plate-signal)] text-[var(--plate-signal-ink)] hover:bg-[var(--plate-signal-hover)]',
+    secondary:
+      'border border-[var(--plate-ink)] text-[var(--plate-ink)] hover:bg-[var(--plate-ink)] hover:text-[var(--plate-ground)]',
+    outline:
+      'border border-[var(--plate-rule)] text-[var(--plate-ink)] hover:border-[var(--plate-ink)]',
+    ghost: 'text-[var(--plate-ink-dim)] hover:text-[var(--plate-ink)]',
   }
-  
+
   const sizes = {
-    xs: "px-2 py-1 text-[10px]",
-    sm: "px-2.5 py-1.5 sm:px-3 sm:py-1.5 text-[11px] sm:text-xs",
-    md: "px-3.5 py-2 sm:px-4 sm:py-2 text-xs sm:text-sm",
-    lg: "px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base"
+    xs: 'px-3 py-1.5 text-[11px]',
+    sm: 'px-4 py-2 text-[11px]',
+    md: 'px-6 py-3 text-xs',
+    lg: 'px-7 py-3.5 text-sm',
   }
 
   return (
-    <button 
-      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
+    <button
+      className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
       disabled={isLoading || props.disabled}
       {...props}
     >
+      {/* Loading is a lamp on the plate edge, not a spinner. */}
       {isLoading && (
-        <svg className="animate-spin h-4 w-4 absolute" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-        </svg>
+        <span
+          aria-hidden="true"
+          className="absolute inset-x-0 bottom-0 h-0.5 bg-current opacity-70 motion-safe:animate-[lamp_1.2s_var(--ease-plate)_infinite]"
+        />
       )}
-      <span className={`flex items-center gap-2 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
-        {icon && <span>{icon}</span>}
+      <span className="flex items-center gap-2">
+        {icon}
         {children}
       </span>
     </button>

@@ -5,121 +5,123 @@ import { EmptyState } from '../components/ui/EmptyState'
 
 type MilestoneType = 'education' | 'work' | 'project' | 'milestone'
 
-const TYPE_META: Record<MilestoneType, { label: string; icon: React.ReactNode }> = {
-  education: {
-    label: 'Education',
-    icon: (
-      <svg className="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l6.16-3.42a12.08 12.08 0 01.67 6.48A11.95 11.95 0 0012 20.05a11.95 11.95 0 00-6.83-3 12.08 12.08 0 01.67-6.47L12 14z" />
-      </svg>
-    ),
-  },
-  work: {
-    label: 'Work',
-    icon: (
-      <svg className="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M21 13.255A23.93 23.93 0 0112 15c-3.18 0-6.22-.62-9-1.745M16 6V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v1m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-      </svg>
-    ),
-  },
-  project: {
-    label: 'Projects',
-    icon: (
-      <svg className="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-      </svg>
-    ),
-  },
-  milestone: {
-    label: 'Milestone',
-    icon: (
-      <svg className="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.29 6.29L22 12l-6.71 2.71L13 21l-2.29-6.29L4 12l6.71-2.71L13 3z" />
-      </svg>
-    ),
-  },
+const TYPE_LABEL: Record<MilestoneType, string> = {
+  education: 'School',
+  work: 'Work',
+  project: 'Built',
+  milestone: 'Marker',
+}
+
+/**
+ * Station notation. A line diagram marks its stops with geometry, not
+ * pictograms — filled for work, open for school, diamond for something built.
+ * One stroke weight throughout.
+ */
+function StationMark({ type, current }: { type: MilestoneType; current?: boolean }) {
+  const stroke = current ? 'var(--plate-signal)' : 'currentColor'
+  const fill = current ? 'var(--plate-signal)' : 'var(--plate-ground)'
+
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      className="h-5 w-5"
+      aria-hidden="true"
+      style={{ color: 'var(--plate-ink)' }}
+    >
+      {type === 'project' ? (
+        <rect
+          x="4"
+          y="4"
+          width="12"
+          height="12"
+          transform="rotate(45 10 10)"
+          fill={fill}
+          stroke={stroke}
+          strokeWidth="1.6"
+        />
+      ) : (
+        <rect
+          x="3.5"
+          y="3.5"
+          width="13"
+          height="13"
+          fill={type === 'work' ? stroke : fill}
+          stroke={stroke}
+          strokeWidth="1.6"
+        />
+      )}
+    </svg>
+  )
 }
 
 function JourneyPage() {
   if (!journey || journey.length === 0) {
-    return <EmptyState title="No milestones yet" message="Journey entries have not been added." />
+    return <EmptyState title="No stations recorded" message="Journey entries have not been added." />
   }
 
   return (
-    <div className="max-w-4xl mx-auto w-full">
-      {/* Section header */}
-      <div className="mb-10 sm:mb-12">
-        <p className="text-[10px] font-bold text-accent-orange uppercase tracking-[0.2em] mb-1.5 opacity-70">
-          The road so far
-        </p>
-        <h2 className="text-lg sm:text-xl font-bold text-text-light-primary dark:text-text-dark-primary tracking-tight uppercase mb-2">
-          My Journey
-        </h2>
-        <p className="text-xs sm:text-sm text-text-light-secondary dark:text-text-dark-secondary leading-relaxed max-w-xl opacity-80">
-          From first year of Computer Science to graduating and looking for what&apos;s next &mdash;
-          the steps that actually shaped how I work.
-        </p>
+    <div className="w-full">
+      <p className="mb-8 max-w-[62ch] text-[15px] leading-relaxed text-[var(--plate-ink-dim)]">
+        How the capability was actually built — university, first support role,
+        then systems work. Every station is a thing that happened, in order.
+      </p>
+
+      {/* Legend — a line diagram that does not explain its notation is decoration. */}
+      <div className="mb-10 flex flex-wrap items-center gap-x-7 gap-y-2 border-y border-[var(--plate-rule)] py-3">
+        {(['work', 'education', 'project'] as MilestoneType[]).map((t) => (
+          <span key={t} className="inline-flex items-center gap-2">
+            <StationMark type={t} />
+            <span className="stencil text-[var(--plate-ink-dim)]">{TYPE_LABEL[t]}</span>
+          </span>
+        ))}
       </div>
 
-      {/* Timeline */}
-      <ol className="relative">
-        {/* The spine */}
-        <div
-          className="absolute left-[15px] sm:left-[19px] top-2 bottom-2 w-px bg-gradient-to-b from-accent-orange/40 via-border-light dark:via-border-dark to-transparent"
+      <ol className="relative m-0 max-w-5xl list-none p-0">
+        {/* The line itself. */}
+        <span
           aria-hidden="true"
+          className="absolute left-[9px] top-2 bottom-2 w-px bg-[var(--plate-rule)] sm:left-[calc(8rem+9px)]"
         />
 
-        {journey.map((item, i) => {
-          const meta = TYPE_META[(item.type as MilestoneType)] ?? TYPE_META.milestone
-          const isLast = i === journey.length - 1
+        {journey.map((item: any) => {
+          const type = (item.type as MilestoneType) ?? 'milestone'
 
           return (
-            <li key={item.id} className={`relative flex gap-4 sm:gap-6 ${isLast ? '' : 'pb-8 sm:pb-10'}`}>
-              {/* Node */}
-              <div className="relative z-10 shrink-0">
-                <div
-                  className={`h-8 w-8 sm:h-10 sm:w-10 rounded-xl border flex items-center justify-center p-1.5 sm:p-2 shadow-sm transition-colors ${
-                    item.current
-                      ? 'bg-accent-orange border-accent-orange text-white'
-                      : 'bg-white dark:bg-bg-dark-soft border-border-light dark:border-border-dark text-accent-orange'
-                  }`}
-                >
-                  {meta.icon}
-                </div>
-                {item.current && (
-                  <span className="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5">
-                    <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75 animate-ping" />
-                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500 border-2 border-white dark:border-bg-dark" />
-                  </span>
-                )}
-              </div>
+            <li
+              key={item.id}
+              className="relative grid grid-cols-[2.5rem_1fr] sm:grid-cols-[7rem_2.5rem_1fr] items-start gap-x-4 pb-10 last:pb-0"
+            >
+              <span className="stencil hidden pt-1 text-right text-[var(--plate-ink-dim)] sm:block">
+                {item.period?.split('·')[0]?.trim()}
+              </span>
 
-              {/* Content */}
-              <div className="flex-1 min-w-0 pt-0.5 sm:pt-1">
-                <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 mb-1">
-                  <span className="text-[10px] font-bold text-accent-orange uppercase tracking-[0.15em]">
-                    {item.period}
-                  </span>
-                  <span className="text-[9px] font-bold uppercase tracking-[0.12em] px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/5 text-text-light-secondary dark:text-text-dark-secondary opacity-60">
-                    {meta.label}
-                  </span>
-                </div>
+              <span className="relative z-10 flex justify-start bg-[var(--plate-ground)] py-1">
+                <StationMark type={type} current={item.current} />
+              </span>
 
-                <h3 className="text-sm sm:text-base font-bold text-text-light-primary dark:text-text-dark-primary leading-snug">
+              <div className="min-w-0 pt-0.5">
+                <p className="stencil mb-1.5 text-[var(--plate-ink-dim)] sm:hidden">
+                  {item.period}
+                </p>
+                <h3 className="m-0 text-lg font-semibold leading-snug text-[var(--plate-ink)]">
                   {item.title}
                 </h3>
-
                 {item.org && (
-                  <p className="text-[11px] font-bold text-text-light-secondary dark:text-text-dark-secondary opacity-60 mt-0.5">
-                    {item.org}
-                  </p>
+                  <p className="stencil mt-1.5 text-[var(--plate-ink-dim)]">{item.org}</p>
                 )}
-
                 {item.description && (
-                  <p className="text-xs text-text-light-secondary dark:text-text-dark-secondary leading-relaxed mt-2 max-w-2xl">
+                  <p className="mt-3 max-w-[64ch] text-[15px] leading-relaxed text-[var(--plate-ink-dim)]">
                     {item.description}
                   </p>
+                )}
+                {item.current && (
+                  <span className="mt-3 inline-flex items-center gap-2.5">
+                    <span
+                      aria-hidden="true"
+                      className="h-2 w-2 bg-[var(--plate-signal)] motion-safe:animate-[lamp_3.2s_var(--ease-plate)_infinite]"
+                    />
+                    <span className="stencil text-[var(--plate-signal-label)]">Current</span>
+                  </span>
                 )}
               </div>
             </li>

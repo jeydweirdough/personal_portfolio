@@ -2,23 +2,22 @@ import React from 'react'
 
 interface BadgeProps {
   children: React.ReactNode
-  variant?: 'default' | 'accent' | 'success' | 'warning' | 'outline'
+  variant?: 'default' | 'accent' | 'live' | 'muted'
   className?: string
 }
 
+/** A stamped tag. Square and ruled — never a filled pill. */
 export function Badge({ children, variant = 'default', className = '' }: BadgeProps) {
-  const baseStyles = "inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider border transition-all"
-  
   const variants = {
-    default: "bg-slate-100 dark:bg-bg-dark-soft border-border-light dark:border-border-dark text-text-light-secondary dark:text-text-dark-secondary",
-    accent: "bg-accent-orange/10 border-accent-orange/20 text-accent-orange",
-    success: "bg-emerald-500/10 border-emerald-500/20 text-emerald-500",
-    warning: "bg-amber-500/10 border-amber-500/20 text-amber-500",
-    outline: "bg-transparent border-border-light dark:border-border-dark text-text-light-secondary dark:text-text-dark-secondary hover:border-accent-orange/50"
+    default: 'border-[var(--plate-rule)] text-[var(--plate-ink)]',
+    accent: 'border-[var(--plate-ink)] text-[var(--plate-ink)]',
+    live: 'border-[var(--plate-signal)] text-[var(--plate-signal)]',
+    muted: 'border-[var(--plate-rule)] text-[var(--plate-ink-dim)]',
   }
-
   return (
-    <span className={`${baseStyles} ${variants[variant]} ${className}`}>
+    <span
+      className={`stencil inline-flex items-center border px-2.5 py-1.5 ${variants[variant]} ${className}`}
+    >
       {children}
     </span>
   )

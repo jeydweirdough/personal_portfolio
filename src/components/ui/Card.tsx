@@ -1,45 +1,14 @@
 import React from 'react'
 
-interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface CardProps {
   children: React.ReactNode
-  hoverable?: boolean
+  className?: string
 }
 
-export function Card({ children, className = '', hoverable = false, ...props }: CardProps) {
-  return (
-    <div 
-      className={`
-        rounded-lg border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark transition-all
-        ${hoverable ? 'hover:border-accent-orange/40 hover:shadow-md' : ''}
-        ${className}
-      `}
-      {...props}
-    >
-      {children}
-    </div>
-  )
-}
-
-export function CardHeader({ children, className = '' }: { children: React.ReactNode, className?: string }) {
-  return (
-    <div className={`px-4 sm:px-6 py-3 sm:py-4 border-b border-border-light dark:border-border-dark bg-slate-50 dark:bg-bg-dark-soft ${className}`}>
-      {children}
-    </div>
-  )
-}
-
-export function CardContent({ children, className = '' }: { children: React.ReactNode, className?: string }) {
-  return (
-    <div className={`p-4 sm:p-6 ${className}`}>
-      {children}
-    </div>
-  )
-}
-
-export function CardFooter({ children, className = '' }: { children: React.ReactNode, className?: string }) {
-  return (
-    <div className={`px-4 sm:px-6 py-2 sm:py-3 border-t border-border-light dark:border-border-dark bg-slate-50 dark:bg-bg-dark-soft ${className}`}>
-      {children}
-    </div>
-  )
+/**
+ * A framed region. Square, 1px rule, no shadow and no fill — regions here are
+ * plates bolted to the page, not floating containers.
+ */
+export function Card({ children, className = '' }: CardProps) {
+  return <div className={`border border-[var(--plate-rule)] ${className}`}>{children}</div>
 }
