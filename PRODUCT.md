@@ -60,6 +60,9 @@ This is the claim the site must make legible to a non-technical buyer, because i
 
 **Production systems built and maintained for Getmeds Philippines Inc.** (Jade confirmed on 2026-09-10 that all four may be shown publicly, and that the role on each is *built and still maintain*):
 - **getmeds.ph** — the company's public site. React + Tailwind on Vercel.
+- **Getmeds Backend** — FastAPI (Python) API behind getmeds.ph: Claude-powered sales chatbot grounded in CMS content, inquiry routing (email/Discord), daily analytics digest cron. Vercel. Private repo `backenddepartment/getmeds_backend` — no public link.
+- **Getmeds Database** — Sanity Studio admin panel so employees update products, FAQs, careers, team and page content without a developer. Private repo `backenddepartment/getmeds_database`.
+- **Getmeds Digital Business Cards** — per-employee digital business ID at getmeds.ph/card/<slug>, reached from the QR on the printed card; card artwork is OCR'd (Tesseract.js) in the Studio to propose fields a person then confirms. Jade confirmed on 2026-09-24 that Jade created all three.
 - **getmedshealthcare.com** — the export-facing site for certified pharmaceutical exports from India. WordPress/PHP on LiteSpeed.
 - **bishnoi.ai** — heritage site for the Bishnoi community. Next.js static export on GitHub Pages, custom domain. Public repo: `backenddepartment/bishnoi`.
 - **backenddepartment.github.io/bishnoi-omniverse** — global medical supply and specialty sourcing. Next.js static export on GitHub Pages. Public repo: `backenddepartment/bishnoi-omniverse`.

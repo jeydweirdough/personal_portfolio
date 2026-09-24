@@ -24,6 +24,99 @@
     "documentation": []
   },
   {
+    "id": "work-getmeds-backend",
+    "kind": "work",
+    "name": "Getmeds Backend",
+    "org": "Getmeds Philippines Inc.",
+    "role": "Built and maintained",
+    "description": [
+      "The API behind getmeds.ph, which I built from scratch. It runs the site's AI sales assistant, which answers from the company's own products, services and FAQs rather than making things up. It also routes customer inquiries to email and Discord, and sends a daily analytics digest on a schedule."
+    ],
+    "demoUrl": "",
+    "repoUrl": "",
+    "status": "Active",
+    "hosting": "Vercel",
+    "techStack": [
+      {
+        "name": "Python"
+      },
+      {
+        "name": "FastAPI"
+      },
+      {
+        "name": "Claude API"
+      }
+    ],
+    "database": [
+      {
+        "name": "Sanity"
+      }
+    ],
+    "documentation": []
+  },
+  {
+    "id": "work-getmeds-database",
+    "kind": "work",
+    "name": "Getmeds Database",
+    "org": "Getmeds Philippines Inc.",
+    "role": "Built and maintained",
+    "description": [
+      "The content database and admin panel for the Getmeds website. I built it so employees can update products, FAQs, careers, team members and page content themselves, without waiting on a developer. Whatever they change shows up on getmeds.ph."
+    ],
+    "demoUrl": "",
+    "repoUrl": "",
+    "status": "Active",
+    "hosting": "Vercel",
+    "techStack": [
+      {
+        "name": "Sanity Studio"
+      },
+      {
+        "name": "React"
+      },
+      {
+        "name": "TypeScript"
+      }
+    ],
+    "database": [
+      {
+        "name": "Sanity"
+      }
+    ],
+    "documentation": []
+  },
+  {
+    "id": "work-getmeds-business-cards",
+    "kind": "work",
+    "name": "Getmeds Digital Business Cards",
+    "org": "Getmeds Philippines Inc.",
+    "role": "Built and maintained",
+    "description": [
+      "Digital business IDs for Getmeds employees. The QR code on each printed card opens that person's page on getmeds.ph, with buttons to call, email, WhatsApp or Viber them. To add someone, you upload the card artwork to the admin panel. OCR reads the name, title, mobile and email off the image, and a person checks the details before applying them, since a single wrong digit in a phone number is easy to miss."
+    ],
+    "demoUrl": "",
+    "repoUrl": "",
+    "status": "Active",
+    "hosting": "Vercel",
+    "techStack": [
+      {
+        "name": "React"
+      },
+      {
+        "name": "TypeScript"
+      },
+      {
+        "name": "Tesseract.js"
+      }
+    ],
+    "database": [
+      {
+        "name": "Sanity"
+      }
+    ],
+    "documentation": []
+  },
+  {
     "id": "work-getmeds-healthcare",
     "kind": "work",
     "name": "Getmeds Healthcare",
