@@ -1,248 +1,215 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:is(.dark *));
+:root {
+  color-scheme: light dark;
+  --background: #ffffff;
+  --surface: #f3f5f4;
+  --foreground: #17201d;
+  --muted: #53605b;
+  --line: #dce2df;
+  --edge: #7e8b86;
+  --accent: #1d5a4b;
+  --accent-hover: #143f35;
+  --on-accent: #ffffff;
+  --field: #1d5a4b;
+  --on-field: #ffffff;
+  --field-muted: #c9ddd6;
+}
 
-/* ─────────────────────────────────────────────────────────────
-   ASSET TAG — SIGNAL ORANGE
-   The graphic language of infrastructure that quietly works:
-   enamel plates, stencil paint, panel schedules, bolted rails.
-
-   The orange is not decoration. In the utility marking code,
-   orange marks communication and signal lines — which is exactly
-   the layer this person builds and keeps alive.
-
-   Day is the primary read; these plates live outdoors.
-   Night is the same plates under sodium light, never neon.
-   ───────────────────────────────────────────────────────────── */
-
-@theme {
-  /* Signal orange — the committed field. Owns whole regions, never an accent. */
-  --color-signal: #b8400b;
-  --color-signal-deep: #8a2f07;
-  --color-signal-lit: #d24d0e;
-
-  /* One signal, three readings — always the hottest against its own ground. */
-  --color-signal-day: #a8380a;
-  --color-signal-night: #ff9e1b;
-  --color-signal-field: #ffd24a;
-
-  /* Caution — errors and destructive states only. Two readings, because a
-     red dark enough to carry on concrete disappears against asphalt. Both are
-     kept clearly redder than the signal so neither reads as a hotter orange. */
-  --color-caution: #5e0d12;
-  --color-caution-night: #ff7b93;
-
-  /* The primary action's hover. It darkens on a light ground and brightens on
-     a dark one, so the label keeps its contrast either way. */
-  --color-signal-hover-day: #8e2f08;
-  --color-signal-hover-night: #ffb347;
-  --color-signal-hover-field: #ffe07a;
-
-  /* Stencil ink and grounds */
-  --color-stencil: #fff6f2;
-  --color-stencil-dim: #f9e7de;
-  --color-asphalt: #16181a;
-  --color-asphalt-deep: #0e0f11;
-  --color-concrete: #eae8e6;
-  --color-concrete-dim: #d8d5d2;
-  --color-ink: #17150f;
-  --color-ink-dim: #5c5854;
-  --color-ink-dim-night: #c9beb8;
-
-  /* Rules — the only chrome besides bolt marks */
-  --color-rule-day: #cfc9c5;
-  --color-rule-night: #302b28;
-
-  --radius-plate: 0px;
-
-  /* Motion is luminance. Nothing slides, floats, or bounces. */
-  --ease-plate: cubic-bezier(0.22, 1, 0.36, 1);
-  --animate-lamp: lamp 3.2s var(--ease-plate) infinite;
-  --animate-ink: ink 0.5s var(--ease-plate) both;
-
-  @keyframes lamp {
-    0%, 100% { opacity: 1; }
-    50%      { opacity: 0.45; }
-  }
-
-  /* Entrance from an already-visible default: ink comes up, nothing moves in. */
-  @keyframes ink {
-    from { opacity: 0.35; }
-    to   { opacity: 1; }
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #111513;
+    --surface: #191e1c;
+    --foreground: #e7ecea;
+    --muted: #a3aeaa;
+    --line: #2b3330;
+    --edge: #6c7975;
+    --accent: #8fc7b5;
+    --accent-hover: #b0dccd;
+    --on-accent: #10211c;
+    --field: #17362e;
+    --on-field: #f1f6f4;
+    --field-muted: #b4cdc5;
   }
 }
 
-:root {
-  color-scheme: light;
-
-  --plate-ground: var(--color-concrete);
-  --plate-ink: var(--color-ink);
-  --plate-ink-dim: var(--color-ink-dim);
-  --plate-rule: var(--color-rule-day);
-
-  /* The field: the region the committed colour owns outright. */
-  --plate-field: var(--color-signal);
-  --plate-field-ink: var(--color-stencil);
-  --plate-field-ink-dim: var(--color-stencil-dim);
-
-  /* The signal, read against THIS ground. */
-  --plate-signal: var(--color-signal-day);
-  --plate-signal-ink: var(--color-stencil);
-  --plate-signal-label: var(--color-signal-day);
-  --plate-signal-hover: var(--color-signal-hover-day);
-  --plate-caution: var(--color-caution);
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-edge: var(--edge);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-on-accent: var(--on-accent);
+  --color-field: var(--field);
+  --color-on-field: var(--on-field);
+  --color-field-muted: var(--field-muted);
+  --font-sans: var(--font-public-sans), Arial, sans-serif;
+  --radius-control: 6px;
+  --radius-media: 8px;
 }
 
-html.dark {
-  color-scheme: dark;
+@layer base {
+  html {
+    /* Clears the sticky header when jumping to a section. */
+    scroll-padding-top: 4rem;
+    scrollbar-color: var(--edge) var(--background);
+    caret-color: var(--accent);
+  }
 
-  --plate-ground: var(--color-asphalt);
-  --plate-ink: var(--color-stencil);
-  --plate-ink-dim: var(--color-ink-dim-night);
-  --plate-rule: var(--color-rule-night);
+  body {
+    @apply bg-background font-sans leading-relaxed text-foreground;
+  }
 
-  --plate-field: var(--color-signal-deep);
-  --plate-field-ink: var(--color-stencil);
-  --plate-field-ink-dim: var(--color-stencil-dim);
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply leading-tight text-balance;
+  }
 
-  --plate-signal: var(--color-signal-night);
-  --plate-signal-ink: var(--color-ink);
-  --plate-signal-label: var(--color-signal-night);
-  --plate-signal-hover: var(--color-signal-hover-night);
-  --plate-caution: var(--color-caution-night);
+  p,
+  li {
+    @apply text-pretty;
+  }
+
+  time {
+    @apply tabular-nums;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
 }
 
-/* Inside an orange field the ground has changed, so the ink and the signal are
-   re-read against it. The lamp carries the colour here and the label is stencil
-   white — which is how a real panel is printed, and the only reading that holds
-   contrast on a saturated ground. */
-.plate-field {
-  --plate-ink: var(--color-stencil);
-  --plate-ink-dim: var(--color-stencil-dim);
-  --plate-rule: color-mix(in srgb, var(--color-stencil) 22%, transparent);
-  --plate-signal: var(--color-signal-field);
-  --plate-signal-ink: var(--color-ink);
-  --plate-signal-label: var(--color-stencil);
-  --plate-signal-hover: var(--color-signal-hover-field);
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 md:px-8;
+  }
 
-  background-color: var(--plate-field);
-  color: var(--color-stencil);
-}
+  .page-title {
+    @apply text-4xl font-bold tracking-[-0.02em] md:text-5xl;
+  }
 
-* {
-  box-sizing: border-box;
-}
+  .button {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-control border px-5 py-2 text-center text-[0.9375rem] font-semibold;
+  }
 
-html {
-  scroll-behavior: smooth;
-}
+  .button-primary {
+    @apply border-accent bg-accent text-on-accent hover:border-accent-hover hover:bg-accent-hover;
+  }
 
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  background-color: var(--plate-ground);
-  color: var(--plate-ink);
-  font-family: var(--font-archivo), "Archivo", system-ui, sans-serif;
-  font-variant-numeric: tabular-nums;
-  transition: background-color 0.25s var(--ease-plate), color 0.25s var(--ease-plate);
-}
+  .button-secondary {
+    @apply border-edge hover:border-foreground hover:bg-surface;
+  }
 
-button {
-  font: inherit;
-  cursor: pointer;
-}
+  .text-link {
+    @apply inline-flex min-h-6 items-center text-accent underline decoration-1 underline-offset-4 hover:text-accent-hover hover:decoration-2;
+  }
 
-/* ── Browser surfaces: the parts we did not draw still carry the design ── */
+  .bullets {
+    @apply list-disc space-y-1.5 pl-5 marker:text-edge;
+  }
 
-::selection {
-  background-color: var(--color-signal-field);
-  color: var(--color-ink);
-}
+  /* A pine region: links and focus rings take the light ink. */
+  .field {
+    @apply bg-field text-on-field;
 
-:root {
-  caret-color: var(--color-signal);
-  accent-color: var(--color-signal);
-}
-html.dark {
-  caret-color: var(--color-signal-night);
-  accent-color: var(--color-signal-night);
-}
+    :focus-visible {
+      outline-color: var(--on-field);
+    }
 
-/* Scrollbars are an affordance. Theme them; never hide them. */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--plate-rule) transparent;
-}
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--plate-rule);
-  border: 3px solid var(--plate-ground);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-signal);
+    ::selection {
+      background: var(--on-field);
+      color: var(--field);
+    }
+  }
+
+  .hero-rule {
+    @apply h-px bg-edge;
+  }
+
+  /* Static by default: without motion every logo is visible and there is nothing to pause. */
+  .stack-window {
+    @apply my-4;
+  }
+
+  .stack-list {
+    @apply flex flex-wrap gap-x-9 gap-y-4;
+  }
+
+  .stack-copy {
+    @apply hidden;
+  }
 }
 
-/* Focus is a stencil box, square like everything else. */
-:focus-visible {
-  outline: 2px solid var(--color-signal-field);
-  outline-offset: 2px;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  a,
+  summary {
+    transition:
+      color 150ms ease-out,
+      background-color 150ms ease-out,
+      border-color 150ms ease-out;
+  }
+
+  /* The authored entrance. */
+  .hero-rule {
+    animation: draw-rule 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* The tech stack loops on screens and pauses on hover. */
+  @media screen {
+    .stack-window {
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent, #000 24px, #000 calc(100% - 24px), transparent);
+    }
+
+    .stack-track {
+      display: flex;
+      width: max-content;
+      animation: slide-stack 55s linear infinite;
+    }
+
+    .stack-list {
+      flex: none;
+      flex-wrap: nowrap;
+      padding-block: 0.25rem;
+      padding-inline-end: 2.25rem;
+    }
+
+    .stack-copy {
+      display: flex;
+    }
+
+    .stack-window:hover .stack-track {
+      animation-play-state: paused;
+    }
+  }
 }
 
-a {
-  text-underline-offset: 0.22em;
-  text-decoration-thickness: 1px;
+@keyframes slide-stack {
+  to {
+    transform: translateX(-50%);
+  }
 }
 
-/* ── Plate primitives ───────────────────────────────────────── */
-
-/* The bolt mark: a stamped fastener at a plate corner. Drawn, not decorative —
-   it is what tells you the plate is fixed to something. */
-.bolt {
-  width: 5px;
-  height: 5px;
-  background: currentColor;
-  opacity: 0.32;
-}
-
-/* Stencil label: the field name on a record row. */
-.stencil {
-  font-stretch: 88%;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: 0.6875rem;
-  line-height: 1.2;
-}
-
-/* Plate display lettering: wide, engineered, cut into the enamel. */
-.plate-display {
-  font-stretch: 118%;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 0.94;
-}
-
-/* The measured rule that separates record rows. */
-.rule-t { border-top: 1px solid var(--plate-rule); }
-.rule-b { border-bottom: 1px solid var(--plate-rule); }
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+@keyframes draw-rule {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0);
   }
 }
