@@ -19,6 +19,7 @@ export const techStack: Tech[] = [
   { name: "Flask", slug: "flask", dark: true },
   { name: "SQLAlchemy", slug: "sqlalchemy" },
   { name: "Supabase", slug: "supabase" },
+  { name: "Android™", slug: "android" },
   { name: "Linux", slug: "linux" },
   { name: "Coolify", slug: "coolify" },
   { name: "Vercel", slug: "vercel", dark: true },
@@ -40,4 +41,6 @@ export const techNamesOnly = [
   "Groq",
   "Zoho",
   "Tesseract.js",
+  "Kotlin",
+  "GitHub Actions",
 ];

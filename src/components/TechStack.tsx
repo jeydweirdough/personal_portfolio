@@ -43,7 +43,7 @@ export default function TechStack() {
           <a className="text-link" href="https://creativecommons.org/licenses/by-sa/4.0/">
             CC BY-SA 4.0
           </a>
-          . Tux by Larry Ewing (lewing@isc.tamu.edu) and The GIMP. Python is a trademark of the Python Software
+          . The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License. Android is a trademark of Google LLC. Tux by Larry Ewing (lewing@isc.tamu.edu) and The GIMP. Python is a trademark of the Python Software
           Foundation. Next.js and Vercel are trademarks or registered trademarks of Vercel, Inc. or its affiliates in
           the US and other countries. All other marks belong to their owners. They identify tools I have used and do
           not imply endorsement.

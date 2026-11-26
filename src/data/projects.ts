@@ -1,5 +1,7 @@
 import type { StaticImageData } from "next/image";
 import bankLogin from "@/assets/projects/bank-simulator-screen.png";
+import cardAppScreens from "@/assets/projects/getmeds-card-app-screens.png";
+import websiteHome from "@/assets/projects/getmeds-website-home.png";
 import chatbotConversation from "@/assets/projects/mooserage-chatbot-conversation.png";
 
 // Public case studies. Keep hosts, addresses, customers, internal rules and
@@ -74,6 +76,13 @@ export const projects: Project[] = [
     },
     outcomes: ["The website is live, and employees can manage its content through the admin panel."],
     links: [{ label: "Visit getmeds.ph", href: "https://getmeds.ph/" }],
+    screenshots: [
+      {
+        image: websiteHome,
+        alt: "The getmeds.ph home page on a desktop browser and a phone, headed Life-Saving Medicines for Patients, Doctors, Pharmacies & Hospitals in the Philippines",
+        caption: "The getmeds.ph home page on desktop and phone, November 2026.",
+      },
+    ],
     related: ["getmeds-ai-assistant", "getmeds-digital-business-cards"],
   },
   {
@@ -105,21 +114,34 @@ export const projects: Project[] = [
     context: getmeds,
     role: "Built and maintained",
     featured: true,
-    summary: "QR-linked employee contact pages, created from card artwork with OCR and checked by a person.",
+    summary: "Employee business cards shared by phone tap, QR code, or link, with contact pages created from card artwork by OCR and checked by a person.",
     problem:
-      "A printed card can't be tapped to call or message someone, and copying each employee's details by hand invites mistakes.",
+      "A printed card can't be tapped to call or message someone, copying each employee's details by hand invites mistakes, and employees needed to share their card on the spot, even with people who have no app and no internet connection.",
     solution:
-      "Each card's QR code opens a contact page. An administrator uploads the card artwork, OCR proposes the details, and a person checks them before they are applied.",
+      "Each employee has a contact page. An administrator uploads the card artwork, OCR proposes the details, and a person checks them before they are applied. Employees share the card from an Android app that acts as an NFC tag, so another phone opens it with a tap, or from an installable iPhone web app. An online QR code opens the contact page, and an offline QR code carries the contact itself.",
     responsibilities: [
       "Build the employee contact pages.",
       "Build the admin workflow, OCR extraction, and human review step.",
+      "Build the Android app in Kotlin, including NFC card emulation, QR codes, and saving a QR code as an image.",
+      "Build the installable web app for iPhone, which works offline after the first visit.",
+      "Implement app sign-in by email and password, with an emailed one-time code for first sign-in and password resets.",
+      "Automate signed Android release builds with GitHub Actions, and deliver in-app updates from GitHub Releases.",
     ],
-    stack: ["React", "TypeScript", "Tesseract.js", "Sanity"],
+    stack: ["React", "TypeScript", "Kotlin", "NFC", "Tesseract.js", "Sanity", "Android", "Progressive web app", "GitHub Actions"],
     architecture: {
-      summary: "OCR only suggests values. A person approves them before they are saved.",
-      layers: ["Card artwork", "OCR extraction", "Human review", "Contact page opened by QR"],
+      summary: "OCR only suggests values, and a person approves them before they are saved. The apps only display and share a card, so switching a card off signs its holder out.",
+      layers: ["Card artwork", "OCR and human review", "Card records", "Contact page and apps", "NFC tap, QR code, or link"],
     },
-    related: ["getmeds-website", "bishnoi-one"],
+    outcomes: ["The Android app reached version 1.15.1 in November 2026, and its source code is public."],
+    links: [{ label: "View the Android app source", href: "https://github.com/jeydweirdough/digital_business_id" }],
+    screenshots: [
+      {
+        image: cardAppScreens,
+        alt: "The Getmeds Card app showing a sample employee's Online ID and Offline ID QR codes side by side",
+        caption: "Online ID opens the contact page on getmeds.ph. Offline ID holds the contact itself. Sample data.",
+      },
+    ],
+    related: ["getmeds-website", "getmeds-ai-assistant"],
   },
   {
     slug: "cognify",

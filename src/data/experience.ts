@@ -12,7 +12,7 @@ export const experience = [
     contributions: [
       { text: "Development of Bishnoi One, a modular business platform", project: "bishnoi-one" },
       { text: "The API and AI assistant behind the company website", project: "getmeds-ai-assistant" },
-      { text: "QR-based digital business cards for employees", project: "getmeds-digital-business-cards" },
+      { text: "Digital business cards for employees, shared by phone tap or QR code", project: "getmeds-digital-business-cards" },
     ],
   },
   {
