@@ -70,6 +70,8 @@ All pages are static HTML. The only client component is the mobile menu, and it 
 | `bank-simulator-screen.png` | Crop of the bank simulator screenshot in commit `f5cb68b`, without the device frame. Original author not recorded. |
 | `src/assets/fonts/PublicSans-*.ttf` | Google Fonts, SIL Open Font License (`OFL.txt`). Used for the share image. |
 | `getmeds-website-home.png` | Screenshots of https://getmeds.ph/ taken on 2026-11-25 at 1440 x 900 and 390 x 844, with the floating chat buttons hidden. Retake after a redesign. |
+| `gettest-dashboard.png` | `new_test_creation/.impeccable/review/overview-desktop.png`, resized to 1440 wide. Sample data only (R. Villanueva, example tests); never replace with a capture of the live database. |
+| `sdlc-planner-project.png` | `sdlc_planner/tests/e2e/.output/09-project-progress.png`. Demo project ("Pharmacy refill portal") only. |
 | `getmeds-card-app-screens.png` | Composite of `web/img/screens/online.webp` and `offline.webp` from github.com/jeydweirdough/digital_business_id, bottom whitespace cropped. Sample data only (Juan Dela Cruz). |
 | `public/tech/*.svg` | [theSVG](https://thesvg.org), commit `551229c188b4ab6e2d8b5763b9633ec91206d04c`, unmodified. Trademarks belong to their owners. |
 

@@ -13,6 +13,10 @@ export const experience = [
       { text: "Development of Bishnoi One, a modular business platform", project: "bishnoi-one" },
       { text: "The API and AI assistant behind the company website", project: "getmeds-ai-assistant" },
       { text: "Digital business cards for employees, shared by phone tap or QR code", project: "getmeds-digital-business-cards" },
+      { text: "GetTest, the hiring assessment app, now in its second version", project: "gettest" },
+      { text: "An IT support desk for staff tickets", project: "it-support-desk" },
+      { text: "Sign-in, HR, and deployment for the 2MG company system, with the team", project: "twomg-system" },
+      { text: "The orders app and the Zoho WorkDrive file portal, as lead developer", project: "getmeds-orders-app" },
     ],
   },
   {
