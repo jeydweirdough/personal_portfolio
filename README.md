@@ -1,68 +1,36 @@
-# Jade Atyla L. Madigal — Personal Portfolio
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-My portfolio website as a System & Web Developer and IT Support at Getmeds Philippines Inc., showcasing my background, skills, work experience, and project work.
+## Getting Started
 
-**Live site:** https://jade-atyla-portfolio.vercel.app/
-
-## About This Site
-
-The site is built in the graphic language of infrastructure tagging — enamel
-plates, stencil labels, panel schedules — because the claim it makes is that I
-build and maintain the systems a business runs on.
-
-- **Identity plate** — the record header: what I do, since when, and whether I am taking work
-- **Equipment record** — bio, employment, schooling, capability, and how to reach me
-- **Service history** — a line diagram from starting Computer Science in 2022 to developing systems today
-- **Systems built** — every project as a numbered circuit with its real status, stack, and host
-- **Record sheet** — the full detail for one system, including documentation plates
-- **Service request** — the contact form, plus direct channels on GitHub, LinkedIn, Viber, and WhatsApp
-
-Day and night plates both ship; the theme switch is in the top rail.
-
-## Project Structure (High Level)
-
-```
-public/               → images, docs, and static assets used across the site
-src/app/globals.css   → the design system: plate tokens, stencil type, browser surfaces
-src/views/            → About, Journey, Projects, Project Details, and Contact sections
-src/components/ui/    → plate primitives (Plate, Button, Input, Accordion, Badge, Card, TechIcon)
-src/components/parts/ → footer
-src/data/             → site content (profile, education, experience, journey, projects, socials, FAQ)
-```
-
-All copy lives in `src/data/*.json`. Editing the site's words never means editing
-a component. `DESIGN.md` records the visual system; `PRODUCT.md` records who the
-site is for and what it may claim.
-
-## Running the Project Locally
+First, run the development server:
 
 ```bash
-npm install
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-This starts a local development server. Open the URL shown in the terminal to view the site.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-To build a production-ready version of the site:
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-```bash
-npm run build
-```
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-To lint the project:
+## Learn More
 
-```bash
-npm run lint
-```
+To learn more about Next.js, take a look at the following resources:
 
-## Deployment
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-The site is deployed and hosted on **Vercel**, and updates to the codebase are automatically published when changes are pushed.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Ownership
+## Deploy on Vercel
 
-This project is the personal portfolio of **Jade Atyla L. Madigal**.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## License
-
-This project is proprietary. All rights reserved — no copying, reuse, or distribution is permitted without written permission. See [LICENSE](./LICENSE) for details.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

@@ -1,78 +1,59 @@
-import type { Metadata, Viewport } from 'next'
-import { Archivo } from 'next/font/google'
-import './globals.css'
+import type { Metadata, Viewport } from "next";
+import { Public_Sans } from "next/font/google";
+import JsonLd from "@/components/JsonLd";
+import SiteFooter from "@/components/SiteFooter";
+import SiteHeader from "@/components/SiteHeader";
+import { profile } from "@/data/profile";
+import { identitySchema } from "@/lib/schema";
+import { HOME_TITLE, SITE_URL } from "@/lib/site";
+import "./globals.css";
 
-// One family carries the whole system. Archivo's width axis gives the
-// condensed stencil labels and the expanded plate lettering from the
-// same face, which is what keeps this reading as engineered rather
-// than art-directed.
-const archivo = Archivo({
-  subsets: ['latin'],
-  axes: ['wdth'],
-  variable: '--font-archivo',
-  display: 'swap',
-})
+const publicSans = Public_Sans({
+  variable: "--font-public-sans",
+  subsets: ["latin"],
+});
 
-const SITE_URL = 'https://jade-atyla-portfolio.vercel.app'
-const SITE_TITLE = 'Jade Atyla L. Madigal | System & Web Developer'
-const SITE_DESC =
-  'Jade Atyla L. Madigal builds the internal systems a business runs on and keeps the hardware, software, and networks under them working. System & Web Developer and IT Support at Getmeds Philippines. Based in Bacoor, Cavite. Available for project work.'
-
+// Canonical and social tags are set per page, so none can be inherited by mistake.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: SITE_TITLE,
-  description: SITE_DESC,
-  keywords: [
-    'Jade Atyla Madigal',
-    'Portfolio',
-    'System Developer',
-    'Web Developer',
-    'IT Support',
-    'Software Developer',
-    'Computer Science Graduate',
-    'Cavite State University',
-    'Next.js',
-  ],
-  authors: [{ name: 'Jade Atyla L. Madigal' }],
-  creator: 'Jade Atyla L. Madigal',
-  alternates: { canonical: '/' },
-  openGraph: {
-    type: 'website',
-    url: SITE_URL,
-    siteName: 'Jade Atyla L. Madigal',
-    title: SITE_TITLE,
-    description: SITE_DESC,
-    images: [{ url: '/images/profile-avatar.png', width: 1200, height: 630, alt: 'Jade Atyla L. Madigal' }],
+  title: HOME_TITLE,
+  applicationName: profile.name,
+  authors: [{ name: profile.name, url: SITE_URL }],
+  creator: profile.name,
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+    other: process.env.BING_SITE_VERIFICATION ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION } : {},
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: SITE_TITLE,
-    description: SITE_DESC,
-    images: ['/images/profile-avatar.png'],
-  },
-  icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
-  },
-}
+};
 
-// Next 15 wants viewport as its own export, not a metadata key.
 export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-}
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#111513" },
+  ],
+};
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode
-}) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="en" className={archivo.variable} suppressHydrationWarning>
-      <body className="min-h-screen" suppressHydrationWarning>
-        {children}
+    <html lang="en" data-scroll-behavior="smooth">
+      <body id="top" className={`${publicSans.variable} antialiased`}>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-40 focus:bg-background focus:p-3"
+        >
+          Skip to content
+        </a>
+        <JsonLd data={identitySchema} />
+        <SiteHeader />
+        <main id="main" tabIndex={-1} className="focus:outline-none">
+          {children}
+        </main>
+        <SiteFooter />
       </body>
     </html>
-  )
+  );
 }
